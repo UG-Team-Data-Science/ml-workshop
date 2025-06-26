@@ -39,3 +39,10 @@
 -   Handling missing values
 -   Feature scaling
 -   Encoding categorical variables
+
+
+## Feature Engineering
+
+-   Polynomial
+-   Derived
+-   Discretization
