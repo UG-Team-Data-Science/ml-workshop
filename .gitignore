@@ -1,3 +1,4 @@
+data/
 *.org
 src/*/*.md
 .idea/
