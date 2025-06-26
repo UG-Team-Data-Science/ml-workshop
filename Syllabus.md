@@ -14,3 +14,21 @@
 
 
 ## What is Machine Learning
+
+
+### ML vs. Traditional Programming
+
+
+### Key Concepts in Machine Learning
+
+
+### Types of Machine Learning
+
+
+### Practical Demonstration
+
+
+### Exercises
+
+
+## The Machine Learning Workflow
