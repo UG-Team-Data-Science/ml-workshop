@@ -32,3 +32,12 @@
 
 
 ## The Machine Learning Workflow
+
+
+## Exploratory Data Analysis (EDA)
+
+
+### Goals of EDA
+
+
+### Typical Techniques
