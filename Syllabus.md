@@ -32,3 +32,10 @@
 
 -   Train-Test Split
 -   Cross-Validation
+
+
+## Data Preprocessing
+
+-   Handling missing values
+-   Feature scaling
+-   Encoding categorical variables
