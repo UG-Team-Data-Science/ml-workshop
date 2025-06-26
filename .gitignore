@@ -1,8 +1,6 @@
 *.org
-src/S01: Introduction to Machine Learning/S01C00: Working with Jupyter on Habrok.md
+src/*/*.md
 .idea/
-# Ignore Jupyter Notebook checkpoints
 .ipynb_checkpoints/
-# Ignore Python bytecode files
 __pycache__/
 *.pyc
