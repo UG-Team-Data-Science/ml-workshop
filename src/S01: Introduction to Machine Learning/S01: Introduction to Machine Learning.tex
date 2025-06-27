@@ -1,0 +1,349 @@
+% Created 2025-06-26 Thu 21:20
+% Intended LaTeX compiler: pdflatex
+\documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\useinnertheme{rounded}
+\useoutertheme{tree}
+\date{\today}
+\title{Machine Learning in Python}
+\subtitle{Introduction to Machine Learning}
+\author[Marocico, Tatar]{Cristian A. Marocico, A. Emin Tatar}
+\institute[CIT]{Center for Information Technology\\University of Groningen}
+\RequirePackage{pgfcore}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blkarray}
+\usepackage{eurosym}
+\usepackage[english]{babel}
+\usepackage{xcolor,colortbl}
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[makeroom]{cancel}
+\usepackage{bbm}
+\newcommand{\infoTitle}[1]{\renewcommand{\givenTitle}{#1}}
+\newcommand{\givenTitle}{Info}
+\newenvironment{warning}[1][Info]{%
+\infoTitle{#1}
+\setbeamercolor{block title}{fg=white,bg=red!100!white}%
+\setbeamercolor{block body}{bg=red!10!white}
+\begin{block}{\givenTitle}}{
+\end{block}}
+\DeclareMathOperator*{\argmax}{argmax}
+\setbeamercovered{transparent}
+\usecolortheme{beaver}
+\RequirePackage{pgfcore}
+\setbeamercovered{transparent=1}
+\mode<presentation>{
+\usecolortheme{beaver}
+\definecolor{rugcolor}{rgb}{0.8,0,0}
+\definecolor{darkblue}{rgb}{0.13,0.29,0.53}
+\definecolor{darkgreen}{rgb}{0.0,0.43,0.0}
+\definecolor{darkyellow}{rgb}{0.0,0.43,0.43}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{Gray}{gray}{0.85}
+\beamertemplatenavigationsymbolsempty
+\setbeamercolor{item}{fg=rugcolor!80!black}
+\setbeamercolor{title}{fg=rugcolor!80!black}
+\setbeamercolor{frametitle}{fg=rugcolor!80!black, bg=black!10!white}
+% Colors for 'definition' environment
+\setbeamercolor*{block title}{fg=white, bg=darkblue}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkblue}
+% Color for the 'question' environment
+\setbeamercolor*{block title question}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body question}{bg=normal text.bg!85!darkyellow}
+\setbeamercolor*{palette tertiary}{bg=rugcolor,fg=white}
+%HEADER WITH HIGHLIGHTED SECTION NAMES (optional)
+\useheadtemplate{%
+\vbox{%
+%			\vskip1.2pt
+%			\pgfuseimage{logo}
+%			\vskip1.2pt
+\tinycolouredline{rugcolor}{
+\color{white}{
+% comment the following line if you don't want the section names lines
+%					to appear on top
+\insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt
+plus1filll}
+%\pgfuseimage{logored}
+}
+}
+%    \tinycolouredline{rugcolor}
+{\color{white}{
+%% \insertsectionnavigationhorizontal{\paperwidth}{}{
+%                \hskip0pt \hfill}
+}}
+}
+}
+%FOOTER WITH AUTHOR NAME(S), PAPER TITLE (ABBREVIATED IF SPECIFIED BY \title),
+% AND PAGE COUNTER (optional)
+%	\usefoottemplate{%
+%		\vbox{%
+%			\tinycolouredline{rugcolor}{
+%				\color{white}{
+%					{\insertshortauthor} \hfill \insertshortsubtitle \hfill
+%					%\insertdate \hfill%
+%					\textsc{\insertframenumber/\inserttotalframenumber}
+%         		}
+%         	}
+%		}
+%	}
+}
+\newtheorem*{props}{Properties}
+\newtheorem*{prop}{Property}
+\newtheorem*{notation}{Notation}
+\newtheorem*{terminology}{Terminology}
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\Var}{\mathbb{V}\mathrm{ar}}
+\newcommand{\Corr}{\mathbb{C}\mathrm{orr}}
+\newcommand{\Cov}{\mathbb{C}\mathrm{ov}}
+\newcommand{\Expt}{\mathbb{E}}
+\newcommand{\NorDist}{\mathcal{N}}
+\newcommand{\ExpDist}{\mathcal{E}\mathrm{xp}}
+\newcommand{\GammaDist}{\mathcal{G}\mathrm{amma}}
+\newcommand{\BetaDist}{\mathcal{B}\mathrm{eta}}
+\newcounter{listCounter}
+\newenvironment{question}{%
+\setbeamercolor{block title}{bg=orange!70!white,fg=white}
+\setbeamercolor{block body}{bg=yellow!10!white}
+\begin{block}{Question}
+}{%
+\end{block}
+}
+\lstdefinestyle{mystyle}{
+language=R,
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{darkblue}\bfseries,
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily,
+breakatwhitespace=true,
+breaklines=true,
+%	captionpos=none,
+columns=fixed,
+keepspaces=true,
+numbers=none,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2,
+basewidth=1.5em,
+escapeinside={<@}{@>}
+}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\renewenvironment{definition}[1][Definition]{%
+\setbeamercolor{block title}{fg=white,bg=darkblue}
+\setbeamercolor{block body}{fg=black,bg=normal text.bg!85!darkblue}
+\begin{block}{#1\hfill \footnotesize{Definition}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{example}[1][Example]{%
+% Color for the 'example' environment
+\setbeamercolor*{block title}{fg=white, bg=darkgreen}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkgreen}
+\begin{block}{#1\hfill \footnotesize{Example}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{theorem}[1][Theorem]{%
+\setbeamercolor*{block title}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkyellow}
+\begin{block}{#1\hfill \footnotesize{Theorem}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\date[Jun 30\textsuperscript{th} 2025]{Monday, June 30\textsuperscript{th} 2025}
+\usepackage{mathtools}
+\newcommand{\intsum}{\mathop{\mathrlap{\raisebox{0.1ex}{\hspace{0.2em}$\textstyle\sum$}}\int}\limits}
+\setbeamercovered{transparent=0}
+\usepackage[timeinterval=60]{tdclock}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={Machine Learning in Python},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.1 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\end{frame}
+
+\section{Introduction to Machine Learning}
+\label{sec:org2d04d73}
+\begin{frame}[label={sec:org0aaa2e5}]{What is Machine Learning?}
+\begin{definition}[Machine Learning]\label{sec:orgec8d6d1}
+\pause
+\alert{\alert{Machine Learning}} is the study of algorithms that learn patterns from data to make predictions or decisions without being explicitly programmed.
+\end{definition}
+\begin{alertblock}{ML vs Traditional Programming:}
+\pause
+\begin{itemize}[<+->]
+\item Traditional: input + rules → output
+\item ML: input + output → rules (the model)
+\end{itemize}
+\end{alertblock}
+\end{frame}
+\section{The Machine Learning Workflow}
+\label{sec:org79863f5}
+\begin{frame}[label={sec:org3c14a33}]{The Machine Learning Workflow}
+\pause
+A typical \alert{Machine Learning} workflow has the following structure:
+\pause
+\begin{itemize}[<+->]
+\item Problem Definition
+\item Data Collection
+\item \alert{\alert{Train-Test Split}}
+\item \alert{\alert{Data Exploration and Preprocessing}}
+\item \alert{\alert{Model Selection}}
+\item \alert{\alert{Training and Validation}}
+\item \alert{\alert{Evaluation}}
+\item Deployment and Monitoring
+\end{itemize}
+\end{frame}
+\section{Train-Test Splits and Cross-Validation}
+\label{sec:orgb850f45}
+\begin{frame}[label={sec:org3f24e79}]{Train and Test Datasets}
+\begin{definition}[Splitting the dataset]\label{sec:orga939d42}
+\pause
+In machine learning, we split the dataset into two parts:
+\pause
+\begin{itemize}[<+->]
+\item \alert{\alert{Training Set}}: Used to train the model.
+\item \alert{\alert{Testing Set}}: Used to evaluate the model's performance.
+\end{itemize}
+\end{definition}
+\begin{alertblock}{Why Split?}
+\begin{itemize}[<+->]
+\item To ensure the model generalizes well to unseen data.
+\item To prevent overfitting, where the model learns noise in the training data instead of the underlying pattern.
+\item The \alert{\alert{test}} dataset is put aside and not used until the end, when the model is evaluated.
+\end{itemize}
+\end{alertblock}
+\end{frame}
+\begin{frame}[label={sec:org073120d}]{Cross-Validation}
+The \alert{\alert{train}} dataset can be further split into \alert{\alert{training}} and \alert{\alert{validation}} sets to tune the
+model's hyperparameters and prevent overfitting.
+\end{frame}
+\begin{frame}[label={sec:orgf0c6674}]{Cross-Validation}
+\begin{definition}[Cross-Validation]\label{sec:org96fb9e4}
+\pause
+Cross-validation is a technique to assess how the results of a statistical analysis will generalize to an independent dataset.
+\pause
+\begin{itemize}[<+->]
+\item \alert{\alert{K-Fold Cross-Validation}}: The dataset is divided into K subsets. The model is trained on K-1 subsets and tested on the remaining subset. This process is repeated K times, with each subset used as the test set once.
+\item \alert{\alert{Stratified K-Fold}}: Ensures that each fold has the same proportion of classes as the entire dataset, which is particularly useful for imbalanced datasets.
+\end{itemize}
+\end{definition}
+\end{frame}
+\section{Exploratory Data Analysis (EDA)}
+\label{sec:org47f21aa}
+\begin{frame}[label={sec:org07f3774}]{Exploratory Data Analysis (EDA)}
+\begin{definition}[Exploratory Data Analysis (EDA)]\label{sec:org89b13f7}
+\pause
+\alert{\alert{Exploratory Data Analysis}} (EDA) is the process of analyzing datasets to summarize their main characteristics, often using visual methods.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org9247409}]{Exploratory Data Analysis (EDA)}
+\begin{example}[Purpose of EDA]\label{sec:org741005b}
+\pause
+\begin{itemize}[<+->]
+\item To understand the data distribution and relationships between variables.
+\item To identify patterns, trends, and anomalies.
+\item To generate hypotheses and inform feature engineering.
+\end{itemize}
+\end{example}
+\begin{example}[EDA Techniques]\label{sec:org99fb678}
+\pause
+\begin{itemize}[<+->]
+\item \alert{\alert{Descriptive Statistics}}: Mean, median, mode, standard deviation, etc.
+\item \alert{\alert{Data Visualization}}: Histograms, scatter plots, box plots, etc.
+\item \alert{\alert{Correlation Analysis}}: Identifying relationships between variables.
+\item \alert{\alert{Missing Value Analysis}}: Identifying and handling missing data.
+\item \alert{\alert{Outlier Detection}}: Identifying and handling outliers in the data.
+\end{itemize}
+\end{example}
+\end{frame}
+\section{Data Preprocessing}
+\label{sec:orgaf9aa64}
+\begin{frame}[label={sec:org733ef7e}]{Data Preprocessing}
+\begin{definition}[Data Preprocessing]\label{sec:org507807c}
+\pause
+\alert{\alert{Data Preprocessing}} is the process of transforming raw data into a format suitable for analysis and modeling.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgfe2bb4d}]{Data Preprocessing}
+\begin{example}[Purpose of Data Preprocessing]\label{sec:org1fdb553}
+\pause
+\begin{itemize}[<+->]
+\item To clean the data by handling missing values, outliers, and inconsistencies
+\item To normalize or scale numerical features
+\item To encode categorical variables into numerical formats
+\end{itemize}
+\end{example}
+\begin{example}[Common Data Preprocessing Techniques]\label{sec:org79eb6f1}
+\begin{itemize}[<+->]
+\item \alert{\alert{Handling Missing Values}}: Techniques include imputation (mean, median, mode), deletion, or using algorithms that can handle missing data.
+\item \alert{\alert{Outlier Detection and Treatment}}: Identifying outliers using statistical methods (e.g., Z-score, IQR) and deciding whether to remove or transform them.
+\item \alert{\alert{Feature Scaling}}: Normalization or standardization.
+\item \alert{\alert{Encoding Categorical Variables}}: Techniques include one-hot encoding, label encoding, or using embeddings for high-cardinality categorical variables.
+\end{itemize}
+\end{example}
+\end{frame}
+\section{Feature Engineering}
+\label{sec:orga965fd7}
+\begin{frame}[label={sec:orgc951175}]{Feature Engineering}
+\begin{definition}[Feature Engineering]\label{sec:org6cd6398}
+\pause
+\alert{\alert{Feature Engineering}} is the process of using domain knowledge to select, modify, or create features (variables) that improve the performance of machine learning models.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org31dfe16}]{Feature Engineering}
+\begin{example}[Purpose of Feature Engineering]\label{sec:org1010237}
+\pause
+\begin{itemize}[<+->]
+\item To improve model performance by providing more relevant information.
+\item To reduce dimensionality by selecting the most important features.
+\item To create new features that capture important patterns in the data.
+\end{itemize}
+\end{example}
+\begin{example}[Common Feature Engineering Techniques]\label{sec:org5de6103}
+\begin{itemize}[<+->]
+\item \alert{\alert{Feature Selection}}: Techniques include filter methods (e.g., correlation), wrapper methods (e.g., recursive feature elimination), and embedded methods (e.g., LASSO).
+\item \alert{\alert{Feature Transformation}}: Techniques include logarithmic transformation, polynomial features, and interaction terms.
+\item \alert{\alert{Feature Creation}}: Creating new features based on existing ones, such as aggregating time series data, extracting date/time components, or creating domain-specific features.
+\end{itemize}
+\end{example}
+\end{frame}
+\end{document}
