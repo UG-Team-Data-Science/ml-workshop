@@ -1,0 +1,336 @@
+% Created 2025-06-27 Fri 10:14
+% Intended LaTeX compiler: pdflatex
+\documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\useinnertheme{rounded}
+\useoutertheme{tree}
+\date{\today}
+\title{Machine Learning in Python}
+\subtitle{Supervised Learning - Regression and Evaluation}
+\author[Marocico, Tatar]{Cristian A. Marocico, A. Emin Tatar}
+\institute[CIT]{Center for Information Technology\\University of Groningen}
+\RequirePackage{pgfcore}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blkarray}
+\usepackage{eurosym}
+\usepackage[english]{babel}
+\usepackage{xcolor,colortbl}
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[makeroom]{cancel}
+\usepackage{bbm}
+\newcommand{\infoTitle}[1]{\renewcommand{\givenTitle}{#1}}
+\newcommand{\givenTitle}{Info}
+\newenvironment{warning}[1][Info]{%
+\infoTitle{#1}
+\setbeamercolor{block title}{fg=white,bg=red!100!white}%
+\setbeamercolor{block body}{bg=red!10!white}
+\begin{block}{\givenTitle}}{
+\end{block}}
+\DeclareMathOperator*{\argmax}{argmax}
+\setbeamercovered{transparent}
+\usecolortheme{beaver}
+\RequirePackage{pgfcore}
+\setbeamercovered{transparent=1}
+\mode<presentation>{
+\usecolortheme{beaver}
+\definecolor{rugcolor}{rgb}{0.8,0,0}
+\definecolor{darkblue}{rgb}{0.13,0.29,0.53}
+\definecolor{darkgreen}{rgb}{0.0,0.43,0.0}
+\definecolor{darkyellow}{rgb}{0.0,0.43,0.43}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{Gray}{gray}{0.85}
+\beamertemplatenavigationsymbolsempty
+\setbeamercolor{item}{fg=rugcolor!80!black}
+\setbeamercolor{title}{fg=rugcolor!80!black}
+\setbeamercolor{frametitle}{fg=rugcolor!80!black, bg=black!10!white}
+% Colors for 'definition' environment
+\setbeamercolor*{block title}{fg=white, bg=darkblue}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkblue}
+% Color for the 'question' environment
+\setbeamercolor*{block title question}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body question}{bg=normal text.bg!85!darkyellow}
+\setbeamercolor*{palette tertiary}{bg=rugcolor,fg=white}
+%HEADER WITH HIGHLIGHTED SECTION NAMES (optional)
+\useheadtemplate{%
+\vbox{%
+%			\vskip1.2pt
+%			\pgfuseimage{logo}
+%			\vskip1.2pt
+\tinycolouredline{rugcolor}{
+\color{white}{
+% comment the following line if you don't want the section names lines
+%					to appear on top
+\insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt
+plus1filll}
+%\pgfuseimage{logored}
+}
+}
+%    \tinycolouredline{rugcolor}
+{\color{white}{
+%% \insertsectionnavigationhorizontal{\paperwidth}{}{
+%                \hskip0pt \hfill}
+}}
+}
+}
+%FOOTER WITH AUTHOR NAME(S), PAPER TITLE (ABBREVIATED IF SPECIFIED BY \title),
+% AND PAGE COUNTER (optional)
+%	\usefoottemplate{%
+%		\vbox{%
+%			\tinycolouredline{rugcolor}{
+%				\color{white}{
+%					{\insertshortauthor} \hfill \insertshortsubtitle \hfill
+%					%\insertdate \hfill%
+%					\textsc{\insertframenumber/\inserttotalframenumber}
+%         		}
+%         	}
+%		}
+%	}
+}
+\newtheorem*{props}{Properties}
+\newtheorem*{prop}{Property}
+\newtheorem*{notation}{Notation}
+\newtheorem*{terminology}{Terminology}
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\Var}{\mathbb{V}\mathrm{ar}}
+\newcommand{\Corr}{\mathbb{C}\mathrm{orr}}
+\newcommand{\Cov}{\mathbb{C}\mathrm{ov}}
+\newcommand{\Expt}{\mathbb{E}}
+\newcommand{\NorDist}{\mathcal{N}}
+\newcommand{\ExpDist}{\mathcal{E}\mathrm{xp}}
+\newcommand{\GammaDist}{\mathcal{G}\mathrm{amma}}
+\newcommand{\BetaDist}{\mathcal{B}\mathrm{eta}}
+\newcounter{listCounter}
+\newenvironment{question}{%
+\setbeamercolor{block title}{bg=orange!70!white,fg=white}
+\setbeamercolor{block body}{bg=yellow!10!white}
+\begin{block}{Question}
+}{%
+\end{block}
+}
+\lstdefinestyle{mystyle}{
+language=R,
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{darkblue}\bfseries,
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily,
+breakatwhitespace=true,
+breaklines=true,
+%	captionpos=none,
+columns=fixed,
+keepspaces=true,
+numbers=none,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2,
+basewidth=1.5em,
+escapeinside={<@}{@>}
+}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\renewenvironment{definition}[1][Definition]{%
+\setbeamercolor{block title}{fg=white,bg=darkblue}
+\setbeamercolor{block body}{fg=black,bg=normal text.bg!85!darkblue}
+\begin{block}{#1\hfill \footnotesize{Definition}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{example}[1][Example]{%
+% Color for the 'example' environment
+\setbeamercolor*{block title}{fg=white, bg=darkgreen}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkgreen}
+\begin{block}{#1\hfill \footnotesize{Example}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{theorem}[1][Theorem]{%
+\setbeamercolor*{block title}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkyellow}
+\begin{block}{#1\hfill \footnotesize{Theorem}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\date[Jul 2\textsuperscript{nd} 2025]{Wednesday, July 2\textsuperscript{nd} 2025}
+\usepackage{mathtools}
+\newcommand{\intsum}{\mathop{\mathrlap{\raisebox{0.1ex}{\hspace{0.2em}$\textstyle\sum$}}\int}\limits}
+\setbeamercovered{transparent=0}
+\usepackage[timeinterval=60]{tdclock}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={Machine Learning in Python},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.1 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\end{frame}
+
+\section{Introduction to Regression}
+\label{sec:org0b72ec1}
+\begin{frame}[label={sec:org6d6ed3f}]{Introduction to Regression}
+\begin{definition}[Regression]\label{sec:org970c3a8}
+\pause
+\alert{Regression} is a statistical method used to model the relationship between a dependent variable and one or more independent variables.
+\end{definition}
+\end{frame}
+\section{Simple Linear Regression}
+\label{sec:org2ad28d3}
+\begin{frame}[label={sec:orgbdf2883}]{Simple Linear Regression}
+\begin{definition}[Simple Linear Regression]\label{sec:orgbad44f8}
+\pause
+\alert{Simple Linear Regression} is a method to model the relationship between two variables by fitting a linear equation to observed data.
+\pause
+Mathematically:
+$$y = \beta_0 + \beta_1 x + \epsilon$$
+where:
+\begin{itemize}
+\item \(y\) is the dependent variable (response).
+\item \(x\) is the independent variable (predictor).
+\item \(\beta_0\) is the y-intercept (constant term).
+\item \(\beta_1\) is the slope of the line (coefficient).
+\item \(\epsilon\) is the error term (residuals).
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orge9eb242}]{Simple Linear Regression}
+A Simple Linear Regression Machine Learning model will learn the coefficients \(\beta_0\) and \(\beta_1\) from the training data to minimize the difference between the predicted values and the actual values.
+\end{frame}
+\begin{frame}[label={sec:orgb40475f}]{Assumptions of Simple Linear Regression}
+\begin{itemize}[<+->]
+\item Linearity: The relationship between the independent and dependent variable is linear.
+\item Independence: Observations are independent of each other.
+\item Homoscedasticity: Constant variance of the error terms.
+\item Normality: The residuals (errors) of the model are normally distributed.
+\end{itemize}
+\end{frame}
+\section{Evaluation Metrics for Regression}
+\label{sec:org7df6b85}
+\begin{frame}[label={sec:org78ab07a}]{Evaluation Metrics for Regression}
+\begin{definition}[Common Metrics for Regression]\label{sec:org80fe02b}
+\pause
+Common metrics to evaluate regression models include:
+\begin{itemize}
+\item \alert{Mean Absolute Error (MAE)}
+\item \alert{Mean Squared Error (MSE)}
+\item \alert{Root Mean Squared Error (RMSE)}
+\item \alert{R-squared (\(R^2\))}
+\item \alert{Adjusted R-squared}
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgb3bc797}]{Mean Absolute Error (MAE)}
+\begin{definition}[Mean Absolute Error (MAE)]\label{sec:org14a3c74}
+\pause
+\alert{Mean Absolute Error (MAE)} is the average of the absolute differences between the predicted and the actual values:
+$$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|$$
+\pause
+where:
+\begin{itemize}
+\item \(n\) is the number of observations.
+\item \(y_i\) is the actual value.
+\item \(\hat{y}_i\) is the predicted value.
+\end{itemize}
+\pause
+MAE is a linear score, which can be used when all errors are equally important; it is also less sensitive to outliers compared to MSE.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org68791bd}]{Mean Squared Error (MSE)}
+\begin{definition}[Mean Squared Error (MSE)]\label{sec:org0ac2673}
+\pause
+\alert{Mean Squared Error (MSE)} is the average of the squared differences between the predicted and the actual values:
+$$\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
+\pause
+where:
+\begin{itemize}
+\item \(n\) is the number of observations.
+\item \(y_i\) is the actual value.
+\item \(\hat{y}_i\) is the predicted value.
+\end{itemize}
+\pause
+MSE is more sensitive to outliers than MAE because it squares the errors, which can disproportionately affect the metric if there are large errors; however, it is useful when larger errors are more significant.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgbcdf310}]{Root Mean Squared Error (RMSE)}
+\begin{definition}[Root Mean Squared Error (RMSE)]\label{sec:orgf25b7a1}
+\pause
+\alert{Root Mean Squared Error (RMSE)} is the square root of the average of the squared differences between the predicted and the actual values:
+$$\text{RMSE} = \sqrt{\text{MSE}} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}$$
+\pause
+where:
+\begin{itemize}
+\item \(n\) is the number of observations.
+\item \(y_i\) is the actual value.
+\item \(\hat{y}_i\) is the predicted value.
+\end{itemize}
+\pause
+RMSE is in the same units as the dependent variable, making it interpretable; it is also sensitive to outliers, similar to MSE.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org505fc78}]{R-squared (\(R^2\))}
+\begin{definition}[R-squared (\(R^2\))]\label{sec:org38c5b60}
+\pause
+\alert{R-squared (\(R^2\))} is a statistical measure that represents the proportion of the variance for a dependent variable that's explained by an independent variable or variables in a regression model:
+$$R^2 = 1 - \frac{\text{SS}_{\text{res}}}{\text{SS}_{\text{tot}}}$$
+where:
+\begin{itemize}
+\item \(\text{SS}_{\text{res}}\) is the sum of squares of residuals (errors).
+\item \(\text{SS}_{\text{tot}}\) is the total sum of squares (variance of the dependent variable).
+\end{itemize}
+\pause
+\(R^2\) values range from 0 to 1, where:
+\begin{itemize}
+\item 0 indicates that the model does not explain any of the variability of the response data around its mean.
+\item 1 indicates that the model explains all the variability of the response data around its mean.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orge1342a0}]{Adjusted R-squared}
+\begin{definition}[Adjusted R-squared]\label{sec:orge0526cd}
+\pause
+\alert{Adjusted R-squared} adjusts the \(R^2\) value for the number of predictors in the model, providing a more accurate measure when comparing models with different numbers of predictors:
+$$\text{Adjusted } R^2 = 1 - \left(1 - R^2\right) \frac{n - 1}{n - p - 1}$$
+where:
+\begin{itemize}
+\item \(n\) is the number of observations.
+\item \(p\) is the number of predictors in the model.
+\end{itemize}
+\pause
+Adjusted \(R^2\) can be negative, which indicates that the model is worse than a horizontal line (mean of the dependent variable); it is useful for comparing models with different numbers of predictors.
+\end{definition}
+\end{frame}
+\end{document}

@@ -1,5 +1,6 @@
 data/
 *.org
+*.db
 src/*/*.md
 .idea/
 .ipynb_checkpoints/
