@@ -46,3 +46,14 @@
 -   Polynomial
 -   Derived
 -   Discretization
+
+
+# Session 2: Supervised Learning - Regression and Evaluation
+
+
+## Simple Linear Regression
+
+-   Introduction to Regression
+-   Simple Linear Regression
+-   Assumptions of Simple Linear Regression
+-   Evaluation Metrics
