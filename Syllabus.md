@@ -57,3 +57,16 @@
 -   Simple Linear Regression
 -   Assumptions of Simple Linear Regression
 -   Evaluation Metrics
+
+
+## Robust Regression
+
+-   Types of Robust Regression
+-   Huber Robust Regression
+-   RANSAC Algorithm
+
+
+## Multiple Linear Regression
+
+-   Extension of Simple Linear Regression
+-   Additional Assumption: Low Multicolinearity
