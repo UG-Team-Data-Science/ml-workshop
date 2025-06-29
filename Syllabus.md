@@ -78,3 +78,10 @@
 -   Gradient Descent
 -   Regularization
 -   Ridge and Lasso Regularized Regression
+
+
+## Nonlinearities in Regression
+
+-   Polynomial Regression
+-   Exponential Regression
+-   Logarithmic Regression
