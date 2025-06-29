@@ -85,3 +85,10 @@
 -   Polynomial Regression
 -   Exponential Regression
 -   Logarithmic Regression
+
+
+## Overfitting, Underfitting, and Hyperparameter Tuning
+
+-   Overfitting and Underfitting
+-   Bias-Variance Tradeoff
+-   Hyperparameter Tuning
