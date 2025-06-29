@@ -70,3 +70,11 @@
 
 -   Extension of Simple Linear Regression
 -   Additional Assumption: Low Multicolinearity
+
+
+## Regularized Regression
+
+-   Cost Functions
+-   Gradient Descent
+-   Regularization
+-   Ridge and Lasso Regularized Regression
