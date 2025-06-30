@@ -92,3 +92,6 @@
 -   Overfitting and Underfitting
 -   Bias-Variance Tradeoff
 -   Hyperparameter Tuning
+
+
+# Session 3: Supervised Learning - Classification and Metrics
