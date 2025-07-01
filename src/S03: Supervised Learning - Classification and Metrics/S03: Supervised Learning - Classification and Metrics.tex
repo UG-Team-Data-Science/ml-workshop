@@ -1,4 +1,4 @@
-% Created 2025-06-30 Mon 21:02
+% Created 2025-07-01 Tue 07:59
 % Intended LaTeX compiler: pdflatex
 \documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -201,9 +201,9 @@ escapeinside={<@}{@>}
 \end{frame}
 
 \section{Introduction to Classification}
-\label{sec:org6bab6bc}
-\begin{frame}[label={sec:org55c7d1c}]{Introduction to Classification}
-\begin{definition}[Classification]\label{sec:orga5f3f26}
+\label{sec:orgf2b4881}
+\begin{frame}[label={sec:orgd844173}]{Introduction to Classification}
+\begin{definition}[Classification]\label{sec:org02b395d}
 \pause
 \alert{Classification} is a type of supervised learning where the model learns from labeled data to predict the class of new observations based on past data.
 \pause
@@ -215,8 +215,8 @@ escapeinside={<@}{@>}
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org4174960}]{Classification Types}
-\begin{definition}[Classification Types]\label{sec:org8084459}
+\begin{frame}[label={sec:orga72cfd2}]{Classification Types}
+\begin{definition}[Classification Types]\label{sec:orga0319d6}
 \pause
 \alert{Classification} can be broadly divided into two types:
 \begin{itemize}[<+->]
@@ -225,8 +225,8 @@ escapeinside={<@}{@>}
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgf5ecf80}]{Classification Algorithms}
-\begin{definition}[Classification Algorithms]\label{sec:orgd83e136}
+\begin{frame}[label={sec:org37557ed}]{Classification Algorithms}
+\begin{definition}[Classification Algorithms]\label{sec:orgf21c290}
 \pause
 \alert{Classification algorithms} are designed to learn from labeled data and make predictions about the class of new, unseen data. Some common algorithms include:
 \begin{itemize}[<+->]
@@ -236,6 +236,19 @@ escapeinside={<@}{@>}
 \item \alert{Support Vector Machines (SVM)}: A method that finds the hyperplane that best separates the classes in the feature space.
 \item More advanced algorithms like \alert{Random Forests}, \alert{Gradient Boosting}, and \alert{Neural Networks}.
 \end{itemize}
+\end{definition}
+\end{frame}
+\section{Classification Basics}
+\label{sec:orgee77916}
+\begin{frame}[label={sec:orgaf9fb53}]{Logistic Regression}
+\begin{definition}[Logistic Regression]\label{sec:org341a9c6}
+\pause
+\alert{Logistic Regression} models the probability that the target variable \(y\) belongs to a particular class. The \alert{logistic function (sigmoid)} is used to map predicted values to probabilities between 0 and 1. The decision boundary is determined by the threshold (commonly 0.5) for classifying observations into different classes.
+\pause
+
+The sigmoid function is defined as:
+$$\sigma(z) = \frac{1}{1 + e^{-z}}$$
+where \(z\) is a linear combination of the input features.
 \end{definition}
 \end{frame}
 \end{document}

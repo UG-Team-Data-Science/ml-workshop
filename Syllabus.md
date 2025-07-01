@@ -95,3 +95,18 @@
 
 
 # Session 3: Supervised Learning - Classification and Metrics
+
+
+## Introduction to Classification
+
+-   Binary vs. Multiclass Classification
+-   Classification Algorithms
+-   Decision Boundaries
+-   Probability vs. Hard Classification
+-   Output of Classification Models
+
+
+## Classification Basics
+
+-   Logistic Regression
+-   Decision Boundaries
