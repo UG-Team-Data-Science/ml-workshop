@@ -118,3 +118,11 @@
 -   Accuracy, Precision, Recall, F1 Score
 -   Precision-Recall Tradeoff and Curve
 -   ROC Curve and AUC
+
+
+## k-Nearest Neighbors (k-NN) and Decision Trees
+
+-   The k-NN Algorithm
+-   Decision Trees
+-   Information Gain and Gini Index
+-   Overfitting and Pruning

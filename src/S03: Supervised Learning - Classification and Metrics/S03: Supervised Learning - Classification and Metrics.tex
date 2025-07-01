@@ -1,4 +1,4 @@
-% Created 2025-07-01 Tue 13:44
+% Created 2025-07-01 Tue 17:18
 % Intended LaTeX compiler: pdflatex
 \documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -201,9 +201,9 @@ escapeinside={<@}{@>}
 \end{frame}
 
 \section{Introduction to Classification}
-\label{sec:org4ab6482}
-\begin{frame}[label={sec:orgb0a1296}]{Introduction to Classification}
-\begin{definition}[Classification]\label{sec:orge1a3c8b}
+\label{sec:org9993b9d}
+\begin{frame}[label={sec:org9d6d0dc}]{Introduction to Classification}
+\begin{definition}[Classification]\label{sec:orgcf971c2}
 \pause
 \alert{Classification} is a type of supervised learning where the model learns from labeled data to predict the class of new observations based on past data.
 \pause
@@ -215,8 +215,8 @@ escapeinside={<@}{@>}
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgda398e2}]{Classification Types}
-\begin{definition}[Classification Types]\label{sec:org540d339}
+\begin{frame}[label={sec:orgd9c072f}]{Classification Types}
+\begin{definition}[Classification Types]\label{sec:org26bf358}
 \pause
 \alert{Classification} can be broadly divided into two types:
 \begin{itemize}[<+->]
@@ -225,8 +225,8 @@ escapeinside={<@}{@>}
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org07952b3}]{Classification Algorithms}
-\begin{definition}[Classification Algorithms]\label{sec:org57f7698}
+\begin{frame}[label={sec:org198265a}]{Classification Algorithms}
+\begin{definition}[Classification Algorithms]\label{sec:org9412dce}
 \pause
 \alert{Classification algorithms} are designed to learn from labeled data and make predictions about the class of new, unseen data. Some common algorithms include:
 \begin{itemize}[<+->]
@@ -239,9 +239,9 @@ escapeinside={<@}{@>}
 \end{definition}
 \end{frame}
 \section{Classification Basics}
-\label{sec:org1b130ea}
-\begin{frame}[label={sec:orgd1a15af}]{Logistic Regression}
-\begin{definition}[Logistic Regression]\label{sec:orgeff9956}
+\label{sec:org41a8533}
+\begin{frame}[label={sec:org0857db5}]{Logistic Regression}
+\begin{definition}[Logistic Regression]\label{sec:org69f4daf}
 \pause
 \alert{Logistic Regression} models the probability that the target variable \(y\) belongs to a particular class. The \alert{logistic function (sigmoid)} is used to map predicted values to probabilities between 0 and 1. The decision boundary is determined by the threshold (commonly 0.5) for classifying observations into different classes.
 \pause
@@ -252,9 +252,9 @@ where \(z\) is a linear combination of the input features.
 \end{definition}
 \end{frame}
 \section{Evaluation Metrics}
-\label{sec:org9202193}
-\begin{frame}[label={sec:org37d1554}]{Evaluation Metrics for Classification}
-\begin{definition}[Confusion Matrix]\label{sec:orge6e091d}
+\label{sec:orgd466b6e}
+\begin{frame}[label={sec:orge75a334}]{Evaluation Metrics for Classification}
+\begin{definition}[Confusion Matrix]\label{sec:org86f4c91}
 \pause
 The \alert{confusion matrix} summarizes the performance of a classification algorithm by comparing predicted and actual labels.
 \pause
@@ -269,39 +269,39 @@ The \alert{confusion matrix} summarizes the performance of a classification algo
 From these four numbers we obtain the core metrics summarized next.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgb916c44}]{Accuracy (Overall Success Rate)}
-\begin{definition}[Accuracy (Overall Success Rate)]\label{sec:org226961d}
+\begin{frame}[label={sec:orga7a3aa9}]{Accuracy (Overall Success Rate)}
+\begin{definition}[Accuracy (Overall Success Rate)]\label{sec:orgcbc3cb1}
 \alert{Accuracy} is a measure of how often the classifier is correct across all predictions. It answers the question: "What fraction of \alert{all} predictions are correct?"
 $$\text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{FP} + \text{FN} + \text{TN}}$$
 
 Despite its simplicity, accuracy can be misleading, especially in imbalanced datasets where one class dominates.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org4b31bb2}]{Precision (Positive Predictive Value)}
-\begin{definition}[Precision (Positive Predictive Value)]\label{sec:org71105d2}
+\begin{frame}[label={sec:org156f6eb}]{Precision (Positive Predictive Value)}
+\begin{definition}[Precision (Positive Predictive Value)]\label{sec:orgf6ce79c}
 \alert{Precision} is a measure of the accuracy of positive predictions. It answers the question: "When the classifier predicts 1, how often is it correct?"
 $$\text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}$$
 
 High precision indicates that when the model predicts a positive class, it is likely correct, but it does not account for false negatives.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org7782688}]{Recall (Sensitivity, True-Positive Rate)}
-\begin{definition}[Recall (Sensitivity, True-Positive Rate)]\label{sec:org0ba7b5f}
+\begin{frame}[label={sec:org8f235de}]{Recall (Sensitivity, True-Positive Rate)}
+\begin{definition}[Recall (Sensitivity, True-Positive Rate)]\label{sec:orgc2c7d49}
 \alert{Recall} is a measure of the model's ability to capture all positive instances. It answers the question: "Of all the actual 1 cases, how many did we catch?"
 $$\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}$$
 High recall indicates that the model is good at identifying positive cases, but it does not consider false positives.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgf846ca6}]{F1-Score}
-\begin{definition}[F1-Score]\label{sec:org91b589c}
+\begin{frame}[label={sec:orgb124172}]{F1-Score}
+\begin{definition}[F1-Score]\label{sec:orgd351228}
 \alert{F1-Score} is the harmonic mean of precision and recall, providing a balance between the two metrics:
 $$F_1 = 2 \cdot \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
 It is particularly useful when the class distribution is imbalanced, as it considers both false positives and false negatives.
 High F1-Score indicates a good balance between precision and recall, while a low F1-Score suggests that either precision or recall (or both) are low.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orga85a386}]{Precision-Recall Trade-off}
-\begin{definition}[Precision-Recall Trade-off]\label{sec:org1c16c72}
+\begin{frame}[label={sec:orgb8ec791}]{Precision-Recall Trade-off}
+\begin{definition}[Precision-Recall Trade-off]\label{sec:org95bf111}
 The \alert{Precision-Recall Trade-off} illustrates the inverse relationship between precision and recall:
 \pause
 \begin{itemize}[<+->]
@@ -309,20 +309,116 @@ The \alert{Precision-Recall Trade-off} illustrates the inverse relationship betw
 \item Decreasing the threshold will \textcolor{darkgreen}{increase recall} but \textcolor{darkred}{decrease precision}.
 \end{itemize}
 \end{definition}
-\begin{definition}[Precision-Recall Curve]\label{sec:orge98a3f1}
+\begin{definition}[Precision-Recall Curve]\label{sec:org21af355}
 \pause
 \alert{Precision-Recall Curve} is a graphical representation of the trade-off between precision and recall for different threshold values.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org3060e93}]{Receiver Operating Characteristic (ROC) Curve}
-\begin{definition}[Receiver Operating Characteristic (ROC) Curve]\label{sec:orgd3ba07a}
+\begin{frame}[label={sec:orgf593ed5}]{Receiver Operating Characteristic (ROC) Curve}
+\begin{definition}[Receiver Operating Characteristic (ROC) Curve]\label{sec:org00c40db}
 \alert{ROC Curve} is a graphical representation of a classifier's performance across different thresholds. It plots the true positive rate (recall) against the false positive rate (FPR) at various threshold settings.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgfa6511a}]{Area Under the Curve (AUC)}
-\begin{definition}[Area Under the Curve (AUC)]\label{sec:org50a2799}
+\begin{frame}[label={sec:orgf906cfc}]{Area Under the Curve (AUC)}
+\begin{definition}[Area Under the Curve (AUC)]\label{sec:orgf24a62f}
 \pause
 \alert{Area Under the Curve (AUC)} is a single scalar value that summarizes the performance of a classifier across all possible thresholds. It is calculated as the area under the ROC curve. AUC provides an aggregate measure of performance across all classification thresholds, making it useful for comparing different classifiers.
+\end{definition}
+\end{frame}
+\section{\(k\)-Nearest Neighbours}
+\label{sec:org72b68fc}
+\begin{frame}[label={sec:org72775bc}]{\(k\)-Nearest Neighbours (\(k\)-NN)}
+\begin{definition}[\(k\)-Nearest Neighbours (\(k\)-NN)]\label{sec:org64d1794}
+\pause
+\alert{\(k\)-Nearest Neighbors (\(k\)-NN)} is a \alert{non-parametric}, \alert{instance-based} learning algorithm that classifies a new observation based on the classes of its \(k\) nearest neighbors in the feature space. It does not explicitly learn a model but stores the training instances.
+\pause
+
+The algorithm works as follows:
+\begin{itemize}[<+->]
+\item Compute the distance between the new observation and every point in the training set (Euclidean, Manhattan or Minkowski distances).
+\item Select the \(k\) closest neighbors.
+\item Predict the class by majority vote among those neighbors.
+\end{itemize}
+\pause
+
+The decision boundary is implicitly defined by the \(k\) nearest points, allowing the model to capture highly non-linear class boundaries without explicit training.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org86d81cd}]{Mathematical Formulation}
+\begin{definition}[Mathematical Formulation]\label{sec:org3bdf61e}
+Given a training set \(\{(x_i, y_i)\}_{i = 1}^{n}\) where \(y_i \in \{1, \dots,C\}\), the prediction for a query point \(\hat{x}\) is:
+$$\hat{y} = \text{mode}\left(\{y_j | x_j \in N_k(\hat{x})\}\right),$$
+
+where \(N_k(\hat{x})\) denotes the set of \(k\) training points closest to \(\hat{x}\).
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org40ef388}]{Considerations for \(k\)-NN}
+\begin{block}{Considerations for \(k\)-NN}
+\begin{itemize}[<+->]
+\item \alert{Choosing \(k\)}:
+\begin{itemize}
+\item A small \(k\) can lead to noise sensitivity (overfitting).
+\item A large \(k\) can smooth out class boundaries (underfitting).
+\item Cross-validation is often used to select the optimal \(k\).
+\end{itemize}
+\item \alert{Advantages}:
+\begin{itemize}
+\item Simple and intuitive.
+\item No training phase; all computation happens at prediction time.
+\item Naturally handles multi-class classification.
+\end{itemize}
+\item \alert{Disadvantages}:
+\begin{itemize}
+\item Computationally expensive at prediction time, especially with large datasets.
+\item Sensitive to irrelevant features and feature scaling.
+\item Requires a good choice of distance metric.
+\end{itemize}
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Decision Trees}
+\label{sec:org7bd882a}
+\begin{frame}[label={sec:orga9b492e}]{Decision Trees}
+\begin{definition}[Decision Trees]\label{sec:orgda5a0dd}
+\alert{Decision Trees} recursively partition the feature space into axis-aligned regions and assign a class label to each region. It consists of \alert{nodes} (features), \alert{branches} (decisions), and \alert{leaves} (outcomes).
+\pause
+
+At each node, the algorithm chooses the split that maximizes a purity metric such as \alert{information gain} or \alert{Gini impurity}. The tree is built by recursively splitting the dataset into subsets until a stopping criterion is met (e.g., maximum depth, minimum samples per leaf).
+\pause
+
+By hierarchically splitting the space, a tree can approximate complex decision boundaries while remaining interpretable-each internal node corresponds to a human-readable rule.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org40f0832}]{Information Gain}
+\begin{definition}[Information Gain]\label{sec:orgd6b2718}
+For a node containing a sample set \(S\), the entropy is:
+$$H(S)= -\sum_{c = 1}^{C} p_c \log_2 p_c,$$
+where \(p_c\) is the proportion of class \(c\).
+\pause
+A split of \(S\) into subsets \(S_L, S_R\) yields information gain:
+$$IG = H(S) - \frac{|S_L|}{|S|} H(S_L) - \frac{|S_R|}{|S|} H(S_R).$$
+The algorithm selects the split with the highest \alert{IG} (or lowest Gini).
+\pause
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgbdc2f9b}]{Considerations for Decision Trees}
+\begin{definition}[Considerations for Decision Trees]\label{sec:org9631eb9}
+\begin{itemize}[<+->]
+\item \alert{Pruning}: Techniques like cost-complexity pruning can be applied to reduce overfitting by removing branches that have little importance.
+
+\item \alert{Advantages}:
+\begin{itemize}
+\item Easy to interpret and visualize.
+\item Handles both numerical and categorical data.
+\item Non-parametric: does not assume any specific distribution of the data.
+\end{itemize}
+
+\item \alert{Disadvantages}:
+\begin{itemize}
+\item Prone to overfitting, especially with deep trees.
+\item Sensitive to small changes in the data (can lead to different trees).
+\end{itemize}
+\end{itemize}
 \end{definition}
 \end{frame}
 \end{document}
