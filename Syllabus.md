@@ -110,3 +110,11 @@
 
 -   Logistic Regression
 -   Decision Boundaries
+
+
+## Evaluation Metrics
+
+-   Confusion Matrix
+-   Accuracy, Precision, Recall, F1 Score
+-   Precision-Recall Tradeoff and Curve
+-   ROC Curve and AUC

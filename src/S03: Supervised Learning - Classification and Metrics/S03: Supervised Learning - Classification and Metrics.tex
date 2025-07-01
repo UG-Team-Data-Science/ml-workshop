@@ -1,4 +1,4 @@
-% Created 2025-07-01 Tue 07:59
+% Created 2025-07-01 Tue 13:44
 % Intended LaTeX compiler: pdflatex
 \documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -201,9 +201,9 @@ escapeinside={<@}{@>}
 \end{frame}
 
 \section{Introduction to Classification}
-\label{sec:orgf2b4881}
-\begin{frame}[label={sec:orgd844173}]{Introduction to Classification}
-\begin{definition}[Classification]\label{sec:org02b395d}
+\label{sec:org4ab6482}
+\begin{frame}[label={sec:orgb0a1296}]{Introduction to Classification}
+\begin{definition}[Classification]\label{sec:orge1a3c8b}
 \pause
 \alert{Classification} is a type of supervised learning where the model learns from labeled data to predict the class of new observations based on past data.
 \pause
@@ -215,8 +215,8 @@ escapeinside={<@}{@>}
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orga72cfd2}]{Classification Types}
-\begin{definition}[Classification Types]\label{sec:orga0319d6}
+\begin{frame}[label={sec:orgda398e2}]{Classification Types}
+\begin{definition}[Classification Types]\label{sec:org540d339}
 \pause
 \alert{Classification} can be broadly divided into two types:
 \begin{itemize}[<+->]
@@ -225,8 +225,8 @@ escapeinside={<@}{@>}
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org37557ed}]{Classification Algorithms}
-\begin{definition}[Classification Algorithms]\label{sec:orgf21c290}
+\begin{frame}[label={sec:org07952b3}]{Classification Algorithms}
+\begin{definition}[Classification Algorithms]\label{sec:org57f7698}
 \pause
 \alert{Classification algorithms} are designed to learn from labeled data and make predictions about the class of new, unseen data. Some common algorithms include:
 \begin{itemize}[<+->]
@@ -239,9 +239,9 @@ escapeinside={<@}{@>}
 \end{definition}
 \end{frame}
 \section{Classification Basics}
-\label{sec:orgee77916}
-\begin{frame}[label={sec:orgaf9fb53}]{Logistic Regression}
-\begin{definition}[Logistic Regression]\label{sec:org341a9c6}
+\label{sec:org1b130ea}
+\begin{frame}[label={sec:orgd1a15af}]{Logistic Regression}
+\begin{definition}[Logistic Regression]\label{sec:orgeff9956}
 \pause
 \alert{Logistic Regression} models the probability that the target variable \(y\) belongs to a particular class. The \alert{logistic function (sigmoid)} is used to map predicted values to probabilities between 0 and 1. The decision boundary is determined by the threshold (commonly 0.5) for classifying observations into different classes.
 \pause
@@ -249,6 +249,80 @@ escapeinside={<@}{@>}
 The sigmoid function is defined as:
 $$\sigma(z) = \frac{1}{1 + e^{-z}}$$
 where \(z\) is a linear combination of the input features.
+\end{definition}
+\end{frame}
+\section{Evaluation Metrics}
+\label{sec:org9202193}
+\begin{frame}[label={sec:org37d1554}]{Evaluation Metrics for Classification}
+\begin{definition}[Confusion Matrix]\label{sec:orge6e091d}
+\pause
+The \alert{confusion matrix} summarizes the performance of a classification algorithm by comparing predicted and actual labels.
+\pause
+\begin{center}
+\begin{tabular}{lll}
+ & \alert{Predicted = 1} & \alert{Predicted = 0}\\
+\hline
+\alert{Actual = 1} & True Positive (TP) & False Negative (FN)\\
+\alert{Actual = 0} & False Positive (FP) & True Negative (TN)\\
+\end{tabular}
+\end{center}
+From these four numbers we obtain the core metrics summarized next.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgb916c44}]{Accuracy (Overall Success Rate)}
+\begin{definition}[Accuracy (Overall Success Rate)]\label{sec:org226961d}
+\alert{Accuracy} is a measure of how often the classifier is correct across all predictions. It answers the question: "What fraction of \alert{all} predictions are correct?"
+$$\text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{FP} + \text{FN} + \text{TN}}$$
+
+Despite its simplicity, accuracy can be misleading, especially in imbalanced datasets where one class dominates.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org4b31bb2}]{Precision (Positive Predictive Value)}
+\begin{definition}[Precision (Positive Predictive Value)]\label{sec:org71105d2}
+\alert{Precision} is a measure of the accuracy of positive predictions. It answers the question: "When the classifier predicts 1, how often is it correct?"
+$$\text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}$$
+
+High precision indicates that when the model predicts a positive class, it is likely correct, but it does not account for false negatives.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org7782688}]{Recall (Sensitivity, True-Positive Rate)}
+\begin{definition}[Recall (Sensitivity, True-Positive Rate)]\label{sec:org0ba7b5f}
+\alert{Recall} is a measure of the model's ability to capture all positive instances. It answers the question: "Of all the actual 1 cases, how many did we catch?"
+$$\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}$$
+High recall indicates that the model is good at identifying positive cases, but it does not consider false positives.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgf846ca6}]{F1-Score}
+\begin{definition}[F1-Score]\label{sec:org91b589c}
+\alert{F1-Score} is the harmonic mean of precision and recall, providing a balance between the two metrics:
+$$F_1 = 2 \cdot \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
+It is particularly useful when the class distribution is imbalanced, as it considers both false positives and false negatives.
+High F1-Score indicates a good balance between precision and recall, while a low F1-Score suggests that either precision or recall (or both) are low.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orga85a386}]{Precision-Recall Trade-off}
+\begin{definition}[Precision-Recall Trade-off]\label{sec:org1c16c72}
+The \alert{Precision-Recall Trade-off} illustrates the inverse relationship between precision and recall:
+\pause
+\begin{itemize}[<+->]
+\item Increasing the threshold for classifying a positive instance will \textcolor{darkgreen}{increase precision} but \textcolor{darkred}{decrease recall}.
+\item Decreasing the threshold will \textcolor{darkgreen}{increase recall} but \textcolor{darkred}{decrease precision}.
+\end{itemize}
+\end{definition}
+\begin{definition}[Precision-Recall Curve]\label{sec:orge98a3f1}
+\pause
+\alert{Precision-Recall Curve} is a graphical representation of the trade-off between precision and recall for different threshold values.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org3060e93}]{Receiver Operating Characteristic (ROC) Curve}
+\begin{definition}[Receiver Operating Characteristic (ROC) Curve]\label{sec:orgd3ba07a}
+\alert{ROC Curve} is a graphical representation of a classifier's performance across different thresholds. It plots the true positive rate (recall) against the false positive rate (FPR) at various threshold settings.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgfa6511a}]{Area Under the Curve (AUC)}
+\begin{definition}[Area Under the Curve (AUC)]\label{sec:org50a2799}
+\pause
+\alert{Area Under the Curve (AUC)} is a single scalar value that summarizes the performance of a classifier across all possible thresholds. It is calculated as the area under the ROC curve. AUC provides an aggregate measure of performance across all classification thresholds, making it useful for comparing different classifiers.
 \end{definition}
 \end{frame}
 \end{document}
