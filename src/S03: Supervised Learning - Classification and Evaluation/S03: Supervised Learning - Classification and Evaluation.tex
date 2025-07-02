@@ -1,4 +1,4 @@
-% Created 2025-07-01 Tue 17:18
+% Created 2025-07-02 Wed 20:30
 % Intended LaTeX compiler: pdflatex
 \documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -201,9 +201,9 @@ escapeinside={<@}{@>}
 \end{frame}
 
 \section{Introduction to Classification}
-\label{sec:org9993b9d}
-\begin{frame}[label={sec:org9d6d0dc}]{Introduction to Classification}
-\begin{definition}[Classification]\label{sec:orgcf971c2}
+\label{sec:org2864275}
+\begin{frame}[label={sec:orgd3d726f}]{Introduction to Classification}
+\begin{definition}[Classification]\label{sec:org2a2c932}
 \pause
 \alert{Classification} is a type of supervised learning where the model learns from labeled data to predict the class of new observations based on past data.
 \pause
@@ -215,8 +215,8 @@ escapeinside={<@}{@>}
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgd9c072f}]{Classification Types}
-\begin{definition}[Classification Types]\label{sec:org26bf358}
+\begin{frame}[label={sec:org625fd0b}]{Classification Types}
+\begin{definition}[Classification Types]\label{sec:org04c184b}
 \pause
 \alert{Classification} can be broadly divided into two types:
 \begin{itemize}[<+->]
@@ -225,8 +225,8 @@ escapeinside={<@}{@>}
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org198265a}]{Classification Algorithms}
-\begin{definition}[Classification Algorithms]\label{sec:org9412dce}
+\begin{frame}[label={sec:orgab56005}]{Classification Algorithms}
+\begin{definition}[Classification Algorithms]\label{sec:org6186236}
 \pause
 \alert{Classification algorithms} are designed to learn from labeled data and make predictions about the class of new, unseen data. Some common algorithms include:
 \begin{itemize}[<+->]
@@ -239,9 +239,9 @@ escapeinside={<@}{@>}
 \end{definition}
 \end{frame}
 \section{Classification Basics}
-\label{sec:org41a8533}
-\begin{frame}[label={sec:org0857db5}]{Logistic Regression}
-\begin{definition}[Logistic Regression]\label{sec:org69f4daf}
+\label{sec:org9aaf9a1}
+\begin{frame}[label={sec:orgac7372d}]{Logistic Regression}
+\begin{definition}[Logistic Regression]\label{sec:org4b9112f}
 \pause
 \alert{Logistic Regression} models the probability that the target variable \(y\) belongs to a particular class. The \alert{logistic function (sigmoid)} is used to map predicted values to probabilities between 0 and 1. The decision boundary is determined by the threshold (commonly 0.5) for classifying observations into different classes.
 \pause
@@ -252,9 +252,9 @@ where \(z\) is a linear combination of the input features.
 \end{definition}
 \end{frame}
 \section{Evaluation Metrics}
-\label{sec:orgd466b6e}
-\begin{frame}[label={sec:orge75a334}]{Evaluation Metrics for Classification}
-\begin{definition}[Confusion Matrix]\label{sec:org86f4c91}
+\label{sec:orgbb1232e}
+\begin{frame}[label={sec:org09cc5f8}]{Evaluation Metrics for Classification}
+\begin{definition}[Confusion Matrix]\label{sec:orge5d6fbc}
 \pause
 The \alert{confusion matrix} summarizes the performance of a classification algorithm by comparing predicted and actual labels.
 \pause
@@ -269,39 +269,39 @@ The \alert{confusion matrix} summarizes the performance of a classification algo
 From these four numbers we obtain the core metrics summarized next.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orga7a3aa9}]{Accuracy (Overall Success Rate)}
-\begin{definition}[Accuracy (Overall Success Rate)]\label{sec:orgcbc3cb1}
+\begin{frame}[label={sec:orga882b0c}]{Accuracy (Overall Success Rate)}
+\begin{definition}[Accuracy (Overall Success Rate)]\label{sec:org48c6fe8}
 \alert{Accuracy} is a measure of how often the classifier is correct across all predictions. It answers the question: "What fraction of \alert{all} predictions are correct?"
 $$\text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{FP} + \text{FN} + \text{TN}}$$
 
 Despite its simplicity, accuracy can be misleading, especially in imbalanced datasets where one class dominates.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org156f6eb}]{Precision (Positive Predictive Value)}
-\begin{definition}[Precision (Positive Predictive Value)]\label{sec:orgf6ce79c}
+\begin{frame}[label={sec:org08322fb}]{Precision (Positive Predictive Value)}
+\begin{definition}[Precision (Positive Predictive Value)]\label{sec:org267eddc}
 \alert{Precision} is a measure of the accuracy of positive predictions. It answers the question: "When the classifier predicts 1, how often is it correct?"
 $$\text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}$$
 
 High precision indicates that when the model predicts a positive class, it is likely correct, but it does not account for false negatives.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org8f235de}]{Recall (Sensitivity, True-Positive Rate)}
-\begin{definition}[Recall (Sensitivity, True-Positive Rate)]\label{sec:orgc2c7d49}
+\begin{frame}[label={sec:org5d76841}]{Recall (Sensitivity, True-Positive Rate)}
+\begin{definition}[Recall (Sensitivity, True-Positive Rate)]\label{sec:org5d5057e}
 \alert{Recall} is a measure of the model's ability to capture all positive instances. It answers the question: "Of all the actual 1 cases, how many did we catch?"
 $$\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}$$
 High recall indicates that the model is good at identifying positive cases, but it does not consider false positives.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgb124172}]{F1-Score}
-\begin{definition}[F1-Score]\label{sec:orgd351228}
+\begin{frame}[label={sec:orgf745617}]{F1-Score}
+\begin{definition}[F1-Score]\label{sec:orgb3a3de2}
 \alert{F1-Score} is the harmonic mean of precision and recall, providing a balance between the two metrics:
 $$F_1 = 2 \cdot \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
 It is particularly useful when the class distribution is imbalanced, as it considers both false positives and false negatives.
 High F1-Score indicates a good balance between precision and recall, while a low F1-Score suggests that either precision or recall (or both) are low.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgb8ec791}]{Precision-Recall Trade-off}
-\begin{definition}[Precision-Recall Trade-off]\label{sec:org95bf111}
+\begin{frame}[label={sec:org1d1a35b}]{Precision-Recall Trade-off}
+\begin{definition}[Precision-Recall Trade-off]\label{sec:orgab0fcbc}
 The \alert{Precision-Recall Trade-off} illustrates the inverse relationship between precision and recall:
 \pause
 \begin{itemize}[<+->]
@@ -309,26 +309,26 @@ The \alert{Precision-Recall Trade-off} illustrates the inverse relationship betw
 \item Decreasing the threshold will \textcolor{darkgreen}{increase recall} but \textcolor{darkred}{decrease precision}.
 \end{itemize}
 \end{definition}
-\begin{definition}[Precision-Recall Curve]\label{sec:org21af355}
+\begin{definition}[Precision-Recall Curve]\label{sec:org835364a}
 \pause
 \alert{Precision-Recall Curve} is a graphical representation of the trade-off between precision and recall for different threshold values.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgf593ed5}]{Receiver Operating Characteristic (ROC) Curve}
-\begin{definition}[Receiver Operating Characteristic (ROC) Curve]\label{sec:org00c40db}
+\begin{frame}[label={sec:org51f895a}]{Receiver Operating Characteristic (ROC) Curve}
+\begin{definition}[Receiver Operating Characteristic (ROC) Curve]\label{sec:org76b65b5}
 \alert{ROC Curve} is a graphical representation of a classifier's performance across different thresholds. It plots the true positive rate (recall) against the false positive rate (FPR) at various threshold settings.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgf906cfc}]{Area Under the Curve (AUC)}
-\begin{definition}[Area Under the Curve (AUC)]\label{sec:orgf24a62f}
+\begin{frame}[label={sec:orga007f07}]{Area Under the Curve (AUC)}
+\begin{definition}[Area Under the Curve (AUC)]\label{sec:org55dcb35}
 \pause
 \alert{Area Under the Curve (AUC)} is a single scalar value that summarizes the performance of a classifier across all possible thresholds. It is calculated as the area under the ROC curve. AUC provides an aggregate measure of performance across all classification thresholds, making it useful for comparing different classifiers.
 \end{definition}
 \end{frame}
 \section{\(k\)-Nearest Neighbours}
-\label{sec:org72b68fc}
-\begin{frame}[label={sec:org72775bc}]{\(k\)-Nearest Neighbours (\(k\)-NN)}
-\begin{definition}[\(k\)-Nearest Neighbours (\(k\)-NN)]\label{sec:org64d1794}
+\label{sec:orge781805}
+\begin{frame}[label={sec:org808a2e4}]{\(k\)-Nearest Neighbours (\(k\)-NN)}
+\begin{definition}[\(k\)-Nearest Neighbours (\(k\)-NN)]\label{sec:org22fd718}
 \pause
 \alert{\(k\)-Nearest Neighbors (\(k\)-NN)} is a \alert{non-parametric}, \alert{instance-based} learning algorithm that classifies a new observation based on the classes of its \(k\) nearest neighbors in the feature space. It does not explicitly learn a model but stores the training instances.
 \pause
@@ -344,15 +344,15 @@ The algorithm works as follows:
 The decision boundary is implicitly defined by the \(k\) nearest points, allowing the model to capture highly non-linear class boundaries without explicit training.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org86d81cd}]{Mathematical Formulation}
-\begin{definition}[Mathematical Formulation]\label{sec:org3bdf61e}
+\begin{frame}[label={sec:org302fe80}]{Mathematical Formulation}
+\begin{definition}[Mathematical Formulation]\label{sec:org9596c45}
 Given a training set \(\{(x_i, y_i)\}_{i = 1}^{n}\) where \(y_i \in \{1, \dots,C\}\), the prediction for a query point \(\hat{x}\) is:
 $$\hat{y} = \text{mode}\left(\{y_j | x_j \in N_k(\hat{x})\}\right),$$
 
 where \(N_k(\hat{x})\) denotes the set of \(k\) training points closest to \(\hat{x}\).
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org40ef388}]{Considerations for \(k\)-NN}
+\begin{frame}[label={sec:org61b752e}]{Considerations for \(k\)-NN}
 \begin{block}{Considerations for \(k\)-NN}
 \begin{itemize}[<+->]
 \item \alert{Choosing \(k\)}:
@@ -377,9 +377,9 @@ where \(N_k(\hat{x})\) denotes the set of \(k\) training points closest to \(\ha
 \end{block}
 \end{frame}
 \section{Decision Trees}
-\label{sec:org7bd882a}
-\begin{frame}[label={sec:orga9b492e}]{Decision Trees}
-\begin{definition}[Decision Trees]\label{sec:orgda5a0dd}
+\label{sec:orga6019f9}
+\begin{frame}[label={sec:orgeb21917}]{Decision Trees}
+\begin{definition}[Decision Trees]\label{sec:orgaa9420b}
 \alert{Decision Trees} recursively partition the feature space into axis-aligned regions and assign a class label to each region. It consists of \alert{nodes} (features), \alert{branches} (decisions), and \alert{leaves} (outcomes).
 \pause
 
@@ -389,8 +389,8 @@ At each node, the algorithm chooses the split that maximizes a purity metric suc
 By hierarchically splitting the space, a tree can approximate complex decision boundaries while remaining interpretable-each internal node corresponds to a human-readable rule.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org40f0832}]{Information Gain}
-\begin{definition}[Information Gain]\label{sec:orgd6b2718}
+\begin{frame}[label={sec:orge4c336e}]{Information Gain}
+\begin{definition}[Information Gain]\label{sec:org41995c9}
 For a node containing a sample set \(S\), the entropy is:
 $$H(S)= -\sum_{c = 1}^{C} p_c \log_2 p_c,$$
 where \(p_c\) is the proportion of class \(c\).
@@ -401,8 +401,8 @@ The algorithm selects the split with the highest \alert{IG} (or lowest Gini).
 \pause
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgbdc2f9b}]{Considerations for Decision Trees}
-\begin{definition}[Considerations for Decision Trees]\label{sec:org9631eb9}
+\begin{frame}[label={sec:org8530782}]{Considerations for Decision Trees}
+\begin{definition}[Considerations for Decision Trees]\label{sec:org5518491}
 \begin{itemize}[<+->]
 \item \alert{Pruning}: Techniques like cost-complexity pruning can be applied to reduce overfitting by removing branches that have little importance.
 
@@ -419,6 +419,46 @@ The algorithm selects the split with the highest \alert{IG} (or lowest Gini).
 \item Sensitive to small changes in the data (can lead to different trees).
 \end{itemize}
 \end{itemize}
+\end{definition}
+\end{frame}
+\section{Support Vector Machines (SVM)}
+\label{sec:org92a9f38}
+\begin{frame}[label={sec:org9d531e1}]{Support Vector Machines (SVM)}
+\begin{definition}[Support Vector Machines (SVM)]\label{sec:orgb62cd81}
+\alert{Support Vector Machines (SVM)} are powerful algorithms that find the optimal hyperplane that separates different classes in the feature space. The goal is to maximize the \alert{margin} between the closest points of each class, known as \alert{support vectors}.
+\pause
+The SVM algorithm works by solving the following optimization problem:
+$$\min_{\mathbf{w}, b} \frac{1}{2} ||\mathbf{w}||^2 \quad \text{s.t.} \quad y_i(\mathbf{w}^T \mathbf{x}_i + b) \geq 1, \quad \forall i,$$
+where \(\mathbf{w}\) is the weight vector, \(b\) is the bias term, and \(y_i\) is the class label of the \(i\)-th training example.
+\pause
+
+Visualization should help\ldots{}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgb134eaf}]{Linear SVMs}
+\begin{definition}[Linear SVMs]\label{sec:orgede5b50}
+\alert{Linear SVMs} are used when the data is linearly separable. The decision boundary is a hyperplane defined by the equation:
+$$\mathbf{w}^T \mathbf{x} + b = 0,$$
+where \(\mathbf{w}\) is the weight vector and \(b\) is the bias term. The SVM finds the hyperplane that maximizes the margin between the two classes.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orga7d6338}]{Non-Linear SVMs}
+\begin{definition}[Non-Linear SVMs]\label{sec:org9699cf0}
+\alert{Non-Linear SVMs} use kernel functions to transform the input space into a higher-dimensional space where a linear hyperplane can separate the classes. Common kernels include:
+\begin{itemize}
+\item \alert{Polynomial Kernel}: Maps the input features into a polynomial feature space.
+\item \alert{Radial Basis Function (RBF) Kernel}: Maps the input features into an infinite-dimensional space, allowing for complex decision boundaries.
+\item \alert{Sigmoid Kernel}: Similar to the activation function in neural networks, it maps the input features into a space that can capture non-linear relationships.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org62ea7b0}]{Kernel Trick}
+\begin{definition}[Kernel Trick]\label{sec:orgf46fb36}
+The \alert{Kernel Trick} allows SVMs to operate in high-dimensional feature spaces without explicitly computing the coordinates of the data in that space. Instead, it computes the inner products between the images of all pairs of data points in the feature space, which is computationally efficient.
+
+This is done using a kernel function \(K(\mathbf{x}_i, \mathbf{x}_j)\) that computes the inner product in the transformed space:
+$$K(\mathbf{x}_i, \mathbf{x}_j) = \phi(\mathbf{x}_i)^T \phi(\mathbf{x}_j),$$
+where \(\phi\) is the mapping function that transforms the input features into the higher-dimensional space.
 \end{definition}
 \end{frame}
 \end{document}
