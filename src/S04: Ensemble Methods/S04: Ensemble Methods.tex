@@ -1,4 +1,4 @@
-% Created 2025-07-03 Thu 11:07
+% Created 2025-07-03 Thu 18:33
 % Intended LaTeX compiler: pdflatex
 \documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -201,15 +201,15 @@ escapeinside={<@}{@>}
 \end{frame}
 
 \section{Introduction to Ensemble Methods}
-\label{sec:org02221cb}
-\begin{frame}[label={sec:org8d0d78b}]{Introduction to Ensemble Methods}
-\begin{definition}[What are Ensemble Methods?]\label{sec:org3a13339}
+\label{sec:orgf845916}
+\begin{frame}[label={sec:org314801c}]{Introduction to Ensemble Methods}
+\begin{definition}[What are Ensemble Methods?]\label{sec:orge9c1ea2}
 \pause
 \alert{Ensemble methods} combine multiple models to improve predictive performance. They leverage the strengths of individual models while mitigating their weaknesses.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgde1ad03}]{Introduction to Ensemble Methods}
-\begin{example}[Why Use Ensemble Methods?]\label{sec:orge985a98}
+\begin{frame}[label={sec:orge8a3288}]{Introduction to Ensemble Methods}
+\begin{example}[Why Use Ensemble Methods?]\label{sec:orga0744fd}
 \begin{itemize}[<+->]
 \item \alert{Improved Accuracy}: Ensemble methods often outperform individual models by reducing variance and bias.
 \item \alert{Robustness}: Less sensitive to noise and outliers, leading to more stable predictions.
@@ -221,8 +221,8 @@ escapeinside={<@}{@>}
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org3e98703}]{Types of Ensemble Methods}
-\begin{example}[Ensamble Methods]\label{sec:orgd9cbea9}
+\begin{frame}[label={sec:orgffb6085}]{Types of Ensemble Methods}
+\begin{example}[Ensamble Methods]\label{sec:orgcd3d9d4}
 \pause
 Ensemble methods can be broadly categorized into several types, each with its own approach to combining models:
 \begin{itemize}[<+->]
@@ -234,9 +234,9 @@ Ensemble methods can be broadly categorized into several types, each with its ow
 \end{example}
 \end{frame}
 \section{Bagging}
-\label{sec:orgcac3d2b}
-\begin{frame}[label={sec:org59f9f8e}]{Bootstrap Aggregating (Bagging) Overview}
-\begin{definition}[Bootstrap Aggregating (Bagging)]\label{sec:orgc1b769e}
+\label{sec:org12beb2b}
+\begin{frame}[label={sec:org53162a6}]{Bootstrap Aggregating (Bagging) Overview}
+\begin{definition}[Bootstrap Aggregating (Bagging)]\label{sec:orgc31b411}
 \pause
 \alert{Bagging}, or \alert{Bootstrap Aggregating}, is an ensemble method that combins the predictions of multiple models trained on different subsets of the training data. The key steps in bagging are:
 \pause
@@ -247,13 +247,13 @@ Ensemble methods can be broadly categorized into several types, each with its ow
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgdf84127}]{Bagging and Random Forests}
-\begin{example}[Bagging and Random Forests]\label{sec:orgd2d224c}
+\begin{frame}[label={sec:org8fb1359}]{Bagging and Random Forests}
+\begin{example}[Bagging and Random Forests]\label{sec:org84b3204}
 \pause
 \alert{Random Forests} is a popular ensemble method that builds multiple decision trees using bagging. It introduces additional randomness by selecting a random subset of features for each tree, which helps to decorrelate the trees and improve overall model performance.
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org43f6820}]{Feature Importance in Random Forests}
+\begin{frame}[label={sec:orgab3b075}]{Feature Importance in Random Forests}
 \begin{block}{Feature Importance in Random Forests}
 \pause
 \alert{Random Forests} can also provide insights into feature importance, which helps in understanding which features contribute most to the predictions. This is done by measuring the decrease in model performance when a feature is permuted or removed.

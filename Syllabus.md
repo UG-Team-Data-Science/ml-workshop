@@ -144,3 +144,10 @@
 -   What are Ensemble Methods?
 -   Why Use Ensemble Methods?
 -   Types of Ensemble Methods
+
+
+## Bagging and Random Forests
+
+-   Bagging (Bootstrap Aggregating) Overview
+-   Random Forests
+-   Feature Importance in Random Forests
