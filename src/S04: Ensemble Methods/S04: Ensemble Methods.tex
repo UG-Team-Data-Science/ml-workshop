@@ -1,0 +1,262 @@
+% Created 2025-07-03 Thu 11:07
+% Intended LaTeX compiler: pdflatex
+\documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\useinnertheme{rounded}
+\useoutertheme{tree}
+\date{\today}
+\title{Machine Learning in Python}
+\subtitle{Ensemble Methods}
+\author[Marocico, Tatar]{Cristian A. Marocico, A. Emin Tatar}
+\institute[CIT]{Center for Information Technology\\University of Groningen}
+\RequirePackage{pgfcore}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blkarray}
+\usepackage{eurosym}
+\usepackage[english]{babel}
+\usepackage{xcolor,colortbl}
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[makeroom]{cancel}
+\usepackage{bbm}
+\newcommand{\infoTitle}[1]{\renewcommand{\givenTitle}{#1}}
+\newcommand{\givenTitle}{Info}
+\newenvironment{warning}[1][Info]{%
+\infoTitle{#1}
+\setbeamercolor{block title}{fg=white,bg=red!100!white}%
+\setbeamercolor{block body}{bg=red!10!white}
+\begin{block}{\givenTitle}}{
+\end{block}}
+\DeclareMathOperator*{\argmax}{argmax}
+\setbeamercovered{transparent}
+\usecolortheme{beaver}
+\RequirePackage{pgfcore}
+\setbeamercovered{transparent=1}
+\mode<presentation>{
+\usecolortheme{beaver}
+\definecolor{rugcolor}{rgb}{0.8,0,0}
+\definecolor{darkblue}{rgb}{0.13,0.29,0.53}
+\definecolor{darkgreen}{rgb}{0.0,0.43,0.0}
+\definecolor{darkyellow}{rgb}{0.0,0.43,0.43}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{Gray}{gray}{0.85}
+\beamertemplatenavigationsymbolsempty
+\setbeamercolor{item}{fg=rugcolor!80!black}
+\setbeamercolor{title}{fg=rugcolor!80!black}
+\setbeamercolor{frametitle}{fg=rugcolor!80!black, bg=black!10!white}
+% Colors for 'definition' environment
+\setbeamercolor*{block title}{fg=white, bg=darkblue}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkblue}
+% Color for the 'question' environment
+\setbeamercolor*{block title question}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body question}{bg=normal text.bg!85!darkyellow}
+\setbeamercolor*{palette tertiary}{bg=rugcolor,fg=white}
+%HEADER WITH HIGHLIGHTED SECTION NAMES (optional)
+\useheadtemplate{%
+\vbox{%
+%			\vskip1.2pt
+%			\pgfuseimage{logo}
+%			\vskip1.2pt
+\tinycolouredline{rugcolor}{
+\color{white}{
+% comment the following line if you don't want the section names lines
+%					to appear on top
+\insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt
+plus1filll}
+%\pgfuseimage{logored}
+}
+}
+%    \tinycolouredline{rugcolor}
+{\color{white}{
+%% \insertsectionnavigationhorizontal{\paperwidth}{}{
+%                \hskip0pt \hfill}
+}}
+}
+}
+%FOOTER WITH AUTHOR NAME(S), PAPER TITLE (ABBREVIATED IF SPECIFIED BY \title),
+% AND PAGE COUNTER (optional)
+%	\usefoottemplate{%
+%		\vbox{%
+%			\tinycolouredline{rugcolor}{
+%				\color{white}{
+%					{\insertshortauthor} \hfill \insertshortsubtitle \hfill
+%					%\insertdate \hfill%
+%					\textsc{\insertframenumber/\inserttotalframenumber}
+%         		}
+%         	}
+%		}
+%	}
+}
+\newtheorem*{props}{Properties}
+\newtheorem*{prop}{Property}
+\newtheorem*{notation}{Notation}
+\newtheorem*{terminology}{Terminology}
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\Var}{\mathbb{V}\mathrm{ar}}
+\newcommand{\Corr}{\mathbb{C}\mathrm{orr}}
+\newcommand{\Cov}{\mathbb{C}\mathrm{ov}}
+\newcommand{\Expt}{\mathbb{E}}
+\newcommand{\NorDist}{\mathcal{N}}
+\newcommand{\ExpDist}{\mathcal{E}\mathrm{xp}}
+\newcommand{\GammaDist}{\mathcal{G}\mathrm{amma}}
+\newcommand{\BetaDist}{\mathcal{B}\mathrm{eta}}
+\newcounter{listCounter}
+\newenvironment{question}{%
+\setbeamercolor{block title}{bg=orange!70!white,fg=white}
+\setbeamercolor{block body}{bg=yellow!10!white}
+\begin{block}{Question}
+}{%
+\end{block}
+}
+\lstdefinestyle{mystyle}{
+language=R,
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{darkblue}\bfseries,
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily,
+breakatwhitespace=true,
+breaklines=true,
+%	captionpos=none,
+columns=fixed,
+keepspaces=true,
+numbers=none,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2,
+basewidth=1.5em,
+escapeinside={<@}{@>}
+}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\renewenvironment{definition}[1][Definition]{%
+\setbeamercolor{block title}{fg=white,bg=darkblue}
+\setbeamercolor{block body}{fg=black,bg=normal text.bg!85!darkblue}
+\begin{block}{#1\hfill \footnotesize{Definition}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{example}[1][Example]{%
+% Color for the 'example' environment
+\setbeamercolor*{block title}{fg=white, bg=darkgreen}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkgreen}
+\begin{block}{#1\hfill \footnotesize{Example}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{theorem}[1][Theorem]{%
+\setbeamercolor*{block title}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkyellow}
+\begin{block}{#1\hfill \footnotesize{Theorem}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\date[Jul 7\textsuperscript{th} 2025]{Monday, July 7\textsuperscript{th} 2025}
+\usepackage{mathtools}
+\newcommand{\intsum}{\mathop{\mathrlap{\raisebox{0.1ex}{\hspace{0.2em}$\textstyle\sum$}}\int}\limits}
+\setbeamercovered{transparent=0}
+\usepackage[timeinterval=60]{tdclock}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={Machine Learning in Python},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.1 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\end{frame}
+
+\section{Introduction to Ensemble Methods}
+\label{sec:org02221cb}
+\begin{frame}[label={sec:org8d0d78b}]{Introduction to Ensemble Methods}
+\begin{definition}[What are Ensemble Methods?]\label{sec:org3a13339}
+\pause
+\alert{Ensemble methods} combine multiple models to improve predictive performance. They leverage the strengths of individual models while mitigating their weaknesses.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgde1ad03}]{Introduction to Ensemble Methods}
+\begin{example}[Why Use Ensemble Methods?]\label{sec:orge985a98}
+\begin{itemize}[<+->]
+\item \alert{Improved Accuracy}: Ensemble methods often outperform individual models by reducing variance and bias.
+\item \alert{Robustness}: Less sensitive to noise and outliers, leading to more stable predictions.
+\item \alert{Reduced Overfitting}: Reduce overfitting by averaging predictions from multiple models.
+\item \alert{Flexibility}: Ensemble methods can be applied to various base models, including decision trees, linear models, and neural networks.
+\item \alert{Interpretability}: Some ensemble methods, like Random Forests, provide insights into feature importance.
+\item \alert{Scalability}: Many ensemble methods can be parallelized, useful for large datasets.
+\item \alert{Combining Different Algorithms}: Ensembles can combine predictions from different types of models, enhancing overall performance.
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org3e98703}]{Types of Ensemble Methods}
+\begin{example}[Ensamble Methods]\label{sec:orgd9cbea9}
+\pause
+Ensemble methods can be broadly categorized into several types, each with its own approach to combining models:
+\begin{itemize}[<+->]
+\item \alert{Bagging (Bootstrap Aggregating)}: Combines predictions from multiple models trained on different subsets of the training data. The most common example is Random Forests.
+\item \alert{Boosting}: Sequentially builds models, where each new model focuses on correcting the errors made by the previous models. Examples include AdaBoost, Gradient Boosting, and XGBoost.
+\item \alert{Stacking}: Combines multiple models by training a meta-model on their predictions. The base models can be of different types, and the meta-model learns how to best combine their outputs.
+\item Other methods include \alert{Pasting}, \alert{Bayesian Model Averaging}, \alert{Blending}, and \alert{Voting}.
+\end{itemize}
+\end{example}
+\end{frame}
+\section{Bagging}
+\label{sec:orgcac3d2b}
+\begin{frame}[label={sec:org59f9f8e}]{Bootstrap Aggregating (Bagging) Overview}
+\begin{definition}[Bootstrap Aggregating (Bagging)]\label{sec:orgc1b769e}
+\pause
+\alert{Bagging}, or \alert{Bootstrap Aggregating}, is an ensemble method that combins the predictions of multiple models trained on different subsets of the training data. The key steps in bagging are:
+\pause
+\begin{itemize}[<+->]
+\item \alert{Bootstrap Sampling}: Create multiple bootstrap samples from the training data. Each sample is created by randomly selecting instances with replacement, meaning some instances may appear multiple times while others may not appear at all.
+\item \alert{Model Training}: Train a separate model on each bootstrap sample. These models can be of the same type (e.g., decision trees) or different types.
+\item \alert{Aggregation}: Combine the predictions of the individual models. For regression tasks, this is typically done by averaging the predictions, while for classification tasks, a majority vote is used to determine the final class label.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgdf84127}]{Bagging and Random Forests}
+\begin{example}[Bagging and Random Forests]\label{sec:orgd2d224c}
+\pause
+\alert{Random Forests} is a popular ensemble method that builds multiple decision trees using bagging. It introduces additional randomness by selecting a random subset of features for each tree, which helps to decorrelate the trees and improve overall model performance.
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org43f6820}]{Feature Importance in Random Forests}
+\begin{block}{Feature Importance in Random Forests}
+\pause
+\alert{Random Forests} can also provide insights into feature importance, which helps in understanding which features contribute most to the predictions. This is done by measuring the decrease in model performance when a feature is permuted or removed.
+\end{block}
+\end{frame}
+\end{document}

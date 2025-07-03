@@ -126,3 +126,21 @@
 -   Decision Trees
 -   Information Gain and Gini Index
 -   Overfitting and Pruning
+
+
+## Support Vector Machines (SVMs)
+
+-   Introduction to SVMs
+-   Linear SVMs
+-   Nonlinear SVMs
+-   Kernel Trick
+
+
+# Session 4: Ensemble Methods
+
+
+## Introduction to Ensemble Methods
+
+-   What are Ensemble Methods?
+-   Why Use Ensemble Methods?
+-   Types of Ensemble Methods
