@@ -151,3 +151,13 @@
 -   Bagging (Bootstrap Aggregating) Overview
 -   Random Forests
 -   Feature Importance in Random Forests
+
+
+## Boosting
+
+-   Boosting Overview
+-   AdaBoost
+-   Gradient Boosting
+-   XGBoost
+
+
