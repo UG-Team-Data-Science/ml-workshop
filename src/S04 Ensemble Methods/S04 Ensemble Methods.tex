@@ -1,4 +1,4 @@
-% Created 2025-07-04 Fri 18:05
+% Created 2025-07-06 Sun 09:39
 % Intended LaTeX compiler: pdflatex
 \documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -201,15 +201,15 @@ escapeinside={<@}{@>}
 \end{frame}
 
 \section{Introduction to Ensemble Methods}
-\label{sec:org4327108}
-\begin{frame}[label={sec:org8744463}]{Introduction to Ensemble Methods}
-\begin{definition}[What are Ensemble Methods?]\label{sec:orge113d8f}
+\label{sec:orgc01af1e}
+\begin{frame}[label={sec:org81ed87b}]{Introduction to Ensemble Methods}
+\begin{definition}[What are Ensemble Methods?]\label{sec:orga978861}
 \pause
 \alert{Ensemble methods} combine multiple models to improve predictive performance. They leverage the strengths of individual models while mitigating their weaknesses.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org12e4d99}]{Introduction to Ensemble Methods}
-\begin{example}[Why Use Ensemble Methods?]\label{sec:org4e96a08}
+\begin{frame}[label={sec:orgca46c90}]{Introduction to Ensemble Methods}
+\begin{example}[Why Use Ensemble Methods?]\label{sec:orge1b80ea}
 \begin{itemize}[<+->]
 \item \alert{Improved Accuracy}: Ensemble methods often outperform individual models by reducing variance and bias.
 \item \alert{Robustness}: Less sensitive to noise and outliers, leading to more stable predictions.
@@ -221,8 +221,8 @@ escapeinside={<@}{@>}
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org10095c7}]{Types of Ensemble Methods}
-\begin{example}[Ensamble Methods]\label{sec:org052163c}
+\begin{frame}[label={sec:org9390590}]{Types of Ensemble Methods}
+\begin{example}[Ensamble Methods]\label{sec:org21118a1}
 \pause
 Ensemble methods can be broadly categorized into several types, each with its own approach to combining models:
 \begin{itemize}[<+->]
@@ -234,9 +234,9 @@ Ensemble methods can be broadly categorized into several types, each with its ow
 \end{example}
 \end{frame}
 \section{Bagging}
-\label{sec:org795c22b}
-\begin{frame}[label={sec:orgae19f28}]{Bootstrap Aggregating (Bagging) Overview}
-\begin{definition}[Bootstrap Aggregating (Bagging)]\label{sec:org8cc6443}
+\label{sec:orgecc9b8b}
+\begin{frame}[label={sec:org715fe26}]{Bootstrap Aggregating (Bagging) Overview}
+\begin{definition}[Bootstrap Aggregating (Bagging)]\label{sec:org6f36a28}
 \pause
 \alert{Bagging}, or \alert{Bootstrap Aggregating}, is an ensemble method that combins the predictions of multiple models trained on different subsets of the training data. The key steps in bagging are:
 \pause
@@ -247,22 +247,22 @@ Ensemble methods can be broadly categorized into several types, each with its ow
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org8f97050}]{Bagging and Random Forests}
-\begin{example}[Bagging and Random Forests]\label{sec:org719283d}
+\begin{frame}[label={sec:orga8e78af}]{Bagging and Random Forests}
+\begin{example}[Bagging and Random Forests]\label{sec:orgd3e9774}
 \pause
 \alert{Random Forests} is a popular ensemble method that builds multiple decision trees using bagging. It introduces additional randomness by selecting a random subset of features for each tree, which helps to decorrelate the trees and improve overall model performance.
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org3349700}]{Feature Importance in Random Forests}
+\begin{frame}[label={sec:org4691be4}]{Feature Importance in Random Forests}
 \begin{block}{Feature Importance in Random Forests}
 \pause
 \alert{Random Forests} can also provide insights into feature importance, which helps in understanding which features contribute most to the predictions. This is done by measuring the decrease in model performance when a feature is permuted or removed.
 \end{block}
 \end{frame}
 \section{Boosting}
-\label{sec:org8f3aea0}
-\begin{frame}[label={sec:org5159cbf}]{Boosting Overview}
-\begin{definition}[Boosting Overview]\label{sec:org149cc5f}
+\label{sec:org047e568}
+\begin{frame}[label={sec:org97cd03b}]{Boosting Overview}
+\begin{definition}[Boosting Overview]\label{sec:org05c7f3c}
 \pause
 \alert{Boosting} is an ensemble method that builds models sequentially, where each new model focuses on correcting the errors made by the previous models. The key steps in boosting are:
 \pause
@@ -273,8 +273,8 @@ Ensemble methods can be broadly categorized into several types, each with its ow
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgb244f70}]{Boosting Algorithms}
-\begin{example}[Boosting Algorithms]\label{sec:org4dec2ff}
+\begin{frame}[label={sec:orgd467fcd}]{Boosting Algorithms}
+\begin{example}[Boosting Algorithms]\label{sec:orgb1e34b2}
 \pause
 Some popular boosting algorithms include:
 \begin{itemize}[<+->]
@@ -285,17 +285,46 @@ Some popular boosting algorithms include:
 \end{example}
 \end{frame}
 \section{Ensembles of Ensemble Methods}
-\label{sec:org3dabaac}
-\begin{frame}[label={sec:orga4f394f}]{Ensembles of Ensemble Methods}
-\begin{example}[Ensembles of Ensemble Methods]\label{sec:org2c56461}
+\label{sec:org31b8c8c}
+\begin{frame}[label={sec:org7bc0f1f}]{Ensembles of Ensemble Methods}
+\begin{definition}[Ensembles of Ensemble Methods]\label{sec:orgfd0c7c7}
 \pause
-Ensembles of ensemble methods combine multiple ensemble techniques to further enhance predictive performance. This approach can lead to even more robust models by leveraging the strengths of different ensemble methods.
-\end{example}
+\alert{Ensembles of Ensemble} methods combine multiple ensemble techniques to further enhance predictive performance. This approach can lead to even more robust models by leveraging the strengths of different ensemble methods.
+\end{definition}
 \end{frame}
-\begin{frame}[label={sec:org51f3abb}]{Ensembles of Ensemble Methods}
-\begin{block}{Ensembles of Ensemble Methods}
+\begin{frame}[label={sec:org3a98c71}]{Ensembles of Ensemble Methods}
+\begin{block}{Advantages of Ensembles of Ensemble Methods}
 \pause
-Ensembles of ensemble methods can be created by combining different types of ensembles, such as bagging and boosting, or by stacking multiple ensemble models. This approach allows for greater diversity in the predictions and can lead to improved generalization performance.
+Some advantages of ensembles of ensemble methods include:
+\begin{itemize}[<+->]
+\item \alert{Improved Accuracy}: By combining predictions from multiple ensemble methods, the overall accuracy can be significantly improved.
+\item \alert{Robustness}: It reduces the risk of overfitting by averaging out the predictions from different models, leading to better generalization.
+\item \alert{Flexibility}: It allows the use of diverse ensemble methods, which can capture different patterns in the data.
+\item \alert{Diversity}: The combination of different ensemble methods can lead to a more diverse set of predictions, which is beneficial for model performance.
+\item \alert{Enhanced Interpretability}: Some ensemble methods, like stacking, can provide insights into how different models contribute to the final prediction.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org7ae870b}]{Ensambles of Ensemble Methods}
+\begin{block}{Disadvantages of Ensembles of Ensemble Methods}
+\pause
+Some disadvantages of ensembles of ensemble methods include:
+\begin{itemize}[<+->]
+\item \alert{Complexity}: The model can become complex and harder to interpret, as it involves multiple layers of models.
+\item \alert{Computational Cost}: Training multiple ensemble methods can be computationally expensive and time-consuming.
+\item \alert{Risk of Overfitting}: If not managed properly, combining too many models can lead to overfitting, especially if the base models are too complex.
+\item \alert{Hyperparameter Tuning}: Each ensemble method may require its own hyperparameter tuning, adding to the complexity of the model development process.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org21e11b4}]{Ensembles of Ensemble Methods}
+\begin{block}{Types of Ensembles of Ensembles}
+\pause
+Some common types of ensembles of ensembles include:
+\begin{itemize}[<+->]
+\item \alert{Stacking}: Combines multiple ensemble methods by training a meta-model on their predictions. The base models can be of different types, and the meta-model learns how to best combine their outputs.
+\item \alert{Multi-level EoE}: A more complex version of stacking where multiple layers of models are trained, and predictions from one layer are used as inputs to the next layer. This allows for deeper integration of different ensemble methods and can lead to improved performance.
+\end{itemize}
 \end{block}
 \end{frame}
 \end{document}
