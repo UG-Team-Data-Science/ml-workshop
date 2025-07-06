@@ -1,4 +1,4 @@
-% Created 2025-07-06 Sun 14:51
+% Created 2025-07-06 Sun 18:33
 % Intended LaTeX compiler: pdflatex
 \documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -201,14 +201,14 @@ escapeinside={<@}{@>}
 \end{frame}
 
 \section{Introduction to Unsupervised Learning}
-\label{sec:org4b3b1fc}
-\begin{frame}[label={sec:org1d3cb9d}]{Introduction to Unsupervised Learning}
-\begin{definition}[What is Unsupervised Learning?]\label{sec:org00a9359}
+\label{sec:org2fa4749}
+\begin{frame}[label={sec:orgf852ea6}]{Introduction to Unsupervised Learning}
+\begin{definition}[What is Unsupervised Learning?]\label{sec:org85df3c1}
 \pause
 In contrast to supervised learning, \alert{unsupervised learning} does not use labeled data. Instead, it identifies patterns and structures in the data without predefined labels. This is particularly useful for clustering similar data points or reducing the dimensionality of the data.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org9aba896}]{Types of Unsupervised Learning}
+\begin{frame}[label={sec:org168fa0b}]{Types of Unsupervised Learning}
 \begin{block}{Types of Unsupervised Learning}
 \pause
 Unsupervised learning can be broadly categorized into two main types:
@@ -220,8 +220,8 @@ Unsupervised learning can be broadly categorized into two main types:
 \end{block}
 \end{frame}
 \section{Dimensionality Reduction}
-\label{sec:orgc9dd611}
-\begin{frame}[label={sec:orgcc225e3}]{Dimensionality Reduction}
+\label{sec:org7653252}
+\begin{frame}[label={sec:orga37e6ea}]{Dimensionality Reduction}
 \begin{block}{Dimensionality Reduction}
 \pause
 \alert{Dimensionality reduction} techniques aim to reduce the number of features in a dataset while retaining its essential characteristics. Useful for visualizing high-dimensional data or improving the performance of machine learning models by reducing noise and computational complexity. Common dimensionality reduction techniques include:
@@ -233,14 +233,14 @@ Unsupervised learning can be broadly categorized into two main types:
 \end{block}
 \end{frame}
 \section[PCA]{Principal Component Analysis (PCA)}
-\label{sec:org4006397}
-\begin{frame}[label={sec:org080ab5e}]{Principal Component Analysis (PCA)}
+\label{sec:org44d81c5}
+\begin{frame}[label={sec:org4a85a3d}]{Principal Component Analysis (PCA)}
 \begin{block}{Principal Component Analysis (PCA)}
 \pause
 \alert{Principal Component Analysis (PCA)} is a widely used technique for dimensionality reduction. It transforms the data into a new coordinate system where the greatest variance by any projection lies on the first coordinate (principal component), the second greatest variance on the second coordinate, and so on. This allows us to reduce the number of dimensions while retaining most of the information in the data.
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgdd59690}]{Steps in PCA}
+\begin{frame}[label={sec:org48c812e}]{Steps in PCA}
 \begin{block}{Steps in PCA}
 \pause
 The PCA process involves several key steps:
@@ -253,7 +253,7 @@ The PCA process involves several key steps:
 \end{enumerate}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org95b304a}]{Applications of PCA}
+\begin{frame}[label={sec:org1ee4c5d}]{Applications of PCA}
 \begin{block}{Applications of PCA}
 \pause
 PCA is widely used in various fields for:
@@ -265,7 +265,7 @@ PCA is widely used in various fields for:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org46dcc15}]{Limitations of PCA}
+\begin{frame}[label={sec:orgb400125}]{Limitations of PCA}
 \begin{block}{Limitations of PCA}
 \pause
 While PCA is a powerful technique, it has some limitations:
@@ -277,7 +277,7 @@ While PCA is a powerful technique, it has some limitations:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org17f4c56}]{Evaluating PCA Results}
+\begin{frame}[label={sec:orgb25d77c}]{Evaluating PCA Results}
 \begin{block}{Evaluating PCA Results}
 \pause
 To evaluate the effectiveness of PCA, we can use several methods:
@@ -289,14 +289,14 @@ To evaluate the effectiveness of PCA, we can use several methods:
 \end{block}
 \end{frame}
 \section{Autoencoders}
-\label{sec:org8fbd5ab}
-\begin{frame}[label={sec:orgcadcc70}]{Autoencoders}
+\label{sec:orgb510f7f}
+\begin{frame}[label={sec:org46ac92b}]{Autoencoders}
 \begin{block}{Autoencoders}
 \pause
 \alert{Autoencoders} are a type of neural network used for unsupervised learning, particularly for dimensionality reduction and feature learning. They consist of two main parts: an encoder that compresses the input data into a lower-dimensional representation (latent space) and a decoder that reconstructs the original data from this representation.
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgc962f1e}]{Structure of Autoencoders}
+\begin{frame}[label={sec:orgdf6cf00}]{Structure of Autoencoders}
 \begin{block}{Structure of Autoencoders}
 \pause
 Autoencoders typically have the following structure:
@@ -308,7 +308,7 @@ Autoencoders typically have the following structure:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org9941612}]{Applications of Autoencoders}
+\begin{frame}[label={sec:org20bd30e}]{Applications of Autoencoders}
 \begin{block}{Applications of Autoencoders}
 \pause
 Autoencoders have various applications in unsupervised learning:
@@ -321,7 +321,7 @@ Autoencoders have various applications in unsupervised learning:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org05b8e37}]{Limitations of Autoencoders}
+\begin{frame}[label={sec:org4aaf2fc}]{Limitations of Autoencoders}
 \begin{block}{Limitations of Autoencoders}
 \pause
 While autoencoders are powerful tools, they have some limitations:
@@ -330,6 +330,125 @@ While autoencoders are powerful tools, they have some limitations:
 \item \alert{\alert{Overfitting}}: Autoencoders can overfit the training data, especially if the model is too complex or the dataset is small. Regularization techniques such as dropout or weight decay can help mitigate this.
 \item \alert{\alert{Interpretability}}: The learned representations in the latent space may not have a clear interpretation, making it difficult to understand the features captured by the autoencoder.
 \item \alert{\alert{Non-Deterministic}}: The results can vary between runs due to the stochastic nature of training, especially if random initialization is used.
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Clustering}
+\label{sec:org1c93b91}
+\begin{frame}[label={sec:orgf4bc492}]{Clustering}
+\begin{definition}[Clustering]\label{sec:orgcaa973f}
+\pause
+\alert{Clustering} is an unsupervised learning technique that groups similar data points together based on their features. The goal is to identify inherent structures in the data without prior knowledge of labels.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org19996cb}]{Types of Clustering Algorithms}
+\begin{definition}[Types of Clustering Algorithms]\label{sec:org4fac0dd}
+\pause
+Bases on their approach, clustering algorithms can be categorized into several types:
+\begin{itemize}[<+->]
+\item \alert{Partitioning Methods}: These algorithms divide the data into k clusters, where k is a predefined number. The most common example is k-means clustering.
+\item \alert{Hierarchical Methods}: These algorithms create a hierarchy of clusters, either by merging smaller clusters into larger ones (\alert{agglomerative}) or by splitting larger clusters into smaller ones (\alert{divisive}).
+\item Density-Based Methods: These algorithms group data points based on the density of data points in the feature space. DBSCAN (Density-Based Spatial Clustering of Applications with Noise) is a popular density-based clustering algorithm.
+\item Model-Based Methods: These algorithms assume that the data is generated from a mixture of underlying probability distributions. Gaussian Mixture Models (GMMs) are a common example, where each cluster is represented by a Gaussian distribution.
+\end{itemize}
+\end{definition}
+\end{frame}
+\section{k-Means Clustering}
+\label{sec:org9bb3b62}
+\begin{frame}[label={sec:orgd191eb8}]{k-Means Clustering}
+\begin{block}{k-Means Clustering}
+\pause
+\alert{k-Means clustering} is a widely used partitioning method that aims to divide the data into k clusters, where k is a user-defined parameter. The algorithm iteratively assigns data points to the nearest cluster centroid and updates the centroids based on the assigned points.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgc6dbeac}]{Steps in k-Means Clustering}
+\begin{block}{Steps in k-Means Clustering}
+\pause
+The k-means clustering algorithm follows these steps:
+\begin{enumerate}[<+->]
+\item \alert{\alert{Initialization}}: Randomly select k data points as initial cluster centroids.
+\item \alert{\alert{Assignment Step}}: Assign each data point to the nearest centroid based on a distance metric (e.g., Euclidean distance).
+\item \alert{\alert{Update Step}}: Calculate the new centroids by taking the mean of all data points assigned to each cluster.
+\item \alert{\alert{Convergence Check}}: Repeat the assignment and update steps until the centroids do not change significantly or a maximum number of iterations is reached.
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org079459b}]{Applications of k-Means Clustering}
+\begin{block}{Applications of k-Means Clustering}
+\pause
+k-Means clustering is widely used in various applications:
+\begin{itemize}[<+->]
+\item \alert{\alert{Customer Segmentation}}: Grouping customers based on purchasing behavior to tailor marketing strategies.
+\item \alert{\alert{Image Compression}}: Reducing the number of colors in an image by clustering similar colors together.
+\item \alert{\alert{Document Clustering}}: Grouping similar documents based on their content for information retrieval or topic modeling.
+\item \alert{\alert{Anomaly Detection}}: Identifying outliers by detecting data points that do not belong to any cluster.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org7706c86}]{Limitations of k-Means Clustering}
+\begin{block}{Limitations of k-Means Clustering}
+\pause
+While k-means clustering is a powerful technique, it has some limitations:
+\begin{itemize}[<+->]
+\item \alert{\alert{Choosing k}}: The number of clusters (k) must be specified beforehand, which can be challenging if the optimal number is unknown.
+\item \alert{\alert{Sensitivity to Initialization}}: The algorithm can converge to different solutions based on the initial centroids, leading to inconsistent results. Techniques like k-means++ initialization can help mitigate this issue.
+\item \alert{\alert{Assumption of Spherical Clusters}}: k-means assumes that clusters are spherical and equally sized, which may not hold true for all datasets.
+\item \alert{\alert{Sensitivity to Outliers}}: k-means is sensitive to outliers, which can skew the centroids and affect the clustering results. Preprocessing steps like outlier removal or using robust distance metrics can help address this issue.
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Hierarchical Clustering}
+\label{sec:org57591d5}
+\begin{frame}[label={sec:org09a5dce}]{Hierarchical Clustering}
+\begin{block}{Hierarchical Clustering}
+\pause
+\alert{Hierarchical clustering} is a method that builds a hierarchy of clusters, either by merging smaller clusters into larger ones (agglomerative) or by splitting larger clusters into smaller ones (divisive).
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orga4d3d5e}]{Types of Hierarchical Clustering}
+\begin{block}{Types of Hierarchical Clustering}
+\pause
+Hierarchical clustering can be categorized into two main types:
+\begin{itemize}[<+->]
+\item \alert{Agglomerative Clustering}: Starts with each data point as its own cluster and iteratively merges the closest clusters until a single cluster remains or a stopping criterion is met.
+\item \alert{Divisive Clustering}: Starts with all data points in a single cluster and recursively splits the clusters into smaller ones until each data point is its own cluster or a stopping criterion is met.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orga6e2303}]{Steps in Agglomerative Clustering}
+\begin{block}{Steps in Agglomerative Clustering}
+\pause
+The agglomerative clustering algorithm follows these steps:
+\begin{enumerate}[<+->]
+\item \alert{\alert{Initialization}}: Start with each data point as its own cluster.
+\item \alert{\alert{Distance Calculation}}: Calculate the distance between all pairs of clusters using a distance metric (e.g., Euclidean distance).
+\item \alert{\alert{Merge Clusters}}: Identify the two closest clusters and merge them into a single cluster.
+\item \alert{\alert{Update Distances}}: Recalculate the distances between the newly formed cluster and the remaining clusters.
+\item \alert{\alert{Repeat}}: Repeat steps 3 and 4 until a stopping criterion is met, such as a predefined number of clusters or a distance threshold.
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgc3888f5}]{Applications of Hierarchical Clustering}
+\begin{block}{Applications of Hierarchical Clustering}
+\pause
+Hierarchical clustering is used in various applications:
+\begin{itemize}[<+->]
+\item \alert{\alert{Gene Expression Analysis}}: Grouping genes with similar expression patterns to identify co-regulated genes or functional groups.
+\item \alert{\alert{Document Clustering}}: Organizing documents into a hierarchy based on their content for information retrieval or topic modeling.
+\item \alert{\alert{Image Segmentation}}: Dividing an image into regions based on pixel similarity to facilitate object recognition or scene understanding.
+\item \alert{\alert{Market Basket Analysis}}: Identifying groups of products frequently purchased together to inform marketing strategies or product placement.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org428f45f}]{Limitations of Hierarchical Clustering}
+\begin{block}{Limitations of Hierarchical Clustering}
+\pause
+Hierarchical clustering has some limitations:
+\begin{itemize}[<+->]
+\item \alert{\alert{Scalability}}: Hierarchical clustering can be computationally expensive, especially for large datasets, as it requires calculating distances between all pairs of data points.
+\item \alert{\alert{Sensitivity to Noise}}: Hierarchical clustering can be sensitive to noise and outliers, which can affect the structure of the dendrogram and the resulting clusters.
+\item \alert{\alert{Choice of Distance Metric}}: The choice of distance metric can significantly impact the clustering results, and there is no one-size-fits-all solution.
+\item \alert{\alert{Interpretability}}: The dendrogram can be complex and difficult to interpret, especially for large datasets with many clusters.
 \end{itemize}
 \end{block}
 \end{frame}

@@ -185,3 +185,8 @@
 
 
 ## Clustering
+
+-   k-Means Clustering
+-   Hierarchical Clustering
+
+
