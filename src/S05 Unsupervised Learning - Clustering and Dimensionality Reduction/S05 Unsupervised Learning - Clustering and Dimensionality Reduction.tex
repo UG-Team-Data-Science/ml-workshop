@@ -1,4 +1,4 @@
-% Created 2025-07-06 Sun 18:33
+% Created 2025-07-06 Sun 20:06
 % Intended LaTeX compiler: pdflatex
 \documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -201,14 +201,14 @@ escapeinside={<@}{@>}
 \end{frame}
 
 \section{Introduction to Unsupervised Learning}
-\label{sec:org2fa4749}
-\begin{frame}[label={sec:orgf852ea6}]{Introduction to Unsupervised Learning}
-\begin{definition}[What is Unsupervised Learning?]\label{sec:org85df3c1}
+\label{sec:orgd1f1aa4}
+\begin{frame}[label={sec:org6106dd5}]{Introduction to Unsupervised Learning}
+\begin{definition}[What is Unsupervised Learning?]\label{sec:org9517bd2}
 \pause
 In contrast to supervised learning, \alert{unsupervised learning} does not use labeled data. Instead, it identifies patterns and structures in the data without predefined labels. This is particularly useful for clustering similar data points or reducing the dimensionality of the data.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org168fa0b}]{Types of Unsupervised Learning}
+\begin{frame}[label={sec:org41e0774}]{Types of Unsupervised Learning}
 \begin{block}{Types of Unsupervised Learning}
 \pause
 Unsupervised learning can be broadly categorized into two main types:
@@ -220,8 +220,8 @@ Unsupervised learning can be broadly categorized into two main types:
 \end{block}
 \end{frame}
 \section{Dimensionality Reduction}
-\label{sec:org7653252}
-\begin{frame}[label={sec:orga37e6ea}]{Dimensionality Reduction}
+\label{sec:org2951842}
+\begin{frame}[label={sec:org6570fb6}]{Dimensionality Reduction}
 \begin{block}{Dimensionality Reduction}
 \pause
 \alert{Dimensionality reduction} techniques aim to reduce the number of features in a dataset while retaining its essential characteristics. Useful for visualizing high-dimensional data or improving the performance of machine learning models by reducing noise and computational complexity. Common dimensionality reduction techniques include:
@@ -233,14 +233,14 @@ Unsupervised learning can be broadly categorized into two main types:
 \end{block}
 \end{frame}
 \section[PCA]{Principal Component Analysis (PCA)}
-\label{sec:org44d81c5}
-\begin{frame}[label={sec:org4a85a3d}]{Principal Component Analysis (PCA)}
+\label{sec:orgde6d011}
+\begin{frame}[label={sec:orgf9208a1}]{Principal Component Analysis (PCA)}
 \begin{block}{Principal Component Analysis (PCA)}
 \pause
 \alert{Principal Component Analysis (PCA)} is a widely used technique for dimensionality reduction. It transforms the data into a new coordinate system where the greatest variance by any projection lies on the first coordinate (principal component), the second greatest variance on the second coordinate, and so on. This allows us to reduce the number of dimensions while retaining most of the information in the data.
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org48c812e}]{Steps in PCA}
+\begin{frame}[label={sec:org021dee3}]{Steps in PCA}
 \begin{block}{Steps in PCA}
 \pause
 The PCA process involves several key steps:
@@ -253,7 +253,7 @@ The PCA process involves several key steps:
 \end{enumerate}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org1ee4c5d}]{Applications of PCA}
+\begin{frame}[label={sec:org60fc408}]{Applications of PCA}
 \begin{block}{Applications of PCA}
 \pause
 PCA is widely used in various fields for:
@@ -265,7 +265,7 @@ PCA is widely used in various fields for:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgb400125}]{Limitations of PCA}
+\begin{frame}[label={sec:orgc770a63}]{Limitations of PCA}
 \begin{block}{Limitations of PCA}
 \pause
 While PCA is a powerful technique, it has some limitations:
@@ -277,7 +277,7 @@ While PCA is a powerful technique, it has some limitations:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgb25d77c}]{Evaluating PCA Results}
+\begin{frame}[label={sec:org433b46a}]{Evaluating PCA Results}
 \begin{block}{Evaluating PCA Results}
 \pause
 To evaluate the effectiveness of PCA, we can use several methods:
@@ -289,14 +289,14 @@ To evaluate the effectiveness of PCA, we can use several methods:
 \end{block}
 \end{frame}
 \section{Autoencoders}
-\label{sec:orgb510f7f}
-\begin{frame}[label={sec:org46ac92b}]{Autoencoders}
+\label{sec:org614c783}
+\begin{frame}[label={sec:orge36fdd7}]{Autoencoders}
 \begin{block}{Autoencoders}
 \pause
 \alert{Autoencoders} are a type of neural network used for unsupervised learning, particularly for dimensionality reduction and feature learning. They consist of two main parts: an encoder that compresses the input data into a lower-dimensional representation (latent space) and a decoder that reconstructs the original data from this representation.
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgdf6cf00}]{Structure of Autoencoders}
+\begin{frame}[label={sec:org9416521}]{Structure of Autoencoders}
 \begin{block}{Structure of Autoencoders}
 \pause
 Autoencoders typically have the following structure:
@@ -308,7 +308,7 @@ Autoencoders typically have the following structure:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org20bd30e}]{Applications of Autoencoders}
+\begin{frame}[label={sec:orge9201cf}]{Applications of Autoencoders}
 \begin{block}{Applications of Autoencoders}
 \pause
 Autoencoders have various applications in unsupervised learning:
@@ -321,7 +321,7 @@ Autoencoders have various applications in unsupervised learning:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org4aaf2fc}]{Limitations of Autoencoders}
+\begin{frame}[label={sec:orgd2be4e7}]{Limitations of Autoencoders}
 \begin{block}{Limitations of Autoencoders}
 \pause
 While autoencoders are powerful tools, they have some limitations:
@@ -334,15 +334,15 @@ While autoencoders are powerful tools, they have some limitations:
 \end{block}
 \end{frame}
 \section{Clustering}
-\label{sec:org1c93b91}
-\begin{frame}[label={sec:orgf4bc492}]{Clustering}
-\begin{definition}[Clustering]\label{sec:orgcaa973f}
+\label{sec:orgb99485d}
+\begin{frame}[label={sec:org336e3b9}]{Clustering}
+\begin{definition}[Clustering]\label{sec:org7bbeae2}
 \pause
 \alert{Clustering} is an unsupervised learning technique that groups similar data points together based on their features. The goal is to identify inherent structures in the data without prior knowledge of labels.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org19996cb}]{Types of Clustering Algorithms}
-\begin{definition}[Types of Clustering Algorithms]\label{sec:org4fac0dd}
+\begin{frame}[label={sec:org6b4b07b}]{Types of Clustering Algorithms}
+\begin{definition}[Types of Clustering Algorithms]\label{sec:orgced5e74}
 \pause
 Bases on their approach, clustering algorithms can be categorized into several types:
 \begin{itemize}[<+->]
@@ -353,15 +353,15 @@ Bases on their approach, clustering algorithms can be categorized into several t
 \end{itemize}
 \end{definition}
 \end{frame}
-\section{k-Means Clustering}
-\label{sec:org9bb3b62}
-\begin{frame}[label={sec:orgd191eb8}]{k-Means Clustering}
+\section[k-Means]{k-Means Clustering}
+\label{sec:org6f0f6af}
+\begin{frame}[label={sec:org2a055da}]{k-Means Clustering}
 \begin{block}{k-Means Clustering}
 \pause
 \alert{k-Means clustering} is a widely used partitioning method that aims to divide the data into k clusters, where k is a user-defined parameter. The algorithm iteratively assigns data points to the nearest cluster centroid and updates the centroids based on the assigned points.
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgc6dbeac}]{Steps in k-Means Clustering}
+\begin{frame}[label={sec:org790d286}]{Steps in k-Means Clustering}
 \begin{block}{Steps in k-Means Clustering}
 \pause
 The k-means clustering algorithm follows these steps:
@@ -373,7 +373,7 @@ The k-means clustering algorithm follows these steps:
 \end{enumerate}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org079459b}]{Applications of k-Means Clustering}
+\begin{frame}[label={sec:org3d76709}]{Applications of k-Means Clustering}
 \begin{block}{Applications of k-Means Clustering}
 \pause
 k-Means clustering is widely used in various applications:
@@ -385,7 +385,7 @@ k-Means clustering is widely used in various applications:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org7706c86}]{Limitations of k-Means Clustering}
+\begin{frame}[label={sec:org7148f55}]{Limitations of k-Means Clustering}
 \begin{block}{Limitations of k-Means Clustering}
 \pause
 While k-means clustering is a powerful technique, it has some limitations:
@@ -398,14 +398,14 @@ While k-means clustering is a powerful technique, it has some limitations:
 \end{block}
 \end{frame}
 \section{Hierarchical Clustering}
-\label{sec:org57591d5}
-\begin{frame}[label={sec:org09a5dce}]{Hierarchical Clustering}
+\label{sec:org809b4a4}
+\begin{frame}[label={sec:org8b111a6}]{Hierarchical Clustering}
 \begin{block}{Hierarchical Clustering}
 \pause
 \alert{Hierarchical clustering} is a method that builds a hierarchy of clusters, either by merging smaller clusters into larger ones (agglomerative) or by splitting larger clusters into smaller ones (divisive).
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orga4d3d5e}]{Types of Hierarchical Clustering}
+\begin{frame}[label={sec:orgf10e889}]{Types of Hierarchical Clustering}
 \begin{block}{Types of Hierarchical Clustering}
 \pause
 Hierarchical clustering can be categorized into two main types:
@@ -415,7 +415,7 @@ Hierarchical clustering can be categorized into two main types:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orga6e2303}]{Steps in Agglomerative Clustering}
+\begin{frame}[label={sec:orge52eeb1}]{Steps in Agglomerative Clustering}
 \begin{block}{Steps in Agglomerative Clustering}
 \pause
 The agglomerative clustering algorithm follows these steps:
@@ -428,7 +428,7 @@ The agglomerative clustering algorithm follows these steps:
 \end{enumerate}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgc3888f5}]{Applications of Hierarchical Clustering}
+\begin{frame}[label={sec:org8fa1a05}]{Applications of Hierarchical Clustering}
 \begin{block}{Applications of Hierarchical Clustering}
 \pause
 Hierarchical clustering is used in various applications:
@@ -440,7 +440,7 @@ Hierarchical clustering is used in various applications:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org428f45f}]{Limitations of Hierarchical Clustering}
+\begin{frame}[label={sec:org0dd86af}]{Limitations of Hierarchical Clustering}
 \begin{block}{Limitations of Hierarchical Clustering}
 \pause
 Hierarchical clustering has some limitations:
@@ -449,6 +449,52 @@ Hierarchical clustering has some limitations:
 \item \alert{\alert{Sensitivity to Noise}}: Hierarchical clustering can be sensitive to noise and outliers, which can affect the structure of the dendrogram and the resulting clusters.
 \item \alert{\alert{Choice of Distance Metric}}: The choice of distance metric can significantly impact the clustering results, and there is no one-size-fits-all solution.
 \item \alert{\alert{Interpretability}}: The dendrogram can be complex and difficult to interpret, especially for large datasets with many clusters.
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Anomaly Detection}
+\label{sec:orgdc722e7}
+\begin{frame}[label={sec:orgf7469a9}]{Anomaly Detection}
+\begin{block}{Anomaly Detection}
+\pause
+\alert{Anomaly detection} is the process of identifying rare items, events, or observations that raise suspicions by differing significantly from the majority of the data.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org519819b}]{Types of Anomaly Detection Techniques}
+\begin{block}{Types of Anomaly Detection Techniques}
+\pause
+Anomaly detection techniques can be broadly categorized into three main types:
+\begin{itemize}[<+->]
+\item \alert{Statistical Methods}: These methods assume that normal data follows a specific statistical distribution (e.g., Gaussian) and identify anomalies as data points that deviate significantly from this distribution.
+\item \alert{Machine Learning Methods}: These methods use machine learning algorithms to learn patterns in the data and identify anomalies based on deviations from these patterns. Examples include one-class SVMs, isolation forests, and autoencoders.
+\item \alert{Clustering-Based Methods}: These methods use clustering algorithms to group similar data points together and identify anomalies as points that do not belong to any cluster or are far from the nearest cluster centroid.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org2b35283}]{Steps in Anomaly Detection}
+\begin{block}{Steps in Anomaly Detection}
+\pause
+The anomaly detection process typically involves the following steps:
+\begin{enumerate}[<+->]
+\item \alert{Data Preprocessing}: Clean and preprocess the data.
+\item \alert{Feature Selection/Extraction}: Select or extract relevant features that are likely to contain information about anomalies.
+\item \alert{Model Training}: Train an anomaly detection model using the selected features.
+\item \alert{Anomaly Scoring}: Calculate an anomaly score for each data point based on the trained model.
+\item \alert{Thresholding}: Set a threshold to classify data points as normal or anomalous based on their anomaly scores.
+\item \alert{Evaluation}: Evaluate the performance of the anomaly detection model using metrics such as precision, recall, and F1-score, if labeled data is available.
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org88fd682}]{Applications of Anomaly Detection}
+\begin{block}{Applications of Anomaly Detection}
+\pause
+Anomaly detection is widely used in various domains:
+\begin{itemize}[<+->]
+\item \alert{\alert{Fraud Detection}}: Identifying fraudulent transactions in financial systems by detecting unusual patterns in transaction data.
+\item \alert{\alert{Network Security}}: Detecting intrusions or malicious activities in computer networks by identifying unusual traffic patterns or behaviors.
+\item \alert{\alert{Fault Detection}}: Identifying equipment failures or malfunctions in industrial systems by monitoring sensor data and detecting deviations from normal operating conditions.
+\item \alert{\alert{Healthcare}}: Detecting anomalies in patient health records or medical imaging data to identify potential health issues or diseases.
+\item \alert{\alert{Manufacturing}}: Monitoring production processes to detect anomalies that may indicate defects or quality issues in products.
 \end{itemize}
 \end{block}
 \end{frame}

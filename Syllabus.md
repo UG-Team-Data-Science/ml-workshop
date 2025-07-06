@@ -190,3 +190,4 @@
 -   Hierarchical Clustering
 
 
+## Anomaly Detection
