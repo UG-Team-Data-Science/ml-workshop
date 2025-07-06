@@ -178,3 +178,10 @@
 
 
 ## Dimensionality Reduction
+
+-   Principal Component Analysis (PCA)
+-   Autoencoders
+-   Linear Discriminant Analysis (LDA)
+
+
+## Clustering

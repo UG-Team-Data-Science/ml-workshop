@@ -1,4 +1,4 @@
-% Created 2025-07-06 Sun 13:53
+% Created 2025-07-06 Sun 14:51
 % Intended LaTeX compiler: pdflatex
 \documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -201,14 +201,14 @@ escapeinside={<@}{@>}
 \end{frame}
 
 \section{Introduction to Unsupervised Learning}
-\label{sec:org7d1331b}
-\begin{frame}[label={sec:orgdef9502}]{Introduction to Unsupervised Learning}
-\begin{definition}[What is Unsupervised Learning?]\label{sec:org2e23bbd}
+\label{sec:org4b3b1fc}
+\begin{frame}[label={sec:org1d3cb9d}]{Introduction to Unsupervised Learning}
+\begin{definition}[What is Unsupervised Learning?]\label{sec:org00a9359}
 \pause
 In contrast to supervised learning, \alert{unsupervised learning} does not use labeled data. Instead, it identifies patterns and structures in the data without predefined labels. This is particularly useful for clustering similar data points or reducing the dimensionality of the data.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orga8703db}]{Types of Unsupervised Learning}
+\begin{frame}[label={sec:org9aba896}]{Types of Unsupervised Learning}
 \begin{block}{Types of Unsupervised Learning}
 \pause
 Unsupervised learning can be broadly categorized into two main types:
@@ -216,6 +216,120 @@ Unsupervised learning can be broadly categorized into two main types:
 \item \alert{Dimensionality Reduction}: Techniques that reduce the number of features while preserving the essential structure of the data.
 \item \alert{Clustering}: Algorithms that group similar data points together based on their features.
 \item \alert{Anomaly Detection}: Identifying rare items, events, or observations that raise suspicions by differing significantly from the majority of the data.
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Dimensionality Reduction}
+\label{sec:orgc9dd611}
+\begin{frame}[label={sec:orgcc225e3}]{Dimensionality Reduction}
+\begin{block}{Dimensionality Reduction}
+\pause
+\alert{Dimensionality reduction} techniques aim to reduce the number of features in a dataset while retaining its essential characteristics. Useful for visualizing high-dimensional data or improving the performance of machine learning models by reducing noise and computational complexity. Common dimensionality reduction techniques include:
+\begin{itemize}[<+->]
+\item \alert{Principal Component Analysis (PCA)}: Projects the data onto a lower-dimensional space by maximizing the variance along the new axes (principal components).
+\item \alert{Linear Discriminant Analysis (LDA)}: A supervised technique that finds a linear combination of features that separates two or more classes.
+\item \alert{Autoencoders}: Neural networks that learn to encode the input data into a lower-dimensional representation and then decode it back to the original space. They are particularly useful for learning complex, non-linear mappings.
+\end{itemize}
+\end{block}
+\end{frame}
+\section[PCA]{Principal Component Analysis (PCA)}
+\label{sec:org4006397}
+\begin{frame}[label={sec:org080ab5e}]{Principal Component Analysis (PCA)}
+\begin{block}{Principal Component Analysis (PCA)}
+\pause
+\alert{Principal Component Analysis (PCA)} is a widely used technique for dimensionality reduction. It transforms the data into a new coordinate system where the greatest variance by any projection lies on the first coordinate (principal component), the second greatest variance on the second coordinate, and so on. This allows us to reduce the number of dimensions while retaining most of the information in the data.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgdd59690}]{Steps in PCA}
+\begin{block}{Steps in PCA}
+\pause
+The PCA process involves several key steps:
+\begin{enumerate}[<+->]
+\item \alert{Standardization}: Scale the data to have a mean of 0 and a standard deviation of 1 to ensure that all features contribute equally to the analysis.
+\item \alert{Covariance Matrix Calculation}: Compute the covariance matrix to understand how the features vary together.
+\item \alert{Eigenvalue Decomposition}: Calculate the eigenvalues and eigenvectors of the covariance matrix. The eigenvectors represent the directions of maximum variance, and the eigenvalues indicate the amount of variance in those directions.
+\item \alert{Selecting Principal Components}: Choose the top k eigenvectors (principal components) based on their corresponding eigenvalues, which capture the most variance in the data.
+\item \alert{Transforming the Data}: Project the original data onto the selected principal components to obtain a lower-dimensional representation.
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org95b304a}]{Applications of PCA}
+\begin{block}{Applications of PCA}
+\pause
+PCA is widely used in various fields for:
+\begin{itemize}[<+->]
+\item \alert{\alert{Data Visualization}}: Reducing high-dimensional data to 2D or 3D for visualization purposes.
+\item \alert{\alert{Noise Reduction}}: Filtering out noise by retaining only the most significant components.
+\item \alert{\alert{Feature Extraction}}: Creating new features that capture the essential patterns in the data.
+\item \alert{\alert{Preprocessing for Machine Learning}}: Reducing dimensionality before applying machine learning algorithms to improve performance and reduce overfitting.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org46dcc15}]{Limitations of PCA}
+\begin{block}{Limitations of PCA}
+\pause
+While PCA is a powerful technique, it has some limitations:
+\begin{itemize}[<+->]
+\item \alert{\alert{Linearity}}: PCA assumes linear relationships between features, which may not capture complex patterns in the data.
+\item \alert{\alert{Interpretability}}: The principal components may not have a clear interpretation in terms of the original features, making it difficult to understand the results.
+\item \alert{\alert{Sensitivity to Scaling}}: PCA is sensitive to the scale of the features, so standardization is crucial.
+\item \alert{\alert{Loss of Information}}: Reducing dimensions may lead to loss of important information, especially if too many components are discarded.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org17f4c56}]{Evaluating PCA Results}
+\begin{block}{Evaluating PCA Results}
+\pause
+To evaluate the effectiveness of PCA, we can use several methods:
+\begin{itemize}[<+->]
+\item \alert{\alert{Explained Variance Ratio}}: This metric indicates the proportion of variance explained by each principal component. A higher explained variance ratio suggests that the component captures more information from the data.
+\item \alert{\alert{Scree Plot}}: A graphical representation of the eigenvalues associated with each principal component. It helps to visualize the amount of variance explained by each component and to determine the optimal number of components to retain.
+\item \alert{\alert{Reconstruction Error}}: After transforming the data using PCA, we can reconstruct the original data and measure the error (e.g., mean squared error) to assess how well PCA captures the original structure of the data.
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Autoencoders}
+\label{sec:org8fbd5ab}
+\begin{frame}[label={sec:orgcadcc70}]{Autoencoders}
+\begin{block}{Autoencoders}
+\pause
+\alert{Autoencoders} are a type of neural network used for unsupervised learning, particularly for dimensionality reduction and feature learning. They consist of two main parts: an encoder that compresses the input data into a lower-dimensional representation (latent space) and a decoder that reconstructs the original data from this representation.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgc962f1e}]{Structure of Autoencoders}
+\begin{block}{Structure of Autoencoders}
+\pause
+Autoencoders typically have the following structure:
+\begin{itemize}[<+->]
+\item \alert{\alert{Encoder}}: Maps the input data to a lower-dimensional latent space using one or more hidden layers. The encoder learns to capture the most important features of the data.
+\item \alert{\alert{Latent Space}}: The compressed representation of the input data, which contains the essential features learned by the encoder.
+\item \alert{\alert{Decoder}}: Reconstructs the original data from the latent space representation using one or more hidden layers. The decoder learns to reverse the encoding process.
+\item \alert{\alert{Loss Function}}: The autoencoder is trained to minimize the difference between the original input and the reconstructed output, typically using mean squared error or binary cross-entropy as the loss function.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org9941612}]{Applications of Autoencoders}
+\begin{block}{Applications of Autoencoders}
+\pause
+Autoencoders have various applications in unsupervised learning:
+\begin{itemize}[<+->]
+\item \alert{\alert{Dimensionality Reduction}}: Reducing the number of features while retaining important information, similar to PCA but capable of capturing non-linear relationships.
+\item \alert{\alert{Feature Learning}}: Learning meaningful representations of data that can be used for downstream tasks such as classification or clustering.
+\item \alert{\alert{Anomaly Detection}}: Identifying anomalies by reconstructing input data and measuring the reconstruction error; high errors indicate potential anomalies.
+\item \alert{\alert{Data Denoising}}: Removing noise from data by training the autoencoder to reconstruct clean data from noisy inputs.
+\item \alert{\alert{Generative Models}}: Variational autoencoders (VAEs) can generate new data samples by sampling from the latent space, making them useful for generative tasks.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org05b8e37}]{Limitations of Autoencoders}
+\begin{block}{Limitations of Autoencoders}
+\pause
+While autoencoders are powerful tools, they have some limitations:
+\begin{itemize}[<+->]
+\item \alert{\alert{Training Complexity}}: Training autoencoders can be complex and may require careful tuning of hyperparameters, such as the architecture, learning rate, and regularization techniques.
+\item \alert{\alert{Overfitting}}: Autoencoders can overfit the training data, especially if the model is too complex or the dataset is small. Regularization techniques such as dropout or weight decay can help mitigate this.
+\item \alert{\alert{Interpretability}}: The learned representations in the latent space may not have a clear interpretation, making it difficult to understand the features captured by the autoencoder.
+\item \alert{\alert{Non-Deterministic}}: The results can vary between runs due to the stochastic nature of training, especially if random initialization is used.
 \end{itemize}
 \end{block}
 \end{frame}
