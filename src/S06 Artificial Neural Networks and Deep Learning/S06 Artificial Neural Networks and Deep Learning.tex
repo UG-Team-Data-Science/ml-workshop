@@ -1,0 +1,405 @@
+% Created 2025-07-10 Thu 06:23
+% Intended LaTeX compiler: pdflatex
+\documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\useinnertheme{rounded}
+\useoutertheme{tree}
+\date{\today}
+\title{Machine Learning in Python}
+\subtitle{Artificial Neural Networks and Deep Learning}
+\author[Marocico, Tatar]{Cristian A. Marocico, A. Emin Tatar}
+\institute[CIT]{Center for Information Technology\\University of Groningen}
+\RequirePackage{pgfcore}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blkarray}
+\usepackage{eurosym}
+\usepackage[english]{babel}
+\usepackage{xcolor,colortbl}
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[makeroom]{cancel}
+\usepackage{bbm}
+\newcommand{\infoTitle}[1]{\renewcommand{\givenTitle}{#1}}
+\newcommand{\givenTitle}{Info}
+\newenvironment{warning}[1][Info]{%
+\infoTitle{#1}
+\setbeamercolor{block title}{fg=white,bg=red!100!white}%
+\setbeamercolor{block body}{bg=red!10!white}
+\begin{block}{\givenTitle}}{
+\end{block}}
+\DeclareMathOperator*{\argmax}{argmax}
+\setbeamercovered{transparent}
+\usecolortheme{beaver}
+\RequirePackage{pgfcore}
+\setbeamercovered{transparent=1}
+\mode<presentation>{
+\usecolortheme{beaver}
+\definecolor{rugcolor}{rgb}{0.8,0,0}
+\definecolor{darkblue}{rgb}{0.13,0.29,0.53}
+\definecolor{darkgreen}{rgb}{0.0,0.43,0.0}
+\definecolor{darkyellow}{rgb}{0.0,0.43,0.43}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{Gray}{gray}{0.85}
+\beamertemplatenavigationsymbolsempty
+\setbeamercolor{item}{fg=rugcolor!80!black}
+\setbeamercolor{title}{fg=rugcolor!80!black}
+\setbeamercolor{frametitle}{fg=rugcolor!80!black, bg=black!10!white}
+% Colors for 'definition' environment
+\setbeamercolor*{block title}{fg=white, bg=darkblue}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkblue}
+% Color for the 'question' environment
+\setbeamercolor*{block title question}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body question}{bg=normal text.bg!85!darkyellow}
+\setbeamercolor*{palette tertiary}{bg=rugcolor,fg=white}
+%HEADER WITH HIGHLIGHTED SECTION NAMES (optional)
+\useheadtemplate{%
+\vbox{%
+%			\vskip1.2pt
+%			\pgfuseimage{logo}
+%			\vskip1.2pt
+\tinycolouredline{rugcolor}{
+\color{white}{
+% comment the following line if you don't want the section names lines
+%					to appear on top
+\insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt
+plus1filll}
+%\pgfuseimage{logored}
+}
+}
+%    \tinycolouredline{rugcolor}
+{\color{white}{
+%% \insertsectionnavigationhorizontal{\paperwidth}{}{
+%                \hskip0pt \hfill}
+}}
+}
+}
+%FOOTER WITH AUTHOR NAME(S), PAPER TITLE (ABBREVIATED IF SPECIFIED BY \title),
+% AND PAGE COUNTER (optional)
+%	\usefoottemplate{%
+%		\vbox{%
+%			\tinycolouredline{rugcolor}{
+%				\color{white}{
+%					{\insertshortauthor} \hfill \insertshortsubtitle \hfill
+%					%\insertdate \hfill%
+%					\textsc{\insertframenumber/\inserttotalframenumber}
+%         		}
+%         	}
+%		}
+%	}
+}
+\newtheorem*{props}{Properties}
+\newtheorem*{prop}{Property}
+\newtheorem*{notation}{Notation}
+\newtheorem*{terminology}{Terminology}
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\Var}{\mathbb{V}\mathrm{ar}}
+\newcommand{\Corr}{\mathbb{C}\mathrm{orr}}
+\newcommand{\Cov}{\mathbb{C}\mathrm{ov}}
+\newcommand{\Expt}{\mathbb{E}}
+\newcommand{\NorDist}{\mathcal{N}}
+\newcommand{\ExpDist}{\mathcal{E}\mathrm{xp}}
+\newcommand{\GammaDist}{\mathcal{G}\mathrm{amma}}
+\newcommand{\BetaDist}{\mathcal{B}\mathrm{eta}}
+\newcounter{listCounter}
+\newenvironment{question}{%
+\setbeamercolor{block title}{bg=orange!70!white,fg=white}
+\setbeamercolor{block body}{bg=yellow!10!white}
+\begin{block}{Question}
+}{%
+\end{block}
+}
+\lstdefinestyle{mystyle}{
+language=R,
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{darkblue}\bfseries,
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily,
+breakatwhitespace=true,
+breaklines=true,
+%	captionpos=none,
+columns=fixed,
+keepspaces=true,
+numbers=none,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2,
+basewidth=1.5em,
+escapeinside={<@}{@>}
+}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\renewenvironment{definition}[1][Definition]{%
+\setbeamercolor{block title}{fg=white,bg=darkblue}
+\setbeamercolor{block body}{fg=black,bg=normal text.bg!85!darkblue}
+\begin{block}{#1\hfill \footnotesize{Definition}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{example}[1][Example]{%
+% Color for the 'example' environment
+\setbeamercolor*{block title}{fg=white, bg=darkgreen}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkgreen}
+\begin{block}{#1\hfill \footnotesize{Example}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{theorem}[1][Theorem]{%
+\setbeamercolor*{block title}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkyellow}
+\begin{block}{#1\hfill \footnotesize{Theorem}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\date[Jul 11\textsuperscript{th} 2025]{Friday, July 11\textsuperscript{th} 2025}
+\usepackage{mathtools}
+\newcommand{\intsum}{\mathop{\mathrlap{\raisebox{0.1ex}{\hspace{0.2em}$\textstyle\sum$}}\int}\limits}
+\setbeamercovered{transparent=0}
+\usepackage[timeinterval=60]{tdclock}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={Machine Learning in Python},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.1 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\end{frame}
+
+\section{Introduction to Neural Networks}
+\label{sec:org0110412}
+\begin{frame}[label={sec:org4318739}]{What are Neural Networks?}
+\begin{definition}[What are Neural Networks?]\label{sec:org8b68126}
+\pause
+\alert{Neural networks} are computational models inspired by the human brain, consisting of interconnected nodes (neurons) that process and transmit information. They are used to recognize patterns, classify data, and make predictions based on input features.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org8f41c5f}]{Artificial Neurons: A Biological Inspiration}
+\begin{block}{Artificial Neurons: A Biological Inspiration}
+An \alert{artificial neuron} is a simplified model of a biological neuron. It receives inputs, applies weights to them, sums them up, and passes the result through an activation function to produce an output. This process roughly mimics how biological neurons transmit signals in the brain.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org4b69327}]{Activation Functions}
+\begin{block}{Activation Functions}
+Activation functions introduce non-linearity into the model, allowing it to learn complex patterns. Common activation functions include:
+\begin{itemize}
+\item \alert{Sigmoid}: Maps input values to a range between 0 and 1, useful for binary classification.
+\item \alert{ReLU (Rectified Linear Unit)}: Outputs the input directly if it is positive; otherwise, it outputs zero. It is widely used due to its simplicity and effectiveness in deep networks.
+\item \alert{Tanh (Hyperbolic Tangent)}: Maps input values to a range between -1 and 1, often used in hidden layers.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgb9a3bd7}]{Structure of a Neural Network}
+\begin{block}{Structure of a Neural Network}
+A neural network consists of artificial neurons organized in layers:
+\begin{itemize}
+\item \alert{Input Layer}: Receives the input features.
+\item \alert{Hidden Layers}: Intermediate layers that process the inputs through weighted connections and activation functions.
+\item \alert{Output Layer}: Produces the final output, which can be a classification, regression value, or other predictions.
+\end{itemize}
+
+Information flows from the input layer through the hidden layers to the output layer, with each neuron applying its activation function to the weighted sum of its inputs (\alert{feedforward} process).
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgf931a59}]{Training Neural Networks}
+\begin{block}{Training Neural Networks}
+Training a neural network involves adjusting the weights of the connections between neurons to minimize the difference between the predicted output and the actual target values. This process typically involves:
+\begin{itemize}
+\item \alert{Forward Propagation}: The input data is passed through the network, and the output is computed.
+\item \alert{Backpropagation}: The error (difference between predicted and actual output) is propagated backward through the network to update the weights using gradient descent.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org3051d8f}]{Forward Propagation}
+\begin{block}{Forward Propagation}
+Forward propagation is the process of passing input data through the network to compute the output. Each neuron computes a weighted sum of its inputs, applies an activation function, and passes the result to the next layer. This process continues until the output layer is reached.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgd0ae497}]{Backpropagation}
+\begin{block}{Backpropagation}
+Backpropagation is the algorithm used to update the weights of the network based on the error calculated during forward propagation. It involves:
+\begin{itemize}
+\item Calculating the gradient of the loss function with respect to each weight.
+\item Propagating the error backward through the network to compute the gradients.
+\item Updating the weights using gradient descent, which adjusts the weights in the direction that reduces the error.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org901d280}]{Loss Functions}
+\begin{block}{Loss Functions}
+A loss function quantifies the difference between the predicted output and the actual target values. It guides the training process by providing a measure of how well the network is performing. Common loss functions include:
+\begin{itemize}
+\item \alert{Mean Squared Error (MSE)}: Used for regression tasks, it calculates the average of the squared differences between predicted and actual values.
+\item \alert{Cross-Entropy Loss}: Used for classification tasks, it measures the dissimilarity between the predicted probability distribution and the actual distribution of classes.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgf607122}]{Gradient Descent}
+\begin{block}{Gradient Descent}
+Gradient descent is an optimization algorithm used to minimize the loss function by iteratively updating the weights of the network. The weights are adjusted in the direction of the negative gradient of the loss function with respect to the weights. The learning rate determines the size of the step taken in each iteration.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org40c39ec}]{Deep Learning}
+\begin{block}{Deep Learning}
+Deep learning is a subset of machine learning that focuses on training deep neural networks with many layers. These networks can learn complex representations of data, enabling them to perform tasks such as image recognition, natural language processing, and speech recognition. Deep learning has achieved significant breakthroughs in various fields due to its ability to automatically learn features from raw data without extensive feature engineering.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgb0bee0c}]{Deep Neural Networks}
+\begin{block}{Deep Neural Networks}
+Deep neural networks (DNNs) are neural networks with multiple hidden layers between the input and output layers. The depth of the network allows it to learn hierarchical representations of data, capturing complex patterns and relationships. DNNs have been successful in tasks such as image classification, speech recognition, and natural language processing.
+\end{block}
+\end{frame}
+\section[CNNs]{Convolutional Neural Networks (CNNs)}
+\label{sec:org6cd92e8}
+\begin{frame}[label={sec:org9a66191}]{Convolutional Neural Networks (CNNs)}
+\begin{block}{Convolutional Neural Networks (CNNs)}
+Convolutional Neural Networks (CNNs) are a specialized type of neural network designed for processing structured grid data, such as images. They use convolutional layers to automatically learn spatial hierarchies of features, making them particularly effective for image recognition tasks. CNNs consist of:
+\begin{itemize}
+\item \alert{Convolutional Layers}: Apply convolution operations to extract features from the input data.
+\item \alert{Pooling Layers}: Downsample the feature maps to reduce dimensionality and retain important features.
+\item \alert{Fully Connected Layers}: Connect every neuron in one layer to every neuron in the next layer, typically used in the final layers for classification tasks.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org26b946d}]{Applications of CNNs}
+\begin{block}{Applications of CNNs}
+CNNs are widely used in various applications, including:
+\begin{itemize}
+\item \alert{Image Classification}: Identifying objects or scenes in images.
+\item \alert{Object Detection}: Locating and classifying multiple objects within an image.
+\item \alert{Image Segmentation}: Dividing an image into meaningful segments for detailed analysis.
+\item \alert{Facial Recognition}: Identifying and verifying individuals based on facial features.
+\end{itemize}
+\end{block}
+\end{frame}
+\section[RNNs]{Recurrent Neural Networks (RNNs)}
+\label{sec:orgd234b19}
+\begin{frame}[label={sec:orgb122f60}]{Recurrent Neural Networks (RNNs)}
+\begin{block}{Recurrent Neural Networks (RNNs)}
+Recurrent Neural Networks (RNNs) are a type of neural network designed for processing sequential data, such as time series or natural language. They have connections that loop back on themselves, allowing them to maintain a hidden state that captures information from previous time steps. This makes RNNs suitable for tasks where context and order matter.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org10fb6ad}]{Applications of RNNs}
+\begin{block}{Applications of RNNs}
+RNNs are commonly used in applications involving sequential data, including:
+\begin{itemize}
+\item \alert{Natural Language Processing (NLP)}: Tasks such as language modeling, text generation, and sentiment analysis.
+\item \alert{Speech Recognition}: Converting spoken language into text.
+\item \alert{Time Series Prediction}: Forecasting future values based on historical data.
+\end{itemize}
+\end{block}
+\end{frame}
+\section[LSTMs]{Long Short-Term Memory (LSTM) Networks}
+\label{sec:org13904e4}
+\begin{frame}[label={sec:orgeeebde5}]{Long Short-Term Memory (LSTM) Networks}
+\begin{block}{Long Short-Term Memory (LSTM) Networks}
+Long Short-Term Memory (LSTM) networks are a type of RNN designed to overcome the limitations of traditional RNNs, such as vanishing gradients. LSTMs use special gating mechanisms to control the flow of information, allowing them to capture long-term dependencies in sequential data. They are particularly effective for tasks that require remembering information over extended periods.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org7477c34}]{Applications of LSTMs}
+\begin{block}{Applications of LSTMs}
+LSTMs are widely used in applications that involve long sequences of data, including:
+\begin{itemize}
+\item \alert{Machine Translation}: Translating text from one language to another.
+\item \alert{Speech Synthesis}: Generating human-like speech from text.
+\item \alert{Video Analysis}: Analyzing sequences of frames in videos for tasks such as action recognition or event detection.
+\end{itemize}
+\end{block}
+\end{frame}
+\section[GANs]{Generative Adversarial Networks (GANs)}
+\label{sec:orge57429e}
+\begin{frame}[label={sec:org38473db}]{Generative Adversarial Networks (GANs)}
+\begin{block}{Generative Adversarial Networks (GANs)}
+Generative Adversarial Networks (GANs) are a class of neural networks used for generating new data samples that resemble a given training dataset. GANs consist of two components:
+\begin{itemize}
+\item \alert{Generator}: A neural network that generates new data samples from random noise.
+\item \alert{Discriminator}: A neural network that distinguishes between real data samples from the training set and fake samples generated by the generator.
+\end{itemize}
+The generator and discriminator are trained together in a competitive process, where the generator aims to produce realistic samples while the discriminator tries to correctly classify real and fake samples.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org76a19f7}]{Applications of GANs}
+\begin{block}{Applications of GANs}
+GANs have been successfully applied in various domains, including:
+\begin{itemize}
+\item \alert{Image Generation}: Creating realistic images from random noise or low-resolution images.
+\item \alert{Image-to-Image Translation}: Converting images from one domain to another, such as turning sketches into realistic images.
+\item \alert{Data Augmentation}: Generating additional training samples to improve model performance, especially in scenarios with limited data.
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Autoencoders}
+\label{sec:orge0468f2}
+\begin{frame}[label={sec:org6bb72c8}]{Autoencoders}
+\begin{block}{Autoencoders}
+Autoencoders are a type of neural network used for unsupervised learning tasks, such as dimensionality reduction and feature extraction. They consist of two main components:
+\begin{itemize}
+\item \alert{Encoder}: A neural network that compresses the input data into a lower-dimensional representation (latent space).
+\item \alert{Decoder}: A neural network that reconstructs the original input data from the compressed representation.
+\end{itemize}
+The goal of an autoencoder is to learn a compact representation of the input data while minimizing the reconstruction error between the original input and the reconstructed output.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org271a9a6}]{Applications of Autoencoders}
+\begin{block}{Applications of Autoencoders}
+Autoencoders are used in various applications, including:
+\begin{itemize}
+\item \alert{Dimensionality Reduction}: Reducing the number of features in high-dimensional data while preserving important information.
+\item \alert{Anomaly Detection}: Identifying unusual patterns in data by comparing the reconstruction error of input samples.
+\item \alert{Data Denoising}: Removing noise from data by training the autoencoder to reconstruct clean data from noisy inputs.
+\end{itemize}
+\end{block}
+\end{frame}
+\section[LLMs]{Large Language Models (LLMs)}
+\label{sec:org532e9ef}
+\begin{frame}[label={sec:org0743131}]{Large Language Models (LLMs)}
+\begin{block}{Large Language Models (LLMs)}
+Large Language Models (LLMs) are advanced neural networks designed to understand and generate human language. They are trained on vast amounts of text data and can perform a wide range of natural language processing tasks, such as text generation, translation, summarization, and question answering. LLMs leverage deep learning techniques, including transformers, to capture complex language patterns and relationships.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org4acd5e6}]{Applications of LLMs}
+\begin{block}{Applications of LLMs}
+LLMs have numerous applications in various domains, including:
+\begin{itemize}
+\item \alert{Chatbots and Virtual Assistants}: Providing conversational interfaces for customer support and information retrieval.
+\item \alert{Content Generation}: Automatically generating articles, stories, or other written content based on prompts.
+\item \alert{Sentiment Analysis}: Analyzing text to determine the sentiment or emotion expressed.
+\item \alert{Language Translation}: Translating text from one language to another with high accuracy.
+\end{itemize}
+\end{block}
+\end{frame}
+\end{document}
