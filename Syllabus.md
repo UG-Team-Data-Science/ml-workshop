@@ -191,3 +191,32 @@
 
 
 ## Anomaly Detection
+
+
+# Session 6: Artificial Neural Networks and Deep Learning
+
+
+## Introduction to Neural Networks
+
+-   What are Neural Networks?
+-   Biological Inspiration
+-   Structure of a Neural Network
+-   Activation Functions
+
+
+## Training Neural Networks
+
+-   Forward Propagation
+-   Backpropagation
+-   Loss Functions
+-   Gradient Descent
+
+
+## Deep Learning
+
+-   What is Deep Learning?
+-   Deep Neural Networks
+-   Convolutional Neural Networks (CNNs)
+-   Recurrent Neural Networks (RNNs)
+-   Autoencoders
+-   Generative Adversarial Networks (GANs)
