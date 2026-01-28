@@ -2,6 +2,6 @@
 .ipynb_checkpoints
 *.org
 *.db
-*.md
+src/*.md
 uv.lock
 data/
