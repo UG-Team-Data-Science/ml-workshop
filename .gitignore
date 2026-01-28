@@ -4,4 +4,6 @@
 *.db
 src/*.md
 uv.lock
+.python-version
+pyproject.toml
 data/
