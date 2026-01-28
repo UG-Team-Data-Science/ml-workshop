@@ -1,8 +1,7 @@
-data/
+.venv
+.ipynb_checkpoints
 *.org
 *.db
-src/*/*.md
-.idea/
-.ipynb_checkpoints/
-__pycache__/
-*.pyc
+*.md
+uv.lock
+data/
