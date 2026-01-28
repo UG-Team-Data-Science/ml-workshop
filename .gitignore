@@ -2,7 +2,7 @@
 .ipynb_checkpoints
 *.org
 *.db
-src/*.md
+src/S*/*.md
 uv.lock
 .python-version
 pyproject.toml
