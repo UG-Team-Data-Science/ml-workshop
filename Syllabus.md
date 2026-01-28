@@ -136,42 +136,12 @@
 -   Kernel Trick
 
 
-# Session 4: Ensemble Methods
-
-
-## Introduction to Ensemble Methods
-
--   What are Ensemble Methods?
--   Why Use Ensemble Methods?
--   Types of Ensemble Methods
-
-
-## Bagging and Random Forests
-
--   Bagging (Bootstrap Aggregating) Overview
--   Random Forests
--   Feature Importance in Random Forests
-
-
-## Boosting
-
--   Boosting Overview
--   AdaBoost
--   Gradient Boosting
--   XGBoost
-
-
-## Ensembles of Ensembles
-
--   Stacking
--   Multi-level EoE
-
-
-# Session 5: Unsupervised Learning - Clustering and Dimensionality Reduction
+# Session 4: Unsupervised Learning - Clustering and Dimensionality Reduction
 
 
 ## Introduction to Unsupervised Learning
 
+-   Supervised vs Unsupervised
 -   Dimensionality Reduction
 -   Clustering
 -   Anomaly Detection
@@ -179,44 +149,94 @@
 
 ## Dimensionality Reduction
 
+-   Curse of Dimensionality
 -   Principal Component Analysis (PCA)
--   Autoencoders
+-   Choosing the number of components
 -   Linear Discriminant Analysis (LDA)
+-   t-SNE and UMAP (Visualization techniques)
 
 
 ## Clustering
 
 -   k-Means Clustering
--   Hierarchical Clustering
+-   Elbow Method and Silhouette Score
+-   Hierarchical Clustering (Dendrograms)
+-   DBSCAN (Density-based clustering)
 
 
 ## Anomaly Detection
 
+-   Isolation Forests
 
-# Session 6: Artificial Neural Networks and Deep Learning
+
+# Session 5: Neural Networks I - Foundations and Optimization
 
 
-## Introduction to Neural Networks
+## Introduction to Artificial Neural Networks
 
--   What are Neural Networks?
 -   Biological Inspiration
--   Structure of a Neural Network
--   Activation Functions
+-   The Perceptron Model
+-   Limitations of the Perceptron (XOR problem)
+
+
+## The Multilayer Perceptron (MLP)
+
+-   Input, Hidden, and Output Layers
+-   Activation Functions (Sigmoid, Tanh, ReLU, Softmax)
+-   Forward Propagation (Matrix notation)
 
 
 ## Training Neural Networks
 
--   Forward Propagation
--   Backpropagation
--   Loss Functions
--   Gradient Descent
+-   Loss Functions (MSE vs. Cross-Entropy)
+-   Gradient Descent and Stochastic Gradient Descent (SGD)
+-   Backpropagation intuition
+-   The Vanishing Gradient Problem
 
 
-## Deep Learning
+## Optimizing Neural Networks
 
--   What is Deep Learning?
--   Deep Neural Networks
--   Convolutional Neural Networks (CNNs)
--   Recurrent Neural Networks (RNNs)
--   Autoencoders
--   Generative Adversarial Networks (GANs)
+-   Weight Initialization strategies
+-   Optimizers (Momentum, RMSProp, Adam)
+-   Regularization (Dropout, Batch Normalization, Early Stopping)
+
+
+## Building a Network in PyTorch/TensorFlow
+
+-   Tensors and Operations
+-   Defining a simple architecture
+-   The Training Loop
+
+
+# Session 6: Neural Networks II - Deep Learning, Transformers, and GenAI
+
+
+## Convolutional Neural Networks (CNNs)
+
+-   Convolution and Pooling Layers
+-   Padding and Stride
+-   Common Architectures (VGG, ResNet)
+
+
+## From RNNs to Transformers
+
+-   Recurrent Neural Networks (RNNs) and LSTMs
+-   The bottleneck of sequential processing
+-   The Attention Mechanism
+-   The Transformer Architecture (Encoder-Decoder)
+
+
+## Large Language Models (LLMs)
+
+-   Evolution of LLMs (BERT, GPT, Llama)
+-   Pre-training, Fine-tuning, and Inference
+-   Tokenization and Context Windows
+-   Prompt Engineering basics
+
+
+## Generative AI and Modern Applications
+
+-   Text Generation (Next-token prediction)
+-   Retrieval-Augmented Generation (RAG)
+-   Introduction to Diffusion Models (Image Generation)
+-   Ethical considerations and Bias in GenAI
