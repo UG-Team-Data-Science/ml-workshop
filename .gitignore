@@ -6,4 +6,5 @@ src/S*/*.md
 uv.lock
 .python-version
 pyproject.toml
+jupytext.toml
 data/
