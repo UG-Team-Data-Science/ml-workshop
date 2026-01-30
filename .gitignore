@@ -7,4 +7,4 @@ uv.lock
 .python-version
 pyproject.toml
 jupytext.toml
-data/
+data/*.csv
