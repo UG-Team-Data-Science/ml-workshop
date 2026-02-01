@@ -1,0 +1,631 @@
+% Created 2026-02-01 Sun 10:35
+% Intended LaTeX compiler: pdflatex
+\documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\useinnertheme{rounded}
+\useoutertheme{tree}
+\author{Cristian A. Marocico}
+\date{\today}
+\title{Machine Learning in Python}
+\subtitle{Supervised Learning - Regression and Evaluation}
+\author[Marocico, Tatar]{Cristian A. Marocico, A. Emin Tatar}
+\institute[CIT]{Center for Information Technology\\University of Groningen}
+\RequirePackage{pgfcore}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blkarray}
+\usepackage{eurosym}
+\usepackage[english]{babel}
+\usepackage{xcolor,colortbl}
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[makeroom]{cancel}
+\usepackage{bbm}
+\newcommand{\infoTitle}[1]{\renewcommand{\givenTitle}{#1}}
+\newcommand{\givenTitle}{Info}
+\newenvironment{warning}[1][Info]{%
+\infoTitle{#1}
+\setbeamercolor{block title}{fg=white,bg=red!100!white}%
+\setbeamercolor{block body}{bg=red!10!white}
+\begin{block}{\givenTitle}}{
+\end{block}}
+\DeclareMathOperator*{\argmax}{argmax}
+\setbeamercovered{transparent}
+\usecolortheme{beaver}
+\RequirePackage{pgfcore}
+\setbeamercovered{transparent=1}
+\mode<presentation>{
+\usecolortheme{beaver}
+\definecolor{rugcolor}{rgb}{0.8,0,0}
+\definecolor{darkblue}{rgb}{0.13,0.29,0.53}
+\definecolor{darkgreen}{rgb}{0.0,0.43,0.0}
+\definecolor{darkyellow}{rgb}{0.0,0.43,0.43}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{Gray}{gray}{0.85}
+\beamertemplatenavigationsymbolsempty
+\setbeamercolor{item}{fg=rugcolor!80!black}
+\setbeamercolor{title}{fg=rugcolor!80!black}
+\setbeamercolor{frametitle}{fg=rugcolor!80!black, bg=black!10!white}
+% Colors for 'definition' environment
+\setbeamercolor*{block title}{fg=white, bg=darkblue}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkblue}
+% Color for the 'question' environment
+\setbeamercolor*{block title question}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body question}{bg=normal text.bg!85!darkyellow}
+\setbeamercolor*{palette tertiary}{bg=rugcolor,fg=white}
+%HEADER WITH HIGHLIGHTED SECTION NAMES (optional)
+\useheadtemplate{%
+\vbox{%
+%			\vskip1.2pt
+%			\pgfuseimage{logo}
+%			\vskip1.2pt
+\tinycolouredline{rugcolor}{
+\color{white}{
+% comment the following line if you don't want the section names lines
+%					to appear on top
+\insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt
+plus1filll}
+%\pgfuseimage{logored}
+}
+}
+%    \tinycolouredline{rugcolor}
+{\color{white}{
+%% \insertsectionnavigationhorizontal{\paperwidth}{}{
+%                \hskip0pt \hfill}
+}}
+}
+}
+%FOOTER WITH AUTHOR NAME(S), PAPER TITLE (ABBREVIATED IF SPECIFIED BY \title),
+% AND PAGE COUNTER (optional)
+%	\usefoottemplate{%
+%		\vbox{%
+%			\tinycolouredline{rugcolor}{
+%				\color{white}{
+%					{\insertshortauthor} \hfill \insertshortsubtitle \hfill
+%					%\insertdate \hfill%
+%					\textsc{\insertframenumber/\inserttotalframenumber}
+%         		}
+%         	}
+%		}
+%	}
+}
+\newtheorem*{props}{Properties}
+\newtheorem*{prop}{Property}
+\newtheorem*{notation}{Notation}
+\newtheorem*{terminology}{Terminology}
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\Var}{\mathbb{V}\mathrm{ar}}
+\newcommand{\Corr}{\mathbb{C}\mathrm{orr}}
+\newcommand{\Cov}{\mathbb{C}\mathrm{ov}}
+\newcommand{\Expt}{\mathbb{E}}
+\newcommand{\NorDist}{\mathcal{N}}
+\newcommand{\ExpDist}{\mathcal{E}\mathrm{xp}}
+\newcommand{\GammaDist}{\mathcal{G}\mathrm{amma}}
+\newcommand{\BetaDist}{\mathcal{B}\mathrm{eta}}
+\newcounter{listCounter}
+\newenvironment{question}{%
+\setbeamercolor{block title}{bg=orange!70!white,fg=white}
+\setbeamercolor{block body}{bg=yellow!10!white}
+\begin{block}{Question}
+}{%
+\end{block}
+}
+\lstdefinestyle{mystyle}{
+language=R,
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{darkblue}\bfseries,
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily,
+breakatwhitespace=true,
+breaklines=true,
+%	captionpos=none,
+columns=fixed,
+keepspaces=true,
+numbers=none,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2,
+basewidth=1.5em,
+escapeinside={<@}{@>}
+}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\renewenvironment{definition}[1][Definition]{%
+\setbeamercolor{block title}{fg=white,bg=darkblue}
+\setbeamercolor{block body}{fg=black,bg=normal text.bg!85!darkblue}
+\begin{block}{#1\hfill \footnotesize{Definition}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{example}[1][Example]{%
+% Color for the 'example' environment
+\setbeamercolor*{block title}{fg=white, bg=darkgreen}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkgreen}
+\begin{block}{#1\hfill \footnotesize{Example}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{theorem}[1][Theorem]{%
+\setbeamercolor*{block title}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkyellow}
+\begin{block}{#1\hfill \footnotesize{Theorem}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\date[Feb 6\textsuperscript{th} 2026]{Friday, February 6\textsuperscript{th} 2026}
+\usepackage{mathtools}
+\newcommand{\intsum}{\mathop{\mathrlap{\raisebox{0.1ex}{\hspace{0.2em}$\textstyle\sum$}}\int}\limits}
+\setbeamercovered{transparent=0}
+\usepackage[timeinterval=60]{tdclock}
+\hypersetup{
+ pdfauthor={Cristian A. Marocico},
+ pdftitle={Machine Learning in Python},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\end{frame}
+
+\section{Introduction to Regression}
+\label{sec:orged6a9f7}
+\begin{frame}[label={sec:org6b1927d}]{Introduction to Regression}
+\begin{definition}[Regression]\label{sec:org762680b}
+\pause
+\alert{Regression} is a statistical method used to model the relationship between a dependent variable and one or more independent variables.
+\end{definition}
+\end{frame}
+\section{Simple Linear Regression}
+\label{sec:orgfb00269}
+\begin{frame}[label={sec:org52fb825}]{Simple Linear Regression}
+\begin{definition}[Simple Linear Regression]\label{sec:orgca6daa0}
+\pause
+\alert{Simple Linear Regression} is a method to model the relationship between two variables by fitting a linear equation to observed data.
+\pause
+Mathematically:
+$$y = \beta_0 + \beta_1 x + \epsilon$$
+where:
+\begin{itemize}
+\item \(y\) is the dependent variable (response).
+\item \(x\) is the independent variable (predictor).
+\item \(\beta_0\) is the y-intercept (constant term).
+\item \(\beta_1\) is the slope of the line (coefficient).
+\item \(\epsilon\) is the error term (residuals).
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org917409d}]{Simple Linear Regression}
+A Simple Linear Regression Machine Learning model will learn the coefficients \(\beta_0\) and \(\beta_1\) from the training data to minimize the difference between the predicted values and the actual values.
+\end{frame}
+\begin{frame}[label={sec:orgfb99e7d}]{Assumptions of Simple Linear Regression}
+\begin{itemize}[<+->]
+\item Linearity: The relationship between the independent and dependent variable is linear.
+\item Independence: Observations are independent of each other.
+\item Homoscedasticity: Constant variance of the error terms.
+\item Normality: The residuals (errors) of the model are normally distributed.
+\end{itemize}
+\end{frame}
+\section{Evaluation Metrics for Regression}
+\label{sec:orga0f8934}
+\begin{frame}[label={sec:org3adfd86}]{Evaluation Metrics for Regression}
+\begin{definition}[Common Metrics for Regression]\label{sec:orge65a72a}
+\pause
+Common metrics to evaluate regression models include:
+\begin{itemize}
+\item \alert{Mean Absolute Error (MAE)}
+\item \alert{Mean Squared Error (MSE)}
+\item \alert{Root Mean Squared Error (RMSE)}
+\item \alert{R-squared (\(R^2\))}
+\item \alert{Adjusted R-squared}
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org90fd26d}]{Mean Absolute Error (MAE)}
+\begin{definition}[Mean Absolute Error (MAE)]\label{sec:orgeb2e92d}
+\pause
+\alert{Mean Absolute Error (MAE)} is the average of the absolute differences between the predicted and the actual values:
+$$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|$$
+\pause
+where:
+\begin{itemize}
+\item \(n\) is the number of observations.
+\item \(y_i\) is the actual value.
+\item \(\hat{y}_i\) is the predicted value.
+\end{itemize}
+\pause
+MAE is a linear score, which can be used when all errors are equally important; it is also less sensitive to outliers compared to MSE.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org4fb08d5}]{Mean Squared Error (MSE)}
+\begin{definition}[Mean Squared Error (MSE)]\label{sec:orge7b0e78}
+\pause
+\alert{Mean Squared Error (MSE)} is the average of the squared differences between the predicted and the actual values:
+$$\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
+\pause
+where:
+\begin{itemize}
+\item \(n\) is the number of observations.
+\item \(y_i\) is the actual value.
+\item \(\hat{y}_i\) is the predicted value.
+\end{itemize}
+\pause
+MSE is more sensitive to outliers than MAE because it squares the errors, which can disproportionately affect the metric if there are large errors; however, it is useful when larger errors are more significant.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgd850ab0}]{Root Mean Squared Error (RMSE)}
+\begin{definition}[Root Mean Squared Error (RMSE)]\label{sec:org7b318b8}
+\pause
+\alert{Root Mean Squared Error (RMSE)} is the square root of the average of the squared differences between the predicted and the actual values:
+$$\text{RMSE} = \sqrt{\text{MSE}} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}$$
+\pause
+where:
+\begin{itemize}
+\item \(n\) is the number of observations.
+\item \(y_i\) is the actual value.
+\item \(\hat{y}_i\) is the predicted value.
+\end{itemize}
+\pause
+RMSE is in the same units as the dependent variable, making it interpretable; it is also sensitive to outliers, similar to MSE.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org79ba332}]{R-squared (\(R^2\))}
+\begin{definition}[R-squared (\(R^2\))]\label{sec:orgbb57536}
+\pause
+\alert{R-squared (\(R^2\))} is a statistical measure that represents the proportion of the variance for a dependent variable that's explained by an independent variable or variables in a regression model:
+$$R^2 = 1 - \frac{\text{SS}_{\text{res}}}{\text{SS}_{\text{tot}}}$$
+where:
+\begin{itemize}
+\item \(\text{SS}_{\text{res}}\) is the sum of squares of residuals (errors).
+\item \(\text{SS}_{\text{tot}}\) is the total sum of squares (variance of the dependent variable).
+\end{itemize}
+\pause
+\(R^2\) values range from 0 to 1, where:
+\begin{itemize}
+\item 0 indicates that the model does not explain any of the variability of the response data around its mean.
+\item 1 indicates that the model explains all the variability of the response data around its mean.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orga45f723}]{Adjusted R-squared}
+\begin{definition}[Adjusted R-squared]\label{sec:orgaf103c7}
+\pause
+\alert{Adjusted R-squared} adjusts the \(R^2\) value for the number of predictors in the model, providing a more accurate measure when comparing models with different numbers of predictors:
+$$\text{Adjusted } R^2 = 1 - \left(1 - R^2\right) \frac{n - 1}{n - p - 1}$$
+where:
+\begin{itemize}
+\item \(n\) is the number of observations.
+\item \(p\) is the number of predictors in the model.
+\end{itemize}
+\pause
+Adjusted \(R^2\) can be negative, which indicates that the model is worse than a horizontal line (mean of the dependent variable); it is useful for comparing models with different numbers of predictors.
+\end{definition}
+\end{frame}
+\section{Regression Diagnostics}
+\label{sec:org91035e8}
+\begin{frame}[label={sec:orge23eb2e}]{Regression Diagnostics}
+\begin{definition}[Regression Diagnostics]\label{sec:org6960cf4}
+\pause
+\alert{Regression Diagnostics} is the process of verifying that a regression model's assumptions are met. A high \(R^2\) does not guarantee a valid model; if assumptions are violated, predictions and confidence intervals can be unreliable.
+\pause
+The primary tool for diagnostics is analyzing the \alert{Residuals} (the errors: \(y - \hat{y}\)).
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgacd5959}]{Key Diagnostic Checks}
+\begin{definition}[Key Diagnostic Checks]\label{sec:org165f384}
+\pause
+\begin{itemize}[<+->]
+\item \alert{Linearity}: Residuals should be randomly scattered around 0. A U-shape indicates non-linearity.
+\item \alert{Homoscedasticity}: Residuals should have constant variance. A "funnel" shape indicates heteroscedasticity.
+\item \alert{Normality}: Residuals should follow a Normal distribution (check with Q-Q plot).
+\item \alert{Independence}: Residuals should not be correlated (important for time-series data).
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org34568f7}]{Residual Plot}
+\begin{definition}[Residual Plot]\label{sec:org0f80518}
+\pause
+A \alert{Residual Plot} graphs the residuals (\(y - \hat{y}\)) against the predicted values (\(\hat{y}\)).
+\pause
+Interpretation:
+\begin{itemize}
+\item \alert{Random scatter around 0}: Assumptions are likely met.
+\item \alert{Funnel shape} (variance increases): Heteroscedasticity—consider log-transforming the target.
+\item \alert{U-shape or pattern}: Non-linearity—consider polynomial features or non-linear models.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgd70c460}]{Q-Q Plot (Normality Check)}
+\begin{definition}[Q-Q Plot]\label{sec:org90d3ead}
+\pause
+A \alert{Q-Q Plot} (Quantile-Quantile Plot) compares the distribution of residuals against a theoretical Normal distribution.
+\pause
+Interpretation:
+\begin{itemize}
+\item \alert{Points on the diagonal line}: Residuals are normally distributed.
+\item \alert{Tails curving away}: Heavy tails or skewness—consider transformations or outlier removal.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org39f4290}]{Influential Points (Cook's Distance)}
+\begin{definition}[Cook's Distance]\label{sec:orge5dbce2}
+\pause
+\alert{Cook's Distance} measures how much the regression coefficients change when a single observation is removed. It identifies influential outliers that disproportionately affect the model.
+\pause
+A high Cook's Distance (typically \(> 4/n\)) indicates that the observation has a strong influence on the fitted model and should be investigated.
+\end{definition}
+\end{frame}
+\section{Multiple Linear Regression}
+\label{sec:orga3c7d0d}
+\begin{frame}[label={sec:orgb60cc7d}]{Multiple Linear Regression}
+\begin{definition}[Multiple Linear Regression]\label{sec:org3c215ea}
+\pause
+\alert{Multiple Linear Regression} is an extension of simple linear regression that models the relationship between a dependent variable and multiple independent variables. It is used when there are two or more predictors.
+\pause
+Mathematically, it is represented as:
+$$y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots + \beta_p x_p + \epsilon$$
+where:
+\begin{itemize}
+\item \(y\) is the dependent variable.
+\item \(x_1, x_2, \ldots, x_p\) are the independent variables (predictors).
+\item \(\beta_0\) is the y-intercept (constant term).
+\item \(\beta_1, \beta_2, \ldots, \beta_p\) are the coefficients (slopes) for each independent variable.
+\item \(\epsilon\) is the error term (residuals).
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org700e4bc}]{Assumptions of Multiple Linear Regression}
+\begin{definition}[Assumptions of Multiple Linear Regression]\label{sec:org64dc7af}
+\pause
+The assumptions of multiple linear regression are similar to those of simple linear regression:
+\begin{itemize}
+\item Linearity: The relationship between the independent variables and the dependent variable is linear.
+\item Independence: Observations are independent of each other.
+\item Homoscedasticity: Constant variance of the error terms.
+\item Normality: The residuals (errors) of the model are normally distributed.
+\item No multicollinearity: The independent variables are not highly correlated with each other.
+\end{itemize}
+\end{definition}
+\end{frame}
+\section{Regularized Regression}
+\label{sec:orgc15ca4b}
+\begin{frame}[label={sec:org087d73b}]{How do Machine Learning Models Learn?}
+\begin{definition}[How do Machine Learning Models Learn?]\label{sec:orgdebeb90}
+\pause
+Machine Learning models learn by adjusting their parameters (coefficients) to minimize the difference between the predicted values and the actual values in the training data, also known as the \alert{cost function} or \alert{loss function}.
+\pause
+This process is often done using optimization algorithms that iteratively update the parameters based on the loss function, which measures the error of the predictions.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org889e11c}]{Cost Function}
+\begin{definition}[Cost Function]\label{sec:org4ddcbd2}
+\pause
+The \alert{cost function} (or \alert{loss function}) is a mathematical function that quantifies the difference between the predicted values and the actual values in the training data. It is used to guide the learning process of the model.
+\pause
+Common cost functions for regression include:
+\begin{itemize}
+\item \alert{Mean Squared Error (MSE)}
+\item \alert{Mean Absolute Error (MAE)}
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org6236599}]{Cost Function: Mean Squared Error (MSE)}
+\begin{definition}[Cost Function: Mean Squared Error (MSE)]\label{sec:org8c5f5cd}
+\pause
+\alert{Mean Squared Error (MSE)} is a common cost function used in regression tasks. It measures the average of the squares of the errors, which are the differences between the predicted values and the actual values:
+$$J_\text{MSE}(w) = \frac{1}{2m} \sum_{i=1}^{m} (f(x_i, w) - y_i)^2$$
+where:
+\begin{itemize}
+\item \(m\) is the number of observations.
+\item \(f(x_i, w)\) is the predicted value for the \(i\)-th observation given the input features \(x_i\) and model parameters \(w\).
+\item \(y_i\) is the actual value for the \(i\)-th observation.
+\end{itemize}
+\pause
+MSE is sensitive to outliers, and is, therefore, useful when larger errors are more significant.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgb2843fb}]{Cost Function: Mean Absolute Error (MAE)}
+\begin{definition}[Cost Function: Mean Absolute Error (MAE)]\label{sec:org35c2d51}
+\pause
+\alert{Mean Absolute Error (MAE)} is another common cost function used in regression tasks. It measures the average of the absolute differences between the predicted values and the actual values:
+$$J_\text{MAE}(w) = \frac{1}{m} \sum_{i=1}^{m} |f(x_i, w) - y_i|$$
+where:
+\begin{itemize}
+\item \(m\) is the number of observations.
+\item \(f(x_i, w)\) is the predicted value for the \(i\)-th observation given the input features \(x_i\) and model parameters \(w\).
+\item \(y_i\) is the actual value for the \(i\)-th observation.
+\end{itemize}
+\pause
+MAE is less sensitive to outliers compared to MSE; useful when all errors are equally important.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgc1a5f1c}]{Gradient Descent}
+\begin{definition}[Gradient Descent]\label{sec:orgd119251}
+\pause
+\alert{Gradient Descent} is an optimization algorithm used to minimize the cost function by iteratively updating the model parameters in the direction of the steepest descent of the cost function.
+\pause
+The update rule for gradient descent is:
+$$w := w - \alpha \nabla J(w)$$
+where:
+\begin{itemize}
+\item \(w\) is the vector of model parameters (coefficients).
+\item \(\alpha\) is the learning rate, which controls the step size of each update.
+\item \(\nabla J(w)\) is the gradient of the cost function with respect to the parameters \(w\).
+\end{itemize}
+\pause
+Gradient descent continues until convergence, which is when the change in the cost function is below a certain threshold or a maximum number of iterations is reached.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgdd8ec35}]{Gradient Descent Algorithm}
+\begin{definition}[Gradient Descent Algorithm]\label{sec:org6cbf71f}
+\pause
+The \alert{Gradient Descent Algorithm} consists of the following steps:
+\begin{enumerate}[<+->]
+\item Initialize the model parameters (coefficients) randomly or to zero.
+\item Compute the predicted values using the current parameters.
+\item Calculate the cost function (loss) using the predicted values and actual values.
+\item Compute the gradient of the cost function with respect to the parameters.
+\item Update the parameters using the gradient descent update rule.
+\item Repeat steps 2-5 until convergence (i.e., the change in the cost function is below a threshold or a maximum number of iterations is reached).
+\end{enumerate}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgd4705a1}]{Overfitting and Underfitting}
+\begin{definition}[Overfitting and Underfitting]\label{sec:orgceddfb7}
+\pause
+\alert{Overfitting} occurs when a model learns the noise in the training data instead of the underlying pattern, resulting in poor generalization to unseen data. It typically happens when the model is too complex relative to the amount of training data.
+
+\pause
+\alert{Underfitting} occurs when a model is too simple to capture the underlying pattern in the data, resulting in poor performance on both training and unseen data. It typically happens when the model is not complex enough relative to the data.
+
+\pause
+To mitigate overfitting, techniques such as \alert{regularization}, \alert{cross-validation}, and \alert{pruning} can be used. To address underfitting, more complex models or additional features can be considered.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgbd60243}]{Regularization}
+\begin{definition}[Regularization]\label{sec:orgcc9440a}
+\pause
+\alert{Regularization} is a technique used in machine learning to prevent overfitting by adding a penalty term to the cost function. This penalty discourages overly complex models by constraining the size of the model parameters (coefficients).
+\pause
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgb9a23e1}]{Types of Regularized Regression}
+\begin{definition}[Types of Regularized Regression]\label{sec:orgff4c053}
+There are two common types of regularized regression:
+\begin{itemize}
+\item \alert{Ridge Regression (L2 Regularization)}
+\item \alert{Lasso Regression (L1 Regularization)}
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgd23f2fa}]{Lasso Regression (L1 Regularization)}
+\begin{definition}[Lasso Regression (L1 Regularization)]\label{sec:org79c3126}
+\pause
+\alert{Lasso Regression} adds a penalty equal to the absolute value of the magnitude of coefficients to the loss function. The objective function for lasso regression is:
+$$J_\text{Lasso}(w) = \frac{1}{2m} \sum_{i=1}^{m} (f(x_i, w) - y_i)^2 + \lambda \sum_{j=1}^{p} |w_j|$$
+where:
+\begin{itemize}
+\item \(\lambda\) is the regularization parameter that controls the strength of the penalty.
+\item \(w_j\) are the coefficients of the independent variables.
+\end{itemize}
+\pause
+Lasso regression can shrink some coefficients to exactly zero, effectively performing variable selection and resulting in a simpler model.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orge185f78}]{Ridge Regression (L2 Regularization)}
+\begin{definition}[Ridge Regression (L2 Regularization)]\label{sec:org74204ab}
+\pause
+\alert{Ridge Regression} adds a penalty equal to the square of the magnitude of coefficients to the loss function. The objective function for ridge regression is:
+$$J_\text{Ridge}(w) = \frac{1}{2m} \sum_{i=1}^{m} (f(x_i, w) - y_i)^2 + \frac{\lambda}{2m} \sum_{j=1}^{p} w_j^2$$
+where:
+\begin{itemize}
+\item \(\lambda\) is the regularization parameter that controls the strength of the penalty.
+\item \(w_j\) are the coefficients of the independent variables.
+\end{itemize}
+\pause
+Ridge regression helps to reduce model complexity and multicollinearity by shrinking the coefficients towards zero, but it does not set any coefficients exactly to zero.
+\end{definition}
+\end{frame}
+\section{Nonlinearities in Regression}
+\label{sec:orgb900328}
+\begin{frame}[label={sec:orge433515}]{Nonlinearities in Regression}
+\begin{definition}[Nonlinearities in Regression]\label{sec:orgda6c12e}
+\pause
+\alert{Nonlinearities in Regression} refers to the presence of nonlinear relationships between the independent and dependent variables in a regression model. In such cases, a simple linear regression model may not adequately capture the underlying relationship, leading to poor predictions and insights.
+\pause
+Nonlinear regression models can help address this limitation by allowing for more flexible relationships between the independent and dependent variables.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgddf6a28}]{Types of Nonlinear Regression Models}
+\begin{definition}[Types of Nonlinear Regression Models]\label{sec:orgb627b15}
+There are several types of nonlinear regression models, including:
+\begin{itemize}[<+->]
+\item \alert{Polynomial Regression}: Fits a polynomial equation to the data, allowing for curves and bends in the relationship between the independent and dependent variables. The degree of the polynomial can be adjusted to capture more complex relationships.
+\item \alert{Exponential Regression}: Fits an exponential function to the data, which is useful for modeling relationships where the rate of change increases or decreases exponentially.
+\item \alert{Logarithmic Regression}: Fits a logarithmic function to the data, which is useful for modeling relationships where the rate of change decreases as the independent variable increases.
+\end{itemize}
+\end{definition}
+\end{frame}
+\section{Overfitting, Underfitting, and Hyperparameter Tuning}
+\label{sec:orgda7dfc8}
+\begin{frame}[label={sec:org6bb2f59}]{Overfitting, Underfitting, and Hyperparameter Tuning}
+\begin{definition}[Overfitting]\label{sec:orgdd52bf8}
+\pause
+\alert{Overfitting} occurs when a model learns the noise in the training data instead of the underlying pattern, resulting in poor generalization to unseen data. It typically happens when the model is too complex relative to the amount of training data.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org22a49c4}]{Underfitting}
+\begin{definition}[Underfitting]\label{sec:org92273ab}
+\pause
+\alert{Underfitting} occurs when a model is too simple to capture the underlying pattern in the data, resulting in poor performance on both training and unseen data. It typically happens when the model is not complex enough relative to the data.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org7c30f75}]{Bias-Variance Tradeoff}
+\begin{definition}[Bias-Variance Tradeoff]\label{sec:org2ffffd4}
+\pause
+The \alert{Bias-Variance Tradeoff} is a fundamental concept in machine learning that describes the tradeoff between two sources of error in a model:
+\begin{itemize}[<+->]
+\item \alert{Bias}: The error introduced by approximating a real-world problem, which may be complex, with a simplified model. High bias can lead to underfitting.
+\item \alert{Variance}: The error introduced by the model's sensitivity to small fluctuations in the training data. High variance can lead to overfitting.
+\item The goal is to find a balance between bias and variance to minimize the overall error of the model.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgbe2a44d}]{Learning Curves}
+\begin{definition}[Learning Curves]\label{sec:org8c67211}
+\pause
+\alert{Learning Curves} are graphical representations that show how the performance of a machine learning model changes with varying amounts of training data. They can help diagnose overfitting and underfitting by comparing the training and validation errors as the size of the training set increases.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org68e0231}]{Hyperparameter Tuning}
+\begin{definition}[Hyperparameter Tuning]\label{sec:org62672c3}
+\pause
+\alert{Hyperparameter Tuning} is the process of selecting the best hyperparameters for a machine learning model to improve its performance. Hyperparameters are parameters that are not learned from the data but are set before training the model, such as the learning rate, regularization strength, and number of hidden layers in a neural network.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org3e74da0}]{Techniques for Hyperparameter Tuning}
+\begin{definition}[Techniques for Hyperparameter Tuning]\label{sec:org9fa8330}
+There are several techniques for hyperparameter tuning, including:
+\begin{itemize}[<+->]
+\item \alert{Grid Search}: Exhaustively searches through a specified subset of hyperparameters to find the best combination.
+\item \alert{Random Search}: Randomly samples hyperparameters from a specified distribution to find the best combination.
+\item \alert{Bayesian Optimization}: Uses probabilistic models to find the best hyperparameters by balancing exploration and exploitation.
+\item \alert{Cross-Validation}: Evaluates the model's performance on different subsets of the data to find the best hyperparameters.
+\item \alert{Automated Hyperparameter Tuning}: Uses algorithms to automatically search for the best hyperparameters based on the model's performance.
+\end{itemize}
+\end{definition}
+\end{frame}
+\end{document}
