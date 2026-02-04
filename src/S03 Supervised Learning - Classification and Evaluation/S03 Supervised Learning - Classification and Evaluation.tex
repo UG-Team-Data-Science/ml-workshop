@@ -1,0 +1,465 @@
+% Created 2026-02-04 Wed 19:40
+% Intended LaTeX compiler: pdflatex
+\documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\useinnertheme{rounded}
+\useoutertheme{tree}
+\author{Cristian A. Marocico}
+\date{\today}
+\title{Machine Learning in Python}
+\subtitle{Supervised Learning - Classification and Metrics}
+\author[Marocico, Tatar]{Cristian A. Marocico, A. Emin Tatar}
+\institute[CIT]{Center for Information Technology\\University of Groningen}
+\RequirePackage{pgfcore}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blkarray}
+\usepackage{eurosym}
+\usepackage[english]{babel}
+\usepackage{xcolor,colortbl}
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[makeroom]{cancel}
+\usepackage{bbm}
+\newcommand{\infoTitle}[1]{\renewcommand{\givenTitle}{#1}}
+\newcommand{\givenTitle}{Info}
+\newenvironment{warning}[1][Info]{%
+\infoTitle{#1}
+\setbeamercolor{block title}{fg=white,bg=red!100!white}%
+\setbeamercolor{block body}{bg=red!10!white}
+\begin{block}{\givenTitle}}{
+\end{block}}
+\DeclareMathOperator*{\argmax}{argmax}
+\setbeamercovered{transparent}
+\usecolortheme{beaver}
+\RequirePackage{pgfcore}
+\setbeamercovered{transparent=1}
+\mode<presentation>{
+\usecolortheme{beaver}
+\definecolor{rugcolor}{rgb}{0.8,0,0}
+\definecolor{darkblue}{rgb}{0.13,0.29,0.53}
+\definecolor{darkgreen}{rgb}{0.0,0.43,0.0}
+\definecolor{darkyellow}{rgb}{0.0,0.43,0.43}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{Gray}{gray}{0.85}
+\beamertemplatenavigationsymbolsempty
+\setbeamercolor{item}{fg=rugcolor!80!black}
+\setbeamercolor{title}{fg=rugcolor!80!black}
+\setbeamercolor{frametitle}{fg=rugcolor!80!black, bg=black!10!white}
+% Colors for 'definition' environment
+\setbeamercolor*{block title}{fg=white, bg=darkblue}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkblue}
+% Color for the 'question' environment
+\setbeamercolor*{block title question}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body question}{bg=normal text.bg!85!darkyellow}
+\setbeamercolor*{palette tertiary}{bg=rugcolor,fg=white}
+%HEADER WITH HIGHLIGHTED SECTION NAMES (optional)
+\useheadtemplate{%
+\vbox{%
+%			\vskip1.2pt
+%			\pgfuseimage{logo}
+%			\vskip1.2pt
+\tinycolouredline{rugcolor}{
+\color{white}{
+% comment the following line if you don't want the section names lines
+%					to appear on top
+\insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt
+plus1filll}
+%\pgfuseimage{logored}
+}
+}
+%    \tinycolouredline{rugcolor}
+{\color{white}{
+%% \insertsectionnavigationhorizontal{\paperwidth}{}{
+%                \hskip0pt \hfill}
+}}
+}
+}
+%FOOTER WITH AUTHOR NAME(S), PAPER TITLE (ABBREVIATED IF SPECIFIED BY \title),
+% AND PAGE COUNTER (optional)
+%	\usefoottemplate{%
+%		\vbox{%
+%			\tinycolouredline{rugcolor}{
+%				\color{white}{
+%					{\insertshortauthor} \hfill \insertshortsubtitle \hfill
+%					%\insertdate \hfill%
+%					\textsc{\insertframenumber/\inserttotalframenumber}
+%         		}
+%         	}
+%		}
+%	}
+}
+\newtheorem*{props}{Properties}
+\newtheorem*{prop}{Property}
+\newtheorem*{notation}{Notation}
+\newtheorem*{terminology}{Terminology}
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\Var}{\mathbb{V}\mathrm{ar}}
+\newcommand{\Corr}{\mathbb{C}\mathrm{orr}}
+\newcommand{\Cov}{\mathbb{C}\mathrm{ov}}
+\newcommand{\Expt}{\mathbb{E}}
+\newcommand{\NorDist}{\mathcal{N}}
+\newcommand{\ExpDist}{\mathcal{E}\mathrm{xp}}
+\newcommand{\GammaDist}{\mathcal{G}\mathrm{amma}}
+\newcommand{\BetaDist}{\mathcal{B}\mathrm{eta}}
+\newcounter{listCounter}
+\newenvironment{question}{%
+\setbeamercolor{block title}{bg=orange!70!white,fg=white}
+\setbeamercolor{block body}{bg=yellow!10!white}
+\begin{block}{Question}
+}{%
+\end{block}
+}
+\lstdefinestyle{mystyle}{
+language=R,
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{darkblue}\bfseries,
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily,
+breakatwhitespace=true,
+breaklines=true,
+%	captionpos=none,
+columns=fixed,
+keepspaces=true,
+numbers=none,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2,
+basewidth=1.5em,
+escapeinside={<@}{@>}
+}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\renewenvironment{definition}[1][Definition]{%
+\setbeamercolor{block title}{fg=white,bg=darkblue}
+\setbeamercolor{block body}{fg=black,bg=normal text.bg!85!darkblue}
+\begin{block}{#1\hfill \footnotesize{Definition}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{example}[1][Example]{%
+% Color for the 'example' environment
+\setbeamercolor*{block title}{fg=white, bg=darkgreen}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkgreen}
+\begin{block}{#1\hfill \footnotesize{Example}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{theorem}[1][Theorem]{%
+\setbeamercolor*{block title}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkyellow}
+\begin{block}{#1\hfill \footnotesize{Theorem}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\date[Feb 10\textsuperscript{th} 2026]{Tuesday, February 10\textsuperscript{th} 2026}
+\usepackage{mathtools}
+\newcommand{\intsum}{\mathop{\mathrlap{\raisebox{0.1ex}{\hspace{0.2em}$\textstyle\sum$}}\int}\limits}
+\setbeamercovered{transparent=0}
+\usepackage[timeinterval=60]{tdclock}
+\hypersetup{
+ pdfauthor={Cristian A. Marocico},
+ pdftitle={Machine Learning in Python},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\end{frame}
+
+\section{Introduction to Classification}
+\label{sec:orgd9633ab}
+\begin{frame}[label={sec:orga6fc109}]{Introduction to Classification}
+\begin{definition}[Classification]\label{sec:orgc9ef722}
+\pause
+\alert{Classification} is a type of supervised learning where the model learns from labeled data to predict the class of new observations based on past data.
+\pause
+
+\alert{Classification vs. Regression} is a key distinction in supervised learning:
+\begin{itemize}[<+->]
+\item In \alert{classification}, the target variable is categorical (e.g., "spam" or "not spam").
+\item In \alert{regression}, the target variable is continuous (e.g., predicting a price).
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org38505ef}]{Classification Types}
+\begin{definition}[Classification Types]\label{sec:org4a38c73}
+\pause
+\alert{Classification} can be broadly divided into two types:
+\begin{itemize}[<+->]
+\item \alert{Binary Classification}: The target variable has two classes (e.g., "yes" or "no", "spam" or "not spam"). Numerically, this can always be represented as 0 and 1.
+\item \alert{Multiclass Classification}: The target variable has more than two classes (e.g., "cat", "dog", "weasel"). In this case, the model predicts one of several possible categories.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgde053fd}]{Classification Algorithms}
+\begin{definition}[Classification Algorithms]\label{sec:org51b9712}
+\pause
+\alert{Classification algorithms} are designed to learn from labeled data and make predictions about the class of new, unseen data. Some common algorithms include:
+\begin{itemize}[<+->]
+\item \alert{Logistic Regression}: Despite its name, it is used for binary classification. It models the probability that a given input belongs to a particular class.
+\item \alert{k-Nearest Neighbors (k-NN)}: A non-parametric method that classifies a data point based on the classes of its nearest neighbors in the feature space.
+\item \alert{Decision Trees}: A tree-like model that splits the data into subsets based on feature values, leading to a decision about the class label.
+\item \alert{Support Vector Machines (SVM)}: A method that finds the hyperplane that best separates the classes in the feature space.
+\item More advanced algorithms like \alert{Random Forests}, \alert{Gradient Boosting}, and \alert{Neural Networks}.
+\end{itemize}
+\end{definition}
+\end{frame}
+\section{Classification Basics}
+\label{sec:org1299dfb}
+\begin{frame}[label={sec:org5e16198}]{Logistic Regression}
+\begin{definition}[Logistic Regression]\label{sec:org28f7f82}
+\pause
+\alert{Logistic Regression} models the probability that the target variable \(y\) belongs to a particular class. The \alert{logistic function (sigmoid)} is used to map predicted values to probabilities between 0 and 1. The decision boundary is determined by the threshold (commonly 0.5) for classifying observations into different classes.
+\pause
+
+The sigmoid function is defined as:
+$$\sigma(z) = \frac{1}{1 + e^{-z}}$$
+where \(z\) is a linear combination of the input features.
+\end{definition}
+\end{frame}
+\section{Evaluation Metrics}
+\label{sec:org5e195ec}
+\begin{frame}[label={sec:org79c547f}]{Evaluation Metrics for Classification}
+\begin{definition}[Confusion Matrix]\label{sec:org2ce2ee1}
+\pause
+The \alert{confusion matrix} summarizes the performance of a classification algorithm by comparing predicted and actual labels.
+\pause
+\begin{center}
+\begin{tabular}{lll}
+ & \alert{Predicted = 1} & \alert{Predicted = 0}\\
+\hline
+\alert{Actual = 1} & True Positive (TP) & False Negative (FN)\\
+\alert{Actual = 0} & False Positive (FP) & True Negative (TN)\\
+\end{tabular}
+\end{center}
+From these four numbers we obtain the core metrics summarized next.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org5a4fff9}]{Accuracy (Overall Success Rate)}
+\begin{definition}[Accuracy (Overall Success Rate)]\label{sec:org4a60261}
+\alert{Accuracy} is a measure of how often the classifier is correct across all predictions. It answers the question: "What fraction of \alert{all} predictions are correct?"
+$$\text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{FP} + \text{FN} + \text{TN}}$$
+
+Despite its simplicity, accuracy can be misleading, especially in imbalanced datasets where one class dominates.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org587f3d2}]{Precision (Positive Predictive Value)}
+\begin{definition}[Precision (Positive Predictive Value)]\label{sec:orgc7da7af}
+\alert{Precision} is a measure of the accuracy of positive predictions. It answers the question: "When the classifier predicts 1, how often is it correct?"
+$$\text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}$$
+
+High precision indicates that when the model predicts a positive class, it is likely correct, but it does not account for false negatives.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgd5b10a2}]{Recall (Sensitivity, True-Positive Rate)}
+\begin{definition}[Recall (Sensitivity, True-Positive Rate)]\label{sec:org64f96d9}
+\alert{Recall} is a measure of the model's ability to capture all positive instances. It answers the question: "Of all the actual 1 cases, how many did we catch?"
+$$\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}$$
+High recall indicates that the model is good at identifying positive cases, but it does not consider false positives.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgd4d5710}]{F1-Score}
+\begin{definition}[F1-Score]\label{sec:orga5ba869}
+\alert{F1-Score} is the harmonic mean of precision and recall, providing a balance between the two metrics:
+$$F_1 = 2 \cdot \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
+It is particularly useful when the class distribution is imbalanced, as it considers both false positives and false negatives.
+High F1-Score indicates a good balance between precision and recall, while a low F1-Score suggests that either precision or recall (or both) are low.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org9b08fde}]{Precision-Recall Trade-off}
+\begin{definition}[Precision-Recall Trade-off]\label{sec:orgd8d2cee}
+The \alert{Precision-Recall Trade-off} illustrates the inverse relationship between precision and recall:
+\pause
+\begin{itemize}[<+->]
+\item Increasing the threshold for classifying a positive instance will \textcolor{darkgreen}{increase precision} but \textcolor{darkred}{decrease recall}.
+\item Decreasing the threshold will \textcolor{darkgreen}{increase recall} but \textcolor{darkred}{decrease precision}.
+\end{itemize}
+\end{definition}
+\begin{definition}[Precision-Recall Curve]\label{sec:orgab37166}
+\pause
+\alert{Precision-Recall Curve} is a graphical representation of the trade-off between precision and recall for different threshold values.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org9bfe5f2}]{Receiver Operating Characteristic (ROC) Curve}
+\begin{definition}[Receiver Operating Characteristic (ROC) Curve]\label{sec:org91171ab}
+\alert{ROC Curve} is a graphical representation of a classifier's performance across different thresholds. It plots the true positive rate (recall) against the false positive rate (FPR) at various threshold settings.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgad7ebc5}]{Area Under the Curve (AUC)}
+\begin{definition}[Area Under the Curve (AUC)]\label{sec:org2325939}
+\pause
+\alert{Area Under the Curve (AUC)} is a single scalar value that summarizes the performance of a classifier across all possible thresholds. It is calculated as the area under the ROC curve. AUC provides an aggregate measure of performance across all classification thresholds, making it useful for comparing different classifiers.
+\end{definition}
+\end{frame}
+\section{\(k\)-Nearest Neighbours}
+\label{sec:org7ff66de}
+\begin{frame}[label={sec:org2aa512a}]{\(k\)-Nearest Neighbours (\(k\)-NN)}
+\begin{definition}[\(k\)-Nearest Neighbours (\(k\)-NN)]\label{sec:orgcf719d6}
+\pause
+\alert{\(k\)-Nearest Neighbors (\(k\)-NN)} is a \alert{non-parametric}, \alert{instance-based} learning algorithm that classifies a new observation based on the classes of its \(k\) nearest neighbors in the feature space. It does not explicitly learn a model but stores the training instances.
+\pause
+
+The algorithm works as follows:
+\begin{itemize}[<+->]
+\item Compute the distance between the new observation and every point in the training set (Euclidean, Manhattan or Minkowski distances).
+\item Select the \(k\) closest neighbors.
+\item Predict the class by majority vote among those neighbors.
+\end{itemize}
+\pause
+
+The decision boundary is implicitly defined by the \(k\) nearest points, allowing the model to capture highly non-linear class boundaries without explicit training.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org8ea0056}]{Mathematical Formulation}
+\begin{definition}[Mathematical Formulation]\label{sec:orga7e09fa}
+Given a training set \(\{(x_i, y_i)\}_{i = 1}^{n}\) where \(y_i \in \{1, \dots,C\}\), the prediction for a query point \(\hat{x}\) is:
+$$\hat{y} = \text{mode}\left(\{y_j | x_j \in N_k(\hat{x})\}\right),$$
+
+where \(N_k(\hat{x})\) denotes the set of \(k\) training points closest to \(\hat{x}\).
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgd2b8339}]{Considerations for \(k\)-NN}
+\begin{block}{Considerations for \(k\)-NN}
+\begin{itemize}[<+->]
+\item \alert{Choosing \(k\)}:
+\begin{itemize}
+\item A small \(k\) can lead to noise sensitivity (overfitting).
+\item A large \(k\) can smooth out class boundaries (underfitting).
+\item Cross-validation is often used to select the optimal \(k\).
+\end{itemize}
+\item \alert{Advantages}:
+\begin{itemize}
+\item Simple and intuitive.
+\item No training phase; all computation happens at prediction time.
+\item Naturally handles multi-class classification.
+\end{itemize}
+\item \alert{Disadvantages}:
+\begin{itemize}
+\item Computationally expensive at prediction time, especially with large datasets.
+\item Sensitive to irrelevant features and feature scaling.
+\item Requires a good choice of distance metric.
+\end{itemize}
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Decision Trees}
+\label{sec:orgf28f0e6}
+\begin{frame}[label={sec:orga977ef4}]{Decision Trees}
+\begin{definition}[Decision Trees]\label{sec:org5df3a34}
+\alert{Decision Trees} recursively partition the feature space into axis-aligned regions and assign a class label to each region. It consists of \alert{nodes} (features), \alert{branches} (decisions), and \alert{leaves} (outcomes).
+\pause
+
+At each node, the algorithm chooses the split that maximizes a purity metric such as \alert{information gain} or \alert{Gini impurity}. The tree is built by recursively splitting the dataset into subsets until a stopping criterion is met (e.g., maximum depth, minimum samples per leaf).
+\pause
+
+By hierarchically splitting the space, a tree can approximate complex decision boundaries while remaining interpretable-each internal node corresponds to a human-readable rule.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org687cde3}]{Information Gain}
+\begin{definition}[Information Gain]\label{sec:orgab1df6e}
+For a node containing a sample set \(S\), the entropy is:
+$$H(S)= -\sum_{c = 1}^{C} p_c \log_2 p_c,$$
+where \(p_c\) is the proportion of class \(c\).
+\pause
+A split of \(S\) into subsets \(S_L, S_R\) yields information gain:
+$$IG = H(S) - \frac{|S_L|}{|S|} H(S_L) - \frac{|S_R|}{|S|} H(S_R).$$
+The algorithm selects the split with the highest \alert{IG} (or lowest Gini).
+\pause
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgc8f7495}]{Considerations for Decision Trees}
+\begin{definition}[Considerations for Decision Trees]\label{sec:orgc17aaa8}
+\begin{itemize}[<+->]
+\item \alert{Pruning}: Techniques like cost-complexity pruning can be applied to reduce overfitting by removing branches that have little importance.
+
+\item \alert{Advantages}:
+\begin{itemize}
+\item Easy to interpret and visualize.
+\item Handles both numerical and categorical data.
+\item Non-parametric: does not assume any specific distribution of the data.
+\end{itemize}
+
+\item \alert{Disadvantages}:
+\begin{itemize}
+\item Prone to overfitting, especially with deep trees.
+\item Sensitive to small changes in the data (can lead to different trees).
+\end{itemize}
+\end{itemize}
+\end{definition}
+\end{frame}
+\section{Support Vector Machines (SVM)}
+\label{sec:org6321666}
+\begin{frame}[label={sec:orga40162a}]{Support Vector Machines (SVM)}
+\begin{definition}[Support Vector Machines (SVM)]\label{sec:orge52c844}
+\alert{Support Vector Machines (SVM)} are powerful algorithms that find the optimal hyperplane that separates different classes in the feature space. The goal is to maximize the \alert{margin} between the closest points of each class, known as \alert{support vectors}.
+\pause
+The SVM algorithm works by solving the following optimization problem:
+$$\min_{\mathbf{w}, b} \frac{1}{2} ||\mathbf{w}||^2 \quad \text{s.t.} \quad y_i(\mathbf{w}^T \mathbf{x}_i + b) \geq 1, \quad \forall i,$$
+where \(\mathbf{w}\) is the weight vector, \(b\) is the bias term, and \(y_i\) is the class label of the \(i\)-th training example.
+\pause
+
+Visualization should help\ldots{}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org5ec5c47}]{Linear SVMs}
+\begin{definition}[Linear SVMs]\label{sec:orgf40ba85}
+\alert{Linear SVMs} are used when the data is linearly separable. The decision boundary is a hyperplane defined by the equation:
+$$\mathbf{w}^T \mathbf{x} + b = 0,$$
+where \(\mathbf{w}\) is the weight vector and \(b\) is the bias term. The SVM finds the hyperplane that maximizes the margin between the two classes.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgf3635ff}]{Non-Linear SVMs}
+\begin{definition}[Non-Linear SVMs]\label{sec:orge90af98}
+\alert{Non-Linear SVMs} use kernel functions to transform the input space into a higher-dimensional space where a linear hyperplane can separate the classes. Common kernels include:
+\begin{itemize}
+\item \alert{Polynomial Kernel}: Maps the input features into a polynomial feature space.
+\item \alert{Radial Basis Function (RBF) Kernel}: Maps the input features into an infinite-dimensional space, allowing for complex decision boundaries.
+\item \alert{Sigmoid Kernel}: Similar to the activation function in neural networks, it maps the input features into a space that can capture non-linear relationships.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orga97e919}]{Kernel Trick}
+\begin{definition}[Kernel Trick]\label{sec:orga5dcc43}
+The \alert{Kernel Trick} allows SVMs to operate in high-dimensional feature spaces without explicitly computing the coordinates of the data in that space. Instead, it computes the inner products between the images of all pairs of data points in the feature space, which is computationally efficient.
+
+This is done using a kernel function \(K(\mathbf{x}_i, \mathbf{x}_j)\) that computes the inner product in the transformed space:
+$$K(\mathbf{x}_i, \mathbf{x}_j) = \phi(\mathbf{x}_i)^T \phi(\mathbf{x}_j),$$
+where \(\phi\) is the mapping function that transforms the input features into the higher-dimensional space.
+\end{definition}
+\end{frame}
+\end{document}
