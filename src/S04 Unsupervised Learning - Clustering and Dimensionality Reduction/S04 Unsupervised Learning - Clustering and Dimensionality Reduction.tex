@@ -1,0 +1,502 @@
+% Created 2026-02-04 Wed 17:15
+% Intended LaTeX compiler: pdflatex
+\documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\useinnertheme{rounded}
+\useoutertheme{tree}
+\author{Cristian A. Marocico}
+\date{\today}
+\title{Machine Learning in Python}
+\subtitle{Unsupervised Learning - Clustering and Dimensionality Reduction}
+\author[Marocico, Tatar]{Cristian A. Marocico, A. Emin Tatar}
+\institute[CIT]{Center for Information Technology\\University of Groningen}
+\RequirePackage{pgfcore}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blkarray}
+\usepackage{eurosym}
+\usepackage[english]{babel}
+\usepackage{xcolor,colortbl}
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[makeroom]{cancel}
+\usepackage{bbm}
+\newcommand{\infoTitle}[1]{\renewcommand{\givenTitle}{#1}}
+\newcommand{\givenTitle}{Info}
+\newenvironment{warning}[1][Info]{%
+\infoTitle{#1}
+\setbeamercolor{block title}{fg=white,bg=red!100!white}%
+\setbeamercolor{block body}{bg=red!10!white}
+\begin{block}{\givenTitle}}{
+\end{block}}
+\DeclareMathOperator*{\argmax}{argmax}
+\setbeamercovered{transparent}
+\usecolortheme{beaver}
+\RequirePackage{pgfcore}
+\setbeamercovered{transparent=1}
+\mode<presentation>{
+\usecolortheme{beaver}
+\definecolor{rugcolor}{rgb}{0.8,0,0}
+\definecolor{darkblue}{rgb}{0.13,0.29,0.53}
+\definecolor{darkgreen}{rgb}{0.0,0.43,0.0}
+\definecolor{darkyellow}{rgb}{0.0,0.43,0.43}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{Gray}{gray}{0.85}
+\beamertemplatenavigationsymbolsempty
+\setbeamercolor{item}{fg=rugcolor!80!black}
+\setbeamercolor{title}{fg=rugcolor!80!black}
+\setbeamercolor{frametitle}{fg=rugcolor!80!black, bg=black!10!white}
+% Colors for 'definition' environment
+\setbeamercolor*{block title}{fg=white, bg=darkblue}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkblue}
+% Color for the 'question' environment
+\setbeamercolor*{block title question}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body question}{bg=normal text.bg!85!darkyellow}
+\setbeamercolor*{palette tertiary}{bg=rugcolor,fg=white}
+%HEADER WITH HIGHLIGHTED SECTION NAMES (optional)
+\useheadtemplate{%
+\vbox{%
+%			\vskip1.2pt
+%			\pgfuseimage{logo}
+%			\vskip1.2pt
+\tinycolouredline{rugcolor}{
+\color{white}{
+% comment the following line if you don't want the section names lines
+%					to appear on top
+\insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt
+plus1filll}
+%\pgfuseimage{logored}
+}
+}
+%    \tinycolouredline{rugcolor}
+{\color{white}{
+%% \insertsectionnavigationhorizontal{\paperwidth}{}{
+%                \hskip0pt \hfill}
+}}
+}
+}
+%FOOTER WITH AUTHOR NAME(S), PAPER TITLE (ABBREVIATED IF SPECIFIED BY \title),
+% AND PAGE COUNTER (optional)
+%	\usefoottemplate{%
+%		\vbox{%
+%			\tinycolouredline{rugcolor}{
+%				\color{white}{
+%					{\insertshortauthor} \hfill \insertshortsubtitle \hfill
+%					%\insertdate \hfill%
+%					\textsc{\insertframenumber/\inserttotalframenumber}
+%         		}
+%         	}
+%		}
+%	}
+}
+\newtheorem*{props}{Properties}
+\newtheorem*{prop}{Property}
+\newtheorem*{notation}{Notation}
+\newtheorem*{terminology}{Terminology}
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\Var}{\mathbb{V}\mathrm{ar}}
+\newcommand{\Corr}{\mathbb{C}\mathrm{orr}}
+\newcommand{\Cov}{\mathbb{C}\mathrm{ov}}
+\newcommand{\Expt}{\mathbb{E}}
+\newcommand{\NorDist}{\mathcal{N}}
+\newcommand{\ExpDist}{\mathcal{E}\mathrm{xp}}
+\newcommand{\GammaDist}{\mathcal{G}\mathrm{amma}}
+\newcommand{\BetaDist}{\mathcal{B}\mathrm{eta}}
+\newcounter{listCounter}
+\newenvironment{question}{%
+\setbeamercolor{block title}{bg=orange!70!white,fg=white}
+\setbeamercolor{block body}{bg=yellow!10!white}
+\begin{block}{Question}
+}{%
+\end{block}
+}
+\lstdefinestyle{mystyle}{
+language=R,
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{darkblue}\bfseries,
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily,
+breakatwhitespace=true,
+breaklines=true,
+%	captionpos=none,
+columns=fixed,
+keepspaces=true,
+numbers=none,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2,
+basewidth=1.5em,
+escapeinside={<@}{@>}
+}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\renewenvironment{definition}[1][Definition]{%
+\setbeamercolor{block title}{fg=white,bg=darkblue}
+\setbeamercolor{block body}{fg=black,bg=normal text.bg!85!darkblue}
+\begin{block}{#1\hfill \footnotesize{Definition}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{example}[1][Example]{%
+% Color for the 'example' environment
+\setbeamercolor*{block title}{fg=white, bg=darkgreen}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkgreen}
+\begin{block}{#1\hfill \footnotesize{Example}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{theorem}[1][Theorem]{%
+\setbeamercolor*{block title}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkyellow}
+\begin{block}{#1\hfill \footnotesize{Theorem}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\date[Feb 13\textsuperscript{th} 2026]{Friday, February 13\textsuperscript{th} 2026}
+\usepackage{mathtools}
+\newcommand{\intsum}{\mathop{\mathrlap{\raisebox{0.1ex}{\hspace{0.2em}$\textstyle\sum$}}\int}\limits}
+\setbeamercovered{transparent=0}
+\usepackage[timeinterval=60]{tdclock}
+\hypersetup{
+ pdfauthor={Cristian A. Marocico},
+ pdftitle={Machine Learning in Python},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\end{frame}
+
+\section{Introduction to Unsupervised Learning}
+\label{sec:org2f2069c}
+\begin{frame}[label={sec:orgb56e413}]{Introduction to Unsupervised Learning}
+\begin{definition}[What is Unsupervised Learning?]\label{sec:org9202d9f}
+\pause
+In contrast to supervised learning, \alert{unsupervised learning} does not use labeled data. Instead, it identifies patterns and structures in the data without predefined labels. This is particularly useful for clustering similar data points or reducing the dimensionality of the data.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgdb32e40}]{Types of Unsupervised Learning}
+\begin{block}{Types of Unsupervised Learning}
+\pause
+Unsupervised learning can be broadly categorized into a few types:
+\begin{itemize}[<+->]
+\item \alert{Dimensionality Reduction}: Techniques that reduce the number of features while preserving the essential structure of the data.
+\item \alert{Clustering}: Algorithms that group similar data points together based on their features.
+\item \alert{Anomaly Detection}: Identifying rare items, events, or observations that raise suspicions by differing significantly from the majority of the data.
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Dimensionality Reduction}
+\label{sec:org47c7319}
+\begin{frame}[label={sec:orgf913ae3}]{Dimensionality Reduction}
+\begin{block}{Dimensionality Reduction}
+\pause
+\alert{Dimensionality reduction} techniques aim to reduce the number of features in a dataset while retaining its essential characteristics. Useful for visualizing high-dimensional data or improving the performance of machine learning models by reducing noise and computational complexity. Common dimensionality reduction techniques include:
+\begin{itemize}[<+->]
+\item \alert{Principal Component Analysis (PCA)}: Projects the data onto a lower-dimensional space by maximizing the variance along the new axes (principal components).
+\item \alert{Linear Discriminant Analysis (LDA)}: A supervised technique that finds a linear combination of features that separates two or more classes. (Included here for comparison; requires labels.)
+\item \alert{Autoencoders}: Neural networks that learn to encode the input data into a lower-dimensional representation and then decode it back to the original space. They are particularly useful for learning complex, non-linear mappings.
+\end{itemize}
+\end{block}
+\end{frame}
+\section[PCA]{Principal Component Analysis (PCA)}
+\label{sec:orgf9e2e6b}
+\begin{frame}[label={sec:orgdaac264}]{Principal Component Analysis (PCA)}
+\begin{block}{Principal Component Analysis (PCA)}
+\pause
+\alert{Principal Component Analysis (PCA)} is a widely used technique for dimensionality reduction. It transforms the data into a new coordinate system where the greatest variance by any projection lies on the first coordinate (principal component), the second greatest variance on the second coordinate, and so on. This allows us to reduce the number of dimensions while retaining most of the information in the data.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgfaab9df}]{Steps in PCA}
+\begin{block}{Steps in PCA}
+\pause
+The PCA process involves several key steps:
+\begin{enumerate}[<+->]
+\item \alert{Standardization}: Scale the data to have a mean of 0 and a standard deviation of 1 to ensure that all features contribute equally to the analysis.
+\item \alert{Covariance Matrix Calculation}: Compute the covariance matrix to understand how the features vary together.
+\item \alert{Eigenvalue Decomposition}: Calculate the eigenvalues and eigenvectors of the covariance matrix. The eigenvectors represent the directions of maximum variance, and the eigenvalues indicate the amount of variance in those directions.
+\item \alert{Selecting Principal Components}: Choose the top k eigenvectors (principal components) based on their corresponding eigenvalues, which capture the most variance in the data.
+\item \alert{Transforming the Data}: Project the original data onto the selected principal components to obtain a lower-dimensional representation.
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org46f652c}]{Applications of PCA}
+\begin{block}{Applications of PCA}
+\pause
+PCA is widely used in various fields for:
+\begin{itemize}[<+->]
+\item \alert{\alert{Data Visualization}}: Reducing high-dimensional data to 2D or 3D for visualization purposes.
+\item \alert{\alert{Noise Reduction}}: Filtering out noise by retaining only the most significant components.
+\item \alert{\alert{Feature Extraction}}: Creating new features that capture the essential patterns in the data.
+\item \alert{\alert{Preprocessing for Machine Learning}}: Reducing dimensionality before applying machine learning algorithms to improve performance and reduce overfitting.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgd8319bf}]{Limitations of PCA}
+\begin{block}{Limitations of PCA}
+\pause
+While PCA is a powerful technique, it has some limitations:
+\begin{itemize}[<+->]
+\item \alert{\alert{Linearity}}: PCA assumes linear relationships between features, which may not capture complex patterns in the data.
+\item \alert{\alert{Interpretability}}: The principal components may not have a clear interpretation in terms of the original features, making it difficult to understand the results.
+\item \alert{\alert{Sensitivity to Scaling}}: PCA is sensitive to the scale of the features, so standardization is crucial.
+\item \alert{\alert{Loss of Information}}: Reducing dimensions may lead to loss of important information, especially if too many components are discarded.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org1eb5ee7}]{Evaluating PCA Results}
+\begin{block}{Evaluating PCA Results}
+\pause
+To evaluate the effectiveness of PCA, we can use several methods:
+\begin{itemize}[<+->]
+\item \alert{\alert{Explained Variance Ratio}}: This metric indicates the proportion of variance explained by each principal component. A higher explained variance ratio suggests that the component captures more information from the data.
+\item \alert{\alert{Scree Plot}}: A graphical representation of the eigenvalues associated with each principal component. It helps to visualize the amount of variance explained by each component and to determine the optimal number of components to retain.
+\item \alert{\alert{Reconstruction Error}}: After transforming the data using PCA, we can reconstruct the original data and measure the error (e.g., mean squared error) to assess how well PCA captures the original structure of the data.
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Autoencoders}
+\label{sec:org9242cbb}
+\begin{frame}[label={sec:org9c98984}]{Autoencoders}
+\begin{block}{Autoencoders}
+\pause
+\alert{Autoencoders} are a type of neural network used for unsupervised learning, particularly for dimensionality reduction and feature learning. They consist of two main parts: an encoder that compresses the input data into a lower-dimensional representation (latent space) and a decoder that reconstructs the original data from this representation.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org85f82aa}]{Structure of Autoencoders}
+\begin{block}{Structure of Autoencoders}
+\pause
+Autoencoders typically have the following structure:
+\begin{itemize}[<+->]
+\item \alert{\alert{Encoder}}: Maps the input data to a lower-dimensional latent space using one or more hidden layers. The encoder learns to capture the most important features of the data.
+\item \alert{\alert{Latent Space}}: The compressed representation of the input data, which contains the essential features learned by the encoder.
+\item \alert{\alert{Decoder}}: Reconstructs the original data from the latent space representation using one or more hidden layers. The decoder learns to reverse the encoding process.
+\item \alert{\alert{Loss Function}}: The autoencoder is trained to minimize the difference between the original input and the reconstructed output, typically using mean squared error or binary cross-entropy as the loss function.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgf12c362}]{Applications of Autoencoders}
+\begin{block}{Applications of Autoencoders}
+\pause
+Autoencoders have various applications in unsupervised learning:
+\begin{itemize}[<+->]
+\item \alert{\alert{Dimensionality Reduction}}: Reducing the number of features while retaining important information, similar to PCA but capable of capturing non-linear relationships.
+\item \alert{\alert{Feature Learning}}: Learning meaningful representations of data that can be used for downstream tasks such as classification or clustering.
+\item \alert{\alert{Anomaly Detection}}: Identifying anomalies by reconstructing input data and measuring the reconstruction error; high errors indicate potential anomalies.
+\item \alert{\alert{Data Denoising}}: Removing noise from data by training the autoencoder to reconstruct clean data from noisy inputs.
+\item \alert{\alert{Generative Models}}: Variational autoencoders (VAEs) can generate new data samples by sampling from the latent space, making them useful for generative tasks.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org2d4a1f0}]{Limitations of Autoencoders}
+\begin{block}{Limitations of Autoencoders}
+\pause
+While autoencoders are powerful tools, they have some limitations:
+\begin{itemize}[<+->]
+\item \alert{\alert{Training Complexity}}: Training autoencoders can be complex and may require careful tuning of hyperparameters, such as the architecture, learning rate, and regularization techniques.
+\item \alert{\alert{Overfitting}}: Autoencoders can overfit the training data, especially if the model is too complex or the dataset is small. Regularization techniques such as dropout or weight decay can help mitigate this.
+\item \alert{\alert{Interpretability}}: The learned representations in the latent space may not have a clear interpretation, making it difficult to understand the features captured by the autoencoder.
+\item \alert{\alert{Non-Deterministic}}: The results can vary between runs due to the stochastic nature of training, especially if random initialization is used.
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Clustering}
+\label{sec:orgd09f944}
+\begin{frame}[label={sec:org3462e54}]{Clustering}
+\begin{definition}[Clustering]\label{sec:org78cea45}
+\pause
+\alert{Clustering} is an unsupervised learning technique that groups similar data points together based on their features. The goal is to identify inherent structures in the data without prior knowledge of labels.
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org2d45aa5}]{Types of Clustering Algorithms}
+\begin{definition}[Types of Clustering Algorithms]\label{sec:org57f7871}
+\pause
+Based on their approach, clustering algorithms can be categorized into several types:
+\begin{itemize}[<+->]
+\item \alert{Partitioning Methods}: These algorithms divide the data into k clusters, where k is a predefined number. The most common example is k-means clustering.
+\item \alert{Hierarchical Methods}: These algorithms create a hierarchy of clusters, either by merging smaller clusters into larger ones (\alert{agglomerative}) or by splitting larger clusters into smaller ones (\alert{divisive}).
+\item \alert{Density-Based Methods}: These algorithms group data points based on the density of data points in the feature space. DBSCAN (Density-Based Spatial Clustering of Applications with Noise) is a popular density-based clustering algorithm.
+\item \alert{Model-Based Methods}: These algorithms assume that the data is generated from a mixture of underlying probability distributions. Gaussian Mixture Models (GMMs) are a common example, where each cluster is represented by a Gaussian distribution.
+\end{itemize}
+\end{definition}
+\end{frame}
+\section[k-Means]{k-Means Clustering}
+\label{sec:orga774d9e}
+\begin{frame}[label={sec:org396ab67}]{k-Means Clustering}
+\begin{block}{k-Means Clustering}
+\pause
+\alert{k-Means clustering} is a widely used partitioning method that aims to divide the data into k clusters, where k is a user-defined parameter. The algorithm iteratively assigns data points to the nearest cluster centroid and updates the centroids based on the assigned points.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org9eba3d8}]{Steps in k-Means Clustering}
+\begin{block}{Steps in k-Means Clustering}
+\pause
+The k-means clustering algorithm follows these steps:
+\begin{enumerate}[<+->]
+\item \alert{\alert{Initialization}}: Randomly select k data points as initial cluster centroids.
+\item \alert{\alert{Assignment Step}}: Assign each data point to the nearest centroid based on a distance metric (e.g., Euclidean distance).
+\item \alert{\alert{Update Step}}: Calculate the new centroids by taking the mean of all data points assigned to each cluster.
+\item \alert{\alert{Convergence Check}}: Repeat the assignment and update steps until the centroids do not change significantly or a maximum number of iterations is reached.
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgf57c0d8}]{Applications of k-Means Clustering}
+\begin{block}{Applications of k-Means Clustering}
+\pause
+k-Means clustering is widely used in various applications:
+\begin{itemize}[<+->]
+\item \alert{\alert{Customer Segmentation}}: Grouping customers based on purchasing behavior to tailor marketing strategies.
+\item \alert{\alert{Image Compression}}: Reducing the number of colors in an image by clustering similar colors together.
+\item \alert{\alert{Document Clustering}}: Grouping similar documents based on their content for information retrieval or topic modeling.
+\item \alert{\alert{Anomaly Detection}}: Identifying outliers by detecting data points that do not belong to any cluster.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgd20a1af}]{Limitations of k-Means Clustering}
+\begin{block}{Limitations of k-Means Clustering}
+\pause
+While k-means clustering is a powerful technique, it has some limitations:
+\begin{itemize}[<+->]
+\item \alert{\alert{Choosing k}}: The number of clusters (k) must be specified beforehand, which can be challenging if the optimal number is unknown.
+\item \alert{\alert{Sensitivity to Initialization}}: The algorithm can converge to different solutions based on the initial centroids, leading to inconsistent results. Techniques like k-means++ initialization can help mitigate this issue.
+\item \alert{\alert{Assumption of Spherical Clusters}}: k-means assumes that clusters are spherical and equally sized, which may not hold true for all datasets.
+\item \alert{\alert{Sensitivity to Outliers}}: k-means is sensitive to outliers, which can skew the centroids and affect the clustering results. Preprocessing steps like outlier removal or using robust distance metrics can help address this issue.
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Hierarchical Clustering}
+\label{sec:org1c3a6a2}
+\begin{frame}[label={sec:org9ef3320}]{Hierarchical Clustering}
+\begin{block}{Hierarchical Clustering}
+\pause
+\alert{Hierarchical clustering} is a method that builds a hierarchy of clusters, either by merging smaller clusters into larger ones (agglomerative) or by splitting larger clusters into smaller ones (divisive).
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org1648d65}]{Types of Hierarchical Clustering}
+\begin{block}{Types of Hierarchical Clustering}
+\pause
+Hierarchical clustering can be categorized into two main types:
+\begin{itemize}[<+->]
+\item \alert{Agglomerative Clustering}: Starts with each data point as its own cluster and iteratively merges the closest clusters until a single cluster remains or a stopping criterion is met.
+\item \alert{Divisive Clustering}: Starts with all data points in a single cluster and recursively splits the clusters into smaller ones until each data point is its own cluster or a stopping criterion is met.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org7fd81c9}]{Steps in Agglomerative Clustering}
+\begin{block}{Steps in Agglomerative Clustering}
+\pause
+The agglomerative clustering algorithm follows these steps:
+\begin{enumerate}[<+->]
+\item \alert{\alert{Initialization}}: Start with each data point as its own cluster.
+\item \alert{\alert{Distance Calculation}}: Calculate the distance between all pairs of clusters using a distance metric (e.g., Euclidean distance).
+\item \alert{\alert{Merge Clusters}}: Identify the two closest clusters and merge them into a single cluster.
+\item \alert{\alert{Update Distances}}: Recalculate the distances between the newly formed cluster and the remaining clusters.
+\item \alert{\alert{Repeat}}: Repeat steps 3 and 4 until a stopping criterion is met, such as a predefined number of clusters or a distance threshold.
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org2b5c3ff}]{Applications of Hierarchical Clustering}
+\begin{block}{Applications of Hierarchical Clustering}
+\pause
+Hierarchical clustering is used in various applications:
+\begin{itemize}[<+->]
+\item \alert{\alert{Gene Expression Analysis}}: Grouping genes with similar expression patterns to identify co-regulated genes or functional groups.
+\item \alert{\alert{Document Clustering}}: Organizing documents into a hierarchy based on their content for information retrieval or topic modeling.
+\item \alert{\alert{Image Segmentation}}: Dividing an image into regions based on pixel similarity to facilitate object recognition or scene understanding.
+\item \alert{\alert{Market Basket Analysis}}: Identifying groups of products frequently purchased together to inform marketing strategies or product placement.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orged94729}]{Limitations of Hierarchical Clustering}
+\begin{block}{Limitations of Hierarchical Clustering}
+\pause
+Hierarchical clustering has some limitations:
+\begin{itemize}[<+->]
+\item \alert{\alert{Scalability}}: Hierarchical clustering can be computationally expensive, especially for large datasets, as it requires calculating distances between all pairs of data points.
+\item \alert{\alert{Sensitivity to Noise}}: Hierarchical clustering can be sensitive to noise and outliers, which can affect the structure of the dendrogram and the resulting clusters.
+\item \alert{\alert{Choice of Distance Metric}}: The choice of distance metric can significantly impact the clustering results, and there is no one-size-fits-all solution.
+\item \alert{\alert{Interpretability}}: The dendrogram can be complex and difficult to interpret, especially for large datasets with many clusters.
+\end{itemize}
+\end{block}
+\end{frame}
+\section{Anomaly Detection}
+\label{sec:orgb2761af}
+\begin{frame}[label={sec:org086416d}]{Anomaly Detection}
+\begin{block}{Anomaly Detection}
+\pause
+\alert{Anomaly detection} is the process of identifying rare items, events, or observations that raise suspicions by differing significantly from the majority of the data.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org2d38fa3}]{Types of Anomaly Detection Techniques}
+\begin{block}{Types of Anomaly Detection Techniques}
+\pause
+Anomaly detection techniques can be broadly categorized into three main types:
+\begin{itemize}[<+->]
+\item \alert{Statistical Methods}: These methods assume that normal data follows a specific statistical distribution (e.g., Gaussian) and identify anomalies as data points that deviate significantly from this distribution.
+\item \alert{Machine Learning Methods}: These methods use machine learning algorithms to learn patterns in the data and identify anomalies based on deviations from these patterns. Examples include one-class SVMs, isolation forests, and autoencoders.
+\item \alert{Clustering-Based Methods}: These methods use clustering algorithms to group similar data points together and identify anomalies as points that do not belong to any cluster or are far from the nearest cluster centroid.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgc21167a}]{Steps in Anomaly Detection}
+\begin{block}{Steps in Anomaly Detection}
+\pause
+The anomaly detection process typically involves the following steps:
+\begin{enumerate}[<+->]
+\item \alert{Data Preprocessing}: Clean and preprocess the data.
+\item \alert{Feature Selection/Extraction}: Select or extract relevant features that are likely to contain information about anomalies.
+\item \alert{Model Training}: Train an anomaly detection model using the selected features.
+\item \alert{Anomaly Scoring}: Calculate an anomaly score for each data point based on the trained model.
+\item \alert{Thresholding}: Set a threshold to classify data points as normal or anomalous based on their anomaly scores.
+\item \alert{Evaluation}: Evaluate the performance of the anomaly detection model using metrics such as precision, recall, and F1-score, if labeled data is available.
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orga93eb69}]{Applications of Anomaly Detection}
+\begin{block}{Applications of Anomaly Detection}
+\pause
+Anomaly detection is widely used in various domains:
+\begin{itemize}[<+->]
+\item \alert{\alert{Fraud Detection}}: Identifying fraudulent transactions in financial systems by detecting unusual patterns in transaction data.
+\item \alert{\alert{Network Security}}: Detecting intrusions or malicious activities in computer networks by identifying unusual traffic patterns or behaviors.
+\item \alert{\alert{Fault Detection}}: Identifying equipment failures or malfunctions in industrial systems by monitoring sensor data and detecting deviations from normal operating conditions.
+\item \alert{\alert{Healthcare}}: Detecting anomalies in patient health records or medical imaging data to identify potential health issues or diseases.
+\item \alert{\alert{Manufacturing}}: Monitoring production processes to detect anomalies that may indicate defects or quality issues in products.
+\end{itemize}
+\end{block}
+\end{frame}
+\end{document}
