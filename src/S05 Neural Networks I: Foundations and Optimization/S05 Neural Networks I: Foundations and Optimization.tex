@@ -1,0 +1,698 @@
+% Created 2026-02-04 Wed 20:55
+% Intended LaTeX compiler: pdflatex
+\documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\useinnertheme{rounded}
+\useoutertheme{tree}
+\author{Cristian A. Marocico}
+\date{\today}
+\title{Machine Learning in Python}
+\subtitle{Neural Networks I: Foundations and Optimization}
+\author[Marocico, Tatar]{Cristian A. Marocico, A. Emin Tatar}
+\institute[CIT]{Center for Information Technology\\University of Groningen}
+\RequirePackage{pgfcore}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blkarray}
+\usepackage{eurosym}
+\usepackage[english]{babel}
+\usepackage{xcolor,colortbl}
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[makeroom]{cancel}
+\usepackage{bbm}
+\newcommand{\infoTitle}[1]{\renewcommand{\givenTitle}{#1}}
+\newcommand{\givenTitle}{Info}
+\newenvironment{warning}[1][Info]{%
+\infoTitle{#1}
+\setbeamercolor{block title}{fg=white,bg=red!100!white}%
+\setbeamercolor{block body}{bg=red!10!white}
+\begin{block}{\givenTitle}}{
+\end{block}}
+\DeclareMathOperator*{\argmax}{argmax}
+\setbeamercovered{transparent}
+\usecolortheme{beaver}
+\RequirePackage{pgfcore}
+\setbeamercovered{transparent=1}
+\mode<presentation>{
+\usecolortheme{beaver}
+\definecolor{rugcolor}{rgb}{0.8,0,0}
+\definecolor{darkblue}{rgb}{0.13,0.29,0.53}
+\definecolor{darkgreen}{rgb}{0.0,0.43,0.0}
+\definecolor{darkyellow}{rgb}{0.0,0.43,0.43}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{Gray}{gray}{0.85}
+\beamertemplatenavigationsymbolsempty
+\setbeamercolor{item}{fg=rugcolor!80!black}
+\setbeamercolor{title}{fg=rugcolor!80!black}
+\setbeamercolor{frametitle}{fg=rugcolor!80!black, bg=black!10!white}
+% Colors for 'definition' environment
+\setbeamercolor*{block title}{fg=white, bg=darkblue}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkblue}
+% Color for the 'question' environment
+\setbeamercolor*{block title question}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body question}{bg=normal text.bg!85!darkyellow}
+\setbeamercolor*{palette tertiary}{bg=rugcolor,fg=white}
+%HEADER WITH HIGHLIGHTED SECTION NAMES (optional)
+\useheadtemplate{%
+\vbox{%
+%			\vskip1.2pt
+%			\pgfuseimage{logo}
+%			\vskip1.2pt
+\tinycolouredline{rugcolor}{
+\color{white}{
+% comment the following line if you don't want the section names lines
+%					to appear on top
+\insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt
+plus1filll}
+%\pgfuseimage{logored}
+}
+}
+%    \tinycolouredline{rugcolor}
+{\color{white}{
+%% \insertsectionnavigationhorizontal{\paperwidth}{}{
+%                \hskip0pt \hfill}
+}}
+}
+}
+%FOOTER WITH AUTHOR NAME(S), PAPER TITLE (ABBREVIATED IF SPECIFIED BY \title),
+% AND PAGE COUNTER (optional)
+%	\usefoottemplate{%
+%		\vbox{%
+%			\tinycolouredline{rugcolor}{
+%				\color{white}{
+%					{\insertshortauthor} \hfill \insertshortsubtitle \hfill
+%					%\insertdate \hfill%
+%					\textsc{\insertframenumber/\inserttotalframenumber}
+%         		}
+%         	}
+%		}
+%	}
+}
+\newtheorem*{props}{Properties}
+\newtheorem*{prop}{Property}
+\newtheorem*{notation}{Notation}
+\newtheorem*{terminology}{Terminology}
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\Var}{\mathbb{V}\mathrm{ar}}
+\newcommand{\Corr}{\mathbb{C}\mathrm{orr}}
+\newcommand{\Cov}{\mathbb{C}\mathrm{ov}}
+\newcommand{\Expt}{\mathbb{E}}
+\newcommand{\NorDist}{\mathcal{N}}
+\newcommand{\ExpDist}{\mathcal{E}\mathrm{xp}}
+\newcommand{\GammaDist}{\mathcal{G}\mathrm{amma}}
+\newcommand{\BetaDist}{\mathcal{B}\mathrm{eta}}
+\newcounter{listCounter}
+\newenvironment{question}{%
+\setbeamercolor{block title}{bg=orange!70!white,fg=white}
+\setbeamercolor{block body}{bg=yellow!10!white}
+\begin{block}{Question}
+}{%
+\end{block}
+}
+\lstdefinestyle{mystyle}{
+language=R,
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{darkblue}\bfseries,
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily,
+breakatwhitespace=true,
+breaklines=true,
+%	captionpos=none,
+columns=fixed,
+keepspaces=true,
+numbers=none,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2,
+basewidth=1.5em,
+escapeinside={<@}{@>}
+}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\renewenvironment{definition}[1][Definition]{%
+\setbeamercolor{block title}{fg=white,bg=darkblue}
+\setbeamercolor{block body}{fg=black,bg=normal text.bg!85!darkblue}
+\begin{block}{#1\hfill \footnotesize{Definition}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{example}[1][Example]{%
+% Color for the 'example' environment
+\setbeamercolor*{block title}{fg=white, bg=darkgreen}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkgreen}
+\begin{block}{#1\hfill \footnotesize{Example}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{theorem}[1][Theorem]{%
+\setbeamercolor*{block title}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkyellow}
+\begin{block}{#1\hfill \footnotesize{Theorem}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\date[Feb 17\textsuperscript{th} 2026]{Tuesday, February 17\textsuperscript{th} 2026}
+\usepackage{mathtools}
+\newcommand{\intsum}{\mathop{\mathrlap{\raisebox{0.1ex}{\hspace{0.2em}$\textstyle\sum$}}\int}\limits}
+\setbeamercovered{transparent=0}
+\usepackage[timeinterval=60]{tdclock}
+\hypersetup{
+ pdfauthor={Cristian A. Marocico},
+ pdftitle={Machine Learning in Python},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\end{frame}
+
+\section{Introduction to Artificial Neural Networks}
+\label{sec:org04297b1}
+\begin{frame}[label={sec:orgcd8d6cb}]{What is an Artificial Neural Network?}
+\begin{definition}[Definition]\label{sec:org425637c}
+\pause
+An \alert{Artificial Neural Network (ANN)} is a computational model composed of layers of interconnected nodes ("neurons") that process information by transmitting signals to one another.
+\pause
+\end{definition}
+\begin{example}[Key Properties]\label{sec:org264a45f}
+\begin{itemize}[<+->]
+\item Foundation of \alert{Deep Learning}
+\item Can learn complex, non-linear relationships
+\item Powers image recognition, voice assistants, medical diagnosis, and more
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:orgc94818c}]{Key Components of a Neural Network}
+\begin{block}{The Building Blocks}
+\pause
+\begin{enumerate}[<+->]
+\item \alert{Neurons (Nodes)}: Basic processing units that receive inputs, perform a calculation, and produce an output
+\item \alert{Weights}: Connections between neurons that determine influence; learning = adjusting weights
+\item \alert{Layers}:
+\begin{itemize}
+\item \alert{Input Layer}: Receives raw data
+\item \alert{Hidden Layers}: Feature extraction (the "magic")
+\item \alert{Output Layer}: Final prediction
+\end{itemize}
+\item \alert{Activation Function}: Introduces non-linearity, allowing the network to learn curves
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org30143e6}]{Biological Inspiration}
+\begin{block}{From Biology to Mathematics}
+\pause
+ANNs are loosely inspired by biological neural networks in the brain:
+\pause
+\begin{center}
+\begin{tabular}{lll}
+Biological Neuron & Artificial Neuron & Role\\
+\hline
+\alert{Dendrites} & Inputs (\(x\)) & Receives signals\\
+\alert{Synapse} & Weights (\(w\)) & Controls signal strength\\
+\alert{Cell Body} & Summation (\(\sum\)) & Aggregates signals\\
+\alert{Axon} & Activation & Transmits output\\
+\end{tabular}
+\end{center}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org984a1bc}]{The Perceptron (1958)}
+\begin{definition}[The Simplest Neural Network]\label{sec:orgee6bc15}
+\pause
+The \alert{Perceptron} is a single-layer network that takes inputs, weighs them, and makes a binary decision.
+\pause
+\end{definition}
+\begin{block}{Mathematical Formulation}
+\begin{enumerate}
+\item \alert{Weighted Sum}: \(z = w_1 x_1 + w_2 x_2 + \dots + b\)
+\item \alert{Activation}:
+$$\text{Output} = \begin{cases} 1 & \text{if } z > 0 \\ 0 & \text{if } z \le 0 \end{cases}$$
+\end{enumerate}
+\pause
+This can solve \alert{linearly separable} problems (drawing a straight line between classes).
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgd231bbb}]{The XOR Problem}
+\begin{block}{The Fatal Flaw of Single Perceptrons}
+\pause
+\begin{center}
+\begin{tabular}{rrrr}
+\(x_1\) & \(x_2\) & AND & XOR\\
+\hline
+0 & 0 & 0 & 0\\
+0 & 1 & 0 & 1\\
+1 & 0 & 0 & 1\\
+1 & 1 & 1 & 0\\
+\end{tabular}
+\end{center}
+\pause
+\end{block}
+\begin{example}[The Limitation]\label{sec:org5c11fa3}
+\begin{itemize}[<+->]
+\item \alert{AND Gate}: Linearly separable (one line can separate classes)
+\item \alert{XOR Gate}: NOT linearly separable (needs a curve or multiple lines)
+\item This limitation froze AI research until \alert{Multi-Layer Perceptrons (MLPs)} emerged
+\end{itemize}
+\end{example}
+\end{frame}
+\section{The Multilayer Perceptron (MLP)}
+\label{sec:orgc289329}
+\begin{frame}[label={sec:org0461d23}]{From One to Many}
+\begin{definition}[Stacking Neurons]\label{sec:orgcb28804}
+\pause
+A \alert{Multilayer Perceptron (MLP)} or \alert{Feedforward Neural Network} connects many neurons in layers to solve complex, non-linear problems.
+\pause
+\end{definition}
+\begin{block}{Architecture}
+\begin{enumerate}[<+->]
+\item \alert{Input Layer}: Receives raw feature vector \(X\) (no computation)
+\item \alert{Hidden Layers}: Perform computation and extract features; more layers = "deeper" network
+\item \alert{Output Layer}: Produces final prediction (e.g., probability of class)
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org3583b53}]{Activation Functions}
+\begin{block}{Why Activation Functions?}
+\pause
+Without activation functions, an MLP is just a giant Linear Regression (linear + linear = linear).
+\alert{Activation functions} introduce \alert{non-linearity}, allowing networks to learn curves.
+\pause
+\end{block}
+\begin{example}[Common Activation Functions]\label{sec:orga684aa9}
+\begin{center}
+\begin{tabular}{llll}
+Function & Formula & Range & Usage\\
+\hline
+\alert{Sigmoid} & \(\frac{1}{1+e^{-z}}\) & \((0, 1)\) & Output (Binary Class.)\\
+\alert{Tanh} & \(\frac{e^z - e^{-z}}{e^z + e^{-z}}\) & \((-1, 1)\) & Hidden layers (Legacy)\\
+\alert{ReLU} & \(\max(0, z)\) & \([0, \infty)\) & \alert{Standard for Hidden}\\
+\alert{Softmax} & \(\frac{e^{z_i}}{\sum e^{z_j}}\) & \((0, 1)\) & Output (Multiclass)\\
+\end{tabular}
+\end{center}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:orgf3acf1b},fragile]{Forward Propagation}
+ \begin{block}{How Data Flows Through the Network}
+\pause
+For a single layer \(l\):
+\pause
+\begin{enumerate}[<+->]
+\item \alert{Linear Step (\(Z\))}: Weighted sum of inputs from previous layer
+$$Z^{[l]} = W^{[l]} \cdot A^{[l-1]} + b^{[l]}$$
+\item \alert{Activation Step (\(A\))}: Apply activation function
+$$A^{[l]} = g(Z^{[l]})$$
+\end{enumerate}
+\pause
+This process repeats until the output layer. The magic: \texttt{np.dot} handles all connections automatically.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org21c385f}]{Network Capacity: Width vs Depth}
+\begin{block}{Architectural Choices}
+\pause
+\begin{center}
+\begin{tabular}{lll}
+Architecture & Structure & Characteristics\\
+\hline
+\alert{Wide} & 1 layer, 100 neurons & Simple patterns, fast\\
+\alert{Deep} & 5 layers, 10 neurons & Hierarchical features, complex\\
+\end{tabular}
+\end{center}
+\pause
+\end{block}
+\begin{example}[Trade-offs]\label{sec:orgdd4a53d}
+\begin{itemize}[<+->]
+\item Deeper networks learn hierarchical representations (edges \(\rightarrow\) parts \(\rightarrow\) objects)
+\item Wider networks can approximate functions but may need more parameters
+\item In practice: start simple, add complexity if needed
+\end{itemize}
+\end{example}
+\end{frame}
+\section{Training Neural Networks}
+\label{sec:orge8d9a82}
+\begin{frame}[label={sec:org2891de2}]{The Goal of Training}
+\begin{block}{From Random to Learned}
+\pause
+A neural network starts with \alert{random weights}. It knows nothing.
+\alert{Training} adjusts these weights to minimize prediction error.
+\pause
+\end{block}
+\begin{example}[Three Components]\label{sec:org63cf105}
+\begin{enumerate}[<+->]
+\item \alert{Loss Function}: How we measure error
+\item \alert{Optimizer}: How we update weights
+\item \alert{Backpropagation}: How we calculate the updates
+\end{enumerate}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org30387d1}]{Loss Functions}
+\begin{definition}[The Scorecard]\label{sec:orgac2f699}
+\pause
+The \alert{Loss Function} (Cost Function) calculates a single number representing "how bad" the model is. Goal: drive it to zero.
+\pause
+\end{definition}
+\begin{block}{Common Loss Functions}
+\begin{center}
+\begin{tabular}{lll}
+Problem Type & Loss Function & Formula\\
+\hline
+\alert{Regression} & Mean Squared Error & \(\frac{1}{n}\sum(y - \hat{y})^2\)\\
+\alert{Classification} & Cross-Entropy & \(-\sum y \log(\hat{y})\)\\
+\end{tabular}
+\end{center}
+\pause
+\begin{itemize}
+\item MSE: Penalizes large errors heavily (prices, temperatures)
+\item Cross-Entropy: Penalizes confident wrong answers (probabilities)
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org30588bb}]{Stochastic Gradient Descent (SGD)}
+\begin{block}{Optimization Strategy}
+\pause
+\alert{Gradient Descent} minimizes loss by following the slope downhill.
+\alert{Batch GD} calculates gradient for entire dataset — slow and memory-intensive.
+\pause
+\end{block}
+\begin{definition}[Stochastic Gradient Descent]\label{sec:org4ec2235}
+\alert{SGD} updates weights after seeing just \alert{one example} (or a small "mini-batch").
+\pause
+\begin{itemize}[<+->]
+\item \alert{Pros}: Faster, noise helps escape local minima
+\item \alert{Cons}: Zigzaggy path to convergence
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org45e5301}]{Backpropagation}
+\begin{block}{The Chain Rule in Action}
+\pause
+How do we know which weight in Layer 1 caused the error in Layer 5?
+We use the \alert{Chain Rule} of calculus.
+\pause
+\end{block}
+\begin{example}[The Process]\label{sec:org57f346c}
+\begin{enumerate}[<+->]
+\item \alert{Forward Pass}: Data flows through network, loss is calculated
+\item \alert{Backward Pass}: Gradient propagates backwards layer by layer
+\begin{itemize}
+\item "Layer 4, you contributed X to the error. Adjust your weights."
+\item "Layer 3, based on Layer 4's error, you contributed Y\ldots{}"
+\end{itemize}
+\end{enumerate}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org0d588de}]{The Vanishing Gradient Problem}
+\begin{block}{Why Deep Networks Failed (Initially)}
+\pause
+In deep networks, gradients are multiplied repeatedly during backpropagation.
+\alert{Sigmoid} has max derivative of 0.25:
+$$0.25 \times 0.25 \times 0.25 \times \dots \approx 0$$
+\pause
+\end{block}
+\begin{example}[The Consequence]\label{sec:org2c10375}
+\begin{itemize}[<+->]
+\item Gradient "vanishes" before reaching early layers
+\item Early layers never learn; deep network fails
+\item \alert{Solution}: Use \alert{ReLU} (derivative = 1 for positive inputs)
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org95e930c}]{The Learning Rate}
+\begin{block}{The Most Critical Hyperparameter}
+\pause
+The \alert{Learning Rate} (\(\alpha\)) controls step size during gradient descent.
+\pause
+\end{block}
+\begin{example}[The Goldilocks Zone]\label{sec:org351e223}
+\begin{center}
+\begin{tabular}{ll}
+Learning Rate & Behavior\\
+\hline
+\alert{Too Small} & Loss decreases very slowly (0.0001)\\
+\alert{Too Large} & Loss oscillates or explodes (10.0)\\
+\alert{Just Right} & Smooth, rapid descent to minimum (0.01-0.1)\\
+\end{tabular}
+\end{center}
+\end{example}
+\end{frame}
+\section{Optimizing Neural Networks}
+\label{sec:org07e48ca}
+\begin{frame}[label={sec:org656381a}]{Weight Initialization}
+\begin{block}{Starting Right}
+\pause
+\begin{center}
+\begin{tabular}{ll}
+Initialization & Problem\\
+\hline
+All Zeros & Symmetry: every neuron learns same thing\\
+Too Large & Gradients explode\\
+Too Small & Gradients vanish\\
+\end{tabular}
+\end{center}
+\pause
+\end{block}
+\begin{example}[Strategies]\label{sec:org806a4f0}
+\begin{itemize}[<+->]
+\item \alert{He Initialization}: Best for ReLU networks
+\item \alert{Xavier (Glorot)}: Best for Sigmoid/Tanh networks
+\item Both keep variance of activations constant across layers
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org700831d}]{Advanced Optimizers}
+\begin{block}{Smarter Descent}
+\pause
+Standard SGD is like walking down a mountain blindfolded. Advanced optimizers add intelligence.
+\pause
+\begin{center}
+\begin{tabular}{lll}
+Optimizer & Mechanism & Analogy\\
+\hline
+\alert{SGD + Momentum} & Accumulates past gradients & Heavy ball rolling downhill\\
+\alert{RMSProp} & Adapts learning rate per parameter & Slows on steep, speeds on flat\\
+\alert{Adam} & Momentum + RMSProp combined & Smart ball, adapts speed \& direction\\
+\end{tabular}
+\end{center}
+\pause
+\alert{Adam} is the default choice for most tasks.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org94ff7b3}]{Regularization: Dropout}
+\begin{definition}[Fighting Overfitting]\label{sec:org05e9325}
+\pause
+\alert{Dropout} randomly "kills" (sets to zero) a percentage of neurons during training.
+\pause
+\end{definition}
+\begin{example}[Why It Works]\label{sec:org3ac43f0}
+\begin{itemize}[<+->]
+\item Prevents neurons from co-adapting
+\item Forces network to be redundant and robust
+\item Each training pass uses a different "thinned" network
+\item At test time, all neurons are used (with scaled weights)
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org7dc11f4}]{Regularization: Batch Normalization}
+\begin{definition}[Stabilizing Training]\label{sec:org042a064}
+\pause
+\alert{Batch Normalization} normalizes inputs of each layer to have mean 0 and variance 1 during training.
+\pause
+\end{definition}
+\begin{example}[Benefits]\label{sec:org3248e9f}
+\begin{itemize}[<+->]
+\item Stabilizes training (allows higher learning rates)
+\item Reduces sensitivity to initialization
+\item Acts as a form of regularization
+\item Enables training of much deeper networks
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org97fbc0f}]{Early Stopping}
+\begin{block}{The Simplest Regularization}
+\pause
+Monitor the \alert{Validation Loss}. If it stops improving (or starts getting worse), stop training immediately.
+\pause
+\end{block}
+\begin{example}[How It Works]\label{sec:org51198f3}
+\begin{itemize}[<+->]
+\item Training loss keeps decreasing (memorization)
+\item Validation loss starts increasing (overfitting)
+\item Early stopping saves the model at the sweet spot
+\item No hyperparameter tuning needed (just patience parameter)
+\end{itemize}
+\end{example}
+\end{frame}
+\section{Building Networks in PyTorch}
+\label{sec:org0a8b05a}
+\begin{frame}[label={sec:org0b7b644}]{Why PyTorch?}
+\begin{block}{Beyond Scikit-learn}
+\pause
+Scikit-learn is great for standard ML, but Deep Learning needs:
+\pause
+\begin{enumerate}[<+->]
+\item \alert{GPU Acceleration}: Matrix multiplication is slow on CPUs
+\item \alert{Automatic Differentiation}: Backpropagation is hard to code by hand
+\end{enumerate}
+\pause
+\end{block}
+\begin{example}[PyTorch Advantages]\label{sec:org6f1abea}
+\begin{itemize}
+\item Readable, "Pythonic" style
+\item Research and education standard
+\item Dynamic computation graphs (easy debugging)
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org816bc5d},fragile]{Tensors: The Foundation}
+ \begin{definition}[NumPy Arrays on Steroids]\label{sec:org2637cd9}
+\pause
+A \alert{Tensor} is like a NumPy array that:
+\begin{itemize}
+\item Can live on a GPU
+\item Remembers how it was created (for backprop)
+\end{itemize}
+\pause
+\end{definition}
+\begin{example}[Key Operations]\label{sec:orgaa85b47}
+\begin{itemize}[<+->]
+\item \texttt{torch.tensor([1, 2, 3])} — Create from list
+\item \texttt{torch.ones(2, 3)} — Shape (2, 3) of ones
+\item \texttt{x.to("cuda")} — Move to GPU
+\item Math: \texttt{x * 2 + 5} — Same as NumPy
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:orgf18e81b},fragile]{Defining a Network (\texttt{nn.Module})}
+ \begin{block}{The Blueprint}
+\pause
+In PyTorch, a network is a Python class inheriting from \texttt{nn.Module}:
+\pause
+\end{block}
+\begin{example}[Two Required Methods]\label{sec:orgf40c96f}
+\begin{enumerate}[<+->]
+\item \texttt{\_\_init\_\_}: Define the layers
+\begin{itemize}
+\item \texttt{self.layer1 = nn.Linear(input\_dim, hidden\_dim)}
+\item \texttt{self.activation = nn.ReLU()}
+\end{itemize}
+\item \texttt{forward}: Define data flow
+\begin{itemize}
+\item \texttt{x = self.layer1(x)}
+\item \texttt{x = self.activation(x)}
+\item \texttt{return x}
+\end{itemize}
+\end{enumerate}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org88e8805},fragile]{The Training Loop}
+ \begin{block}{The 5-Step Boilerplate}
+\pause
+Unlike Scikit-learn's \texttt{model.fit()}, PyTorch requires manual control:
+\pause
+\begin{enumerate}[<+->]
+\item \alert{Forward Pass}: \texttt{y\_pred = model(X)}
+\item \alert{Compute Loss}: \texttt{loss = criterion(y\_pred, y)}
+\item \alert{Zero Gradients}: \texttt{optimizer.zero\_grad()}
+\item \alert{Backward Pass}: \texttt{loss.backward()}
+\item \alert{Update Weights}: \texttt{optimizer.step()}
+\end{enumerate}
+\pause
+Wrap in a \texttt{for epoch in range(epochs):} loop.
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org7821349},fragile]{Loss Functions and Optimizers}
+ \begin{block}{PyTorch Components}
+\pause
+\end{block}
+\begin{example}[Loss Functions]\label{sec:orgba42141}
+\begin{center}
+\begin{tabular}{ll}
+Task & Loss Class\\
+\hline
+Binary Classification & \texttt{nn.BCELoss()}\\
+Multiclass & \texttt{nn.CrossEntropyLoss()}\\
+Regression & \texttt{nn.MSELoss()}\\
+\end{tabular}
+\end{center}
+\pause
+\end{example}
+\begin{block}{Optimizers}
+\begin{verbatim}
+optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
+\end{verbatim}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgf5619b3},fragile]{Evaluation Mode}
+ \begin{block}{No Gradients Needed}
+\pause
+When evaluating, we don't need to calculate gradients. Use \texttt{torch.no\_grad()} to save memory:
+\pause
+\begin{verbatim}
+with torch.no_grad():
+    test_preds = model(X_test)
+    predicted = (test_preds > 0.5).float()
+    accuracy = (predicted == y_test).float().mean()
+\end{verbatim}
+\end{block}
+\end{frame}
+\section{Summary}
+\label{sec:orgcc87042}
+\begin{frame}[label={sec:org57b0d05}]{Key Takeaways}
+\begin{block}{What We Learned}
+\pause
+\begin{enumerate}[<+->]
+\item \alert{ANNs}: Layers of neurons with weights and activation functions
+\item \alert{Perceptron}: Single neuron, limited to linear problems
+\item \alert{MLP}: Stacked neurons solve non-linear problems (XOR)
+\item \alert{Training}: Forward pass \(\rightarrow\) Loss \(\rightarrow\) Backprop \(\rightarrow\) Update
+\item \alert{Vanishing Gradient}: Sigmoid fails deep; ReLU fixes it
+\item \alert{Optimization}: Adam is the default; Early Stopping prevents overfitting
+\item \alert{PyTorch}: Tensors + nn.Module + Training Loop
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orga0cb69e}]{Next Section Preview}
+\begin{block}{Neural Networks II: Deep Learning \& Transformers}
+\pause
+\begin{itemize}[<+->]
+\item \alert{Convolutional Neural Networks (CNNs)}: Image processing with filters
+\item \alert{From RNNs to Transformers}: Sequence modeling revolution
+\item \alert{Large Language Models}: GPT, BERT, and modern NLP
+\item \alert{Generative AI}: Text generation, RAG, Diffusion models
+\end{itemize}
+\end{block}
+\end{frame}
+\end{document}
