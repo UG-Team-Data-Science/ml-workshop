@@ -21,7 +21,7 @@ Each session is made up of several concepts, and each concept is structured as f
 
 Python is a very popular programming language for Machine Learning, and it is what we will use in this training.
 
-When dealing with heavier computations, the Python code is usually placed in a `.py` file which is then executed as a whole. In a prototyping or teaching situation, though, it is best to do things more intearctively, which is why we will use [Jupyter](https://jupyter.org/) notebooks via `JupyterLab` to arrange our code.
+When dealing with heavier computations, the Python code is usually placed in a `.py` file which is then executed as a whole. In a prototyping or teaching situation, though, it is best to do things more interactively, which is why we will use [Jupyter](https://jupyter.org/) notebooks via `JupyterLab` to arrange our code.
 
 During the first session, we will cover three ways of running Jupyter, but we will only use one during the training (as much as possible):
 
