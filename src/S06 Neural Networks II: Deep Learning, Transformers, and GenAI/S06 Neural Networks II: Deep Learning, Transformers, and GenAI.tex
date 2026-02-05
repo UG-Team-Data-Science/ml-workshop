@@ -1,0 +1,448 @@
+% Created 2026-02-05 Thu 11:04
+% Intended LaTeX compiler: pdflatex
+\documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\useinnertheme{rounded}
+\useoutertheme{tree}
+\author{Cristian A. Marocico}
+\date{\today}
+\title{Machine Learning in Python}
+\subtitle{Neural Networks II: Deep Learning, Transformers, and GenAI}
+\author[Marocico, Tatar]{Cristian A. Marocico, A. Emin Tatar}
+\institute[CIT]{Center for Information Technology\\University of Groningen}
+\RequirePackage{pgfcore}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blkarray}
+\usepackage{eurosym}
+\usepackage[english]{babel}
+\usepackage{xcolor,colortbl}
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[makeroom]{cancel}
+\usepackage{bbm}
+\newcommand{\infoTitle}[1]{\renewcommand{\givenTitle}{#1}}
+\newcommand{\givenTitle}{Info}
+\newenvironment{warning}[1][Info]{%
+\infoTitle{#1}
+\setbeamercolor{block title}{fg=white,bg=red!100!white}%
+\setbeamercolor{block body}{bg=red!10!white}
+\begin{block}{\givenTitle}}{
+\end{block}}
+\DeclareMathOperator*{\argmax}{argmax}
+\setbeamercovered{transparent}
+\usecolortheme{beaver}
+\RequirePackage{pgfcore}
+\setbeamercovered{transparent=1}
+\mode<presentation>{
+\usecolortheme{beaver}
+\definecolor{rugcolor}{rgb}{0.8,0,0}
+\definecolor{darkblue}{rgb}{0.13,0.29,0.53}
+\definecolor{darkgreen}{rgb}{0.0,0.43,0.0}
+\definecolor{darkyellow}{rgb}{0.0,0.43,0.43}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{Gray}{gray}{0.85}
+\beamertemplatenavigationsymbolsempty
+\setbeamercolor{item}{fg=rugcolor!80!black}
+\setbeamercolor{title}{fg=rugcolor!80!black}
+\setbeamercolor{frametitle}{fg=rugcolor!80!black, bg=black!10!white}
+% Colors for 'definition' environment
+\setbeamercolor*{block title}{fg=white, bg=darkblue}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkblue}
+% Color for the 'question' environment
+\setbeamercolor*{block title question}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body question}{bg=normal text.bg!85!darkyellow}
+\setbeamercolor*{palette tertiary}{bg=rugcolor,fg=white}
+%HEADER WITH HIGHLIGHTED SECTION NAMES (optional)
+\useheadtemplate{%
+\vbox{%
+%			\vskip1.2pt
+%			\pgfuseimage{logo}
+%			\vskip1.2pt
+\tinycolouredline{rugcolor}{
+\color{white}{
+% comment the following line if you don't want the section names lines
+%					to appear on top
+\insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt
+plus1filll}
+%\pgfuseimage{logored}
+}
+}
+%    \tinycolouredline{rugcolor}
+{\color{white}{
+%% \insertsectionnavigationhorizontal{\paperwidth}{}{
+%                \hskip0pt \hfill}
+}}
+}
+}
+%FOOTER WITH AUTHOR NAME(S), PAPER TITLE (ABBREVIATED IF SPECIFIED BY \title),
+% AND PAGE COUNTER (optional)
+%	\usefoottemplate{%
+%		\vbox{%
+%			\tinycolouredline{rugcolor}{
+%				\color{white}{
+%					{\insertshortauthor} \hfill \insertshortsubtitle \hfill
+%					%\insertdate \hfill%
+%					\textsc{\insertframenumber/\inserttotalframenumber}
+%         		}
+%         	}
+%		}
+%	}
+}
+\newtheorem*{props}{Properties}
+\newtheorem*{prop}{Property}
+\newtheorem*{notation}{Notation}
+\newtheorem*{terminology}{Terminology}
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\Var}{\mathbb{V}\mathrm{ar}}
+\newcommand{\Corr}{\mathbb{C}\mathrm{orr}}
+\newcommand{\Cov}{\mathbb{C}\mathrm{ov}}
+\newcommand{\Expt}{\mathbb{E}}
+\newcommand{\NorDist}{\mathcal{N}}
+\newcommand{\ExpDist}{\mathcal{E}\mathrm{xp}}
+\newcommand{\GammaDist}{\mathcal{G}\mathrm{amma}}
+\newcommand{\BetaDist}{\mathcal{B}\mathrm{eta}}
+\newcounter{listCounter}
+\newenvironment{question}{%
+\setbeamercolor{block title}{bg=orange!70!white,fg=white}
+\setbeamercolor{block body}{bg=yellow!10!white}
+\begin{block}{Question}
+}{%
+\end{block}
+}
+\lstdefinestyle{mystyle}{
+language=R,
+backgroundcolor=\color{backcolour},
+commentstyle=\color{codegreen},
+keywordstyle=\color{darkblue}\bfseries,
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily,
+breakatwhitespace=true,
+breaklines=true,
+%	captionpos=none,
+columns=fixed,
+keepspaces=true,
+numbers=none,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2,
+basewidth=1.5em,
+escapeinside={<@}{@>}
+}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\renewenvironment{definition}[1][Definition]{%
+\setbeamercolor{block title}{fg=white,bg=darkblue}
+\setbeamercolor{block body}{fg=black,bg=normal text.bg!85!darkblue}
+\begin{block}{#1\hfill \footnotesize{Definition}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{example}[1][Example]{%
+% Color for the 'example' environment
+\setbeamercolor*{block title}{fg=white, bg=darkgreen}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkgreen}
+\begin{block}{#1\hfill \footnotesize{Example}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\renewenvironment{theorem}[1][Theorem]{%
+\setbeamercolor*{block title}{fg=white, bg=darkyellow}
+\setbeamercolor*{block body}{bg=normal text.bg!85!darkyellow}
+\begin{block}{#1\hfill \footnotesize{Theorem}}
+\vspace*{-5pt}
+}{%
+\end{block}
+}
+\date[Feb 20\textsuperscript{th} 2026]{Friday, February 20\textsuperscript{th} 2026}
+\usepackage{mathtools}
+\setbeamercovered{transparent=0}
+\usepackage[timeinterval=60]{tdclock}
+\hypersetup{
+ pdfauthor={Cristian A. Marocico},
+ pdftitle={Machine Learning in Python},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\end{frame}
+
+\section{Convolutional Neural Networks (CNNs)}
+\label{sec:org23f1c19}
+\begin{frame}[label={sec:org2d737c2}]{Why CNNs?}
+\begin{definition}[The Problem with MLPs for Images]\label{sec:org4197c45}
+\pause
+Standard MLPs flatten images into vectors, causing two major problems:
+\begin{itemize}[<+->]
+\item \alert{Spatial Structure Lost}: A nose is defined by being \emph{above} a mouth, not just by pixel values.
+\item \alert{Parameter Explosion}: A \(1000 \times 1000\) image connected to 100 neurons requires \alert{100 million weights}.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org937c7ec}]{The Convolution Operation}
+\begin{example}[Filters and Feature Maps]\label{sec:org506b2fb}
+\pause
+Instead of learning weights for every pixel, CNNs learn small \alert{Filters} (Kernels):
+\begin{itemize}[<+->]
+\item A filter might be \(3 \times 3\) pixels.
+\item It slides (convolves) over the image, computing dot products.
+\item This creates a \alert{Feature Map} showing where patterns appear.
+\item Early filters detect edges; deeper filters detect complex shapes.
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org2a26b38}]{Controlling Dimensions}
+\begin{block}{Padding and Stride}
+\pause
+As filters slide, image dimensions change:
+\begin{itemize}[<+->]
+\item \alert{Valid Convolution}: No padding. Output shrinks (\(5 \times 5 \to 3 \times 3\)).
+\item \alert{Padding}: Add zeros around border to maintain size.
+\item \alert{Stride}: How many pixels to jump. Stride=2 halves dimensions.
+\item \alert{Formula}: \(O = \frac{I - K + 2P}{S} + 1\)
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org33e3911}]{Pooling Layers}
+\begin{example}[MaxPool2d]\label{sec:orgdeb1226}
+\pause
+Pooling reduces spatial size to control overfitting and computation:
+\begin{itemize}[<+->]
+\item \alert{Max Pooling}: Takes the largest value in a window.
+\item Asks: "Is there a feature in this patch? Yes/No."
+\item Provides translation invariance (feature can shift slightly).
+\item Typical: \(2 \times 2\) pool with stride 2 halves dimensions.
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:orge33b29c}]{Famous Architectures}
+\begin{block}{VGG and ResNet}
+\pause
+Modern Deep Learning is built on famous architectures:
+\begin{itemize}[<+->]
+\item \alert{VGG (2014)}: Simplicity. Stacks many small \(3 \times 3\) filters. Very deep.
+\item \alert{ResNet (2015)}: Introduced \alert{Skip Connections} (Residuals).
+\item Skip connections let gradients "skip" layers to avoid vanishing.
+\item Enables training networks with 100+ layers.
+\end{itemize}
+\end{block}
+\end{frame}
+\section{From RNNs to Transformers}
+\label{sec:orgb90aff8}
+\begin{frame}[label={sec:org5e2af73}]{The Sequence Problem}
+\begin{definition}[Why Standard Networks Fail]\label{sec:org46a4380}
+\pause
+MLPs expect fixed-size input, but language is dynamic:
+\begin{itemize}[<+->]
+\item "Hello" (1 word) vs "The quick brown fox\ldots{}" (5 words)
+\item We need models that handle variable-length sequences.
+\item We need models that "remember" context.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orgfe4eb84}]{Recurrent Neural Networks}
+\begin{example}[RNNs and Their Limitations]\label{sec:orgf7403e6}
+\pause
+RNNs process words sequentially, maintaining a \alert{Hidden State} (memory):
+$$h_t = \tanh(W x_t + U h_{t-1})$$
+\pause
+\alert{Problems}:
+\begin{itemize}[<+->]
+\item \alert{Sequential}: Cannot process word 100 until word 99 is done. Very slow.
+\item \alert{Vanishing Memory}: By paragraph end, the beginning is forgotten.
+\item \alert{LSTMs} improved memory with "gates," but remained slow.
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org847670b}]{The Attention Mechanism}
+\begin{block}{Looking Back at Everything}
+\pause
+In 2014, researchers asked: \emph{Why squash everything into one tiny memory vector?}
+\pause
+\alert{Attention} lets the model "look back" at any word:
+\begin{itemize}[<+->]
+\item When predicting, assign a "weight" to every previous word.
+\item "I poured cereal into the\ldots{}" \(\to\) Focus on "cereal" and "poured" \(\to\) Predict: "bowl".
+\item No more sequential bottleneck for context.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org356b39b}]{The Transformer (2017)}
+\begin{definition}["Attention is All You Need"]\label{sec:org02dbfe5}
+\pause
+The paper proved we don't need recurrence at all:
+\begin{center}
+\begin{tabular}{lll}
+Feature & RNN/LSTM & Transformer\\
+\hline
+\alert{Processing} & Sequential (Slow) & Parallel (Fast)\\
+\alert{Context} & Local (Nearby words) & Global (All words see all words)\\
+\alert{Distance} & Linearly far & Constant (1 step away)\\
+\end{tabular}
+\end{center}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:orge493cdc}]{Transformer Architecture}
+\begin{example}[Key Components]\label{sec:orged5d393}
+\pause
+\begin{itemize}[<+->]
+\item \alert{Self-Attention}: \(Attention(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V\)
+\item \alert{Encoder}: Reads input text, creates rich representation (\alert{BERT}).
+\item \alert{Decoder}: Generates output text step-by-step (\alert{GPT}).
+\item \alert{Positional Encoding}: Injects word order since parallel processing loses it.
+\end{itemize}
+\end{example}
+\end{frame}
+\section{Large Language Models (LLMs)}
+\label{sec:org7b4eede}
+\begin{frame}[label={sec:orgd52442c}]{Evolution of LLMs}
+\begin{definition}[From BERT to Llama]\label{sec:orgf95261e}
+\pause
+\begin{itemize}[<+->]
+\item \alert{BERT (2018 - Google)}: Encoder-only. Good at "understanding" (Classification, Q\&A).
+\item \alert{GPT (2018-Now - OpenAI)}: Decoder-only. Good at "generation" (Writing text).
+\item \alert{Llama (2023 - Meta)}: Open-source. Brought GPT-level performance to researchers.
+\item Today's frontier: Claude, GPT-4, Gemini, Llama-3.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org15c11cb}]{The LLM Lifecycle}
+\begin{example}[Pre-training, Fine-tuning, Inference]\label{sec:orgb3c88e1}
+\pause
+\begin{itemize}[<+->]
+\item \alert{Pre-training}: The expensive part. Read the internet (TB of text), learn to predict next token. Learns grammar, facts, reasoning.
+\item \alert{Fine-tuning}: Specialization.
+\begin{itemize}
+\item \alert{SFT}: Train on Q\&A pairs to make it a chatbot.
+\item \alert{RLHF}: Align to be helpful and harmless.
+\end{itemize}
+\item \alert{Inference}: Using the model. Feed prompt, generate response.
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:org78ea468}]{Tokenization}
+\begin{block}{Tokens and Context Windows}
+\pause
+LLMs don't see words; they see \alert{Tokens}:
+\begin{itemize}[<+->]
+\item A token can be a word ("apple"), part of a word ("ing"), or a character.
+\item \alert{Rough rule}: 1000 tokens \(\approx\) 750 words.
+\item \alert{Context Window}: Limit on how much text the model remembers at once.
+\item GPT-4: 128k tokens. Claude: 200k tokens.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org9e0299a}]{Prompt Engineering}
+\begin{example}[Guiding the Predictor]\label{sec:org6ca44ac}
+\pause
+LLMs are "next token predictors." They are sensitive to \emph{how} you ask:
+\begin{itemize}[<+->]
+\item \alert{Zero-Shot}: Just asking. "Translate to Spanish: Hello"
+\item \alert{Few-Shot}: Giving examples first. "Red \(\to\) Rojo, Blue \(\to\) Azul, Green \(\to\) ?"
+\item \alert{Chain of Thought}: "Think step by step." Dramatically improves reasoning.
+\end{itemize}
+\end{example}
+\end{frame}
+\section{Generative AI and Modern Applications}
+\label{sec:orgfba8ff4}
+\begin{frame}[label={sec:org56adcf2}]{Text Generation}
+\begin{definition}[It's Just Statistics]\label{sec:orga163662}
+\pause
+At its core, a Generative LLM is a \alert{Next-Token Prediction Engine}:
+\pause
+Given "The sky is", it calculates probabilities:
+\begin{itemize}[<+->]
+\item "blue": 80\%
+\item "gray": 15\%
+\item "falling": 1\%
+\item It samples from this distribution to generate text.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org575fc53}]{Retrieval-Augmented Generation (RAG)}
+\begin{example}[Solving LLM Limitations]\label{sec:org37c623c}
+\pause
+LLMs have two major flaws:
+\begin{itemize}[<+->]
+\item \alert{Hallucination}: They confidently make things up.
+\item \alert{Cut-off Date}: They don't know current events or private data.
+\item \alert{RAG} connects LLM to external knowledge:
+\begin{enumerate}
+\item \alert{Retrieve}: Search database for relevant documents.
+\item \alert{Augment}: Paste documents into prompt context.
+\item \alert{Generate}: LLM answers using provided context.
+\end{enumerate}
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[label={sec:orga782429}]{Diffusion Models}
+\begin{block}{Image Generation (Stable Diffusion, DALL-E)}
+\pause
+Image generation works differently from LLMs, using \alert{Diffusion}:
+\begin{itemize}[<+->]
+\item \alert{Forward Process (Training)}: Take clear image, slowly add noise until pure static. Model learns destruction pattern.
+\item \alert{Reverse Process (Generation)}: Start with noise. Ask: "If this was a cat, how would you remove noise?" Repeat 50 times.
+\item Result: Clear image emerges from noise.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org31c84ae}]{Ethical Considerations}
+\begin{example}[Bias, Hallucination, and Copyright]\label{sec:org6fee54d}
+\pause
+With great power comes great responsibility:
+\begin{itemize}[<+->]
+\item \alert{Bias}: Models trained on internet data reflect stereotypes. "Doctor" \(\to\) men, "Nurse" \(\to\) women.
+\item \alert{Hallucination}: LLMs optimize for plausibility, not truth. Dangerous for medical/legal advice.
+\item \alert{Copyright}: Image models trained on artists' work. Code models on GitHub. Legal framework still evolving.
+\item \alert{Mitigation}: Data curation, RLHF, human oversight.
+\end{itemize}
+\end{example}
+\end{frame}
+\section{Summary}
+\label{sec:org89d6fcb}
+\begin{frame}[label={sec:org158a95d}]{Key Takeaways}
+\begin{block}{Neural Networks II}
+\pause
+\begin{enumerate}[<+->]
+\item \alert{CNNs}: Use convolutions and pooling to efficiently process images. ResNet enables very deep networks.
+\item \alert{Transformers}: Replaced RNNs with parallel self-attention. The foundation of modern NLP.
+\item \alert{LLMs}: Giant Transformers (BERT, GPT, Llama) that predict next tokens. Power chatbots and assistants.
+\item \alert{Generative AI}: Text (next-token), Images (diffusion). RAG grounds LLMs in facts.
+\item \alert{Ethics}: AI reflects training data. Requires human oversight and responsibility.
+\end{enumerate}
+\end{block}
+\end{frame}
+\end{document}
