@@ -6,3 +6,6 @@ matplotlib
 seaborn
 xgboost
 statsmodels
+torch
+torchvision
+transformers
