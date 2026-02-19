@@ -9,3 +9,5 @@ statsmodels
 torch
 torchvision
 transformers
+diffusers
+sentencepiece
