@@ -1,4 +1,4 @@
-% Created 2026-02-15 Sun 20:39
+% Created 2026-02-23 Mon 14:35
 % Intended LaTeX compiler: pdflatex
 \documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -202,14 +202,14 @@ escapeinside={<@}{@>}
 \end{frame}
 
 \section{Introduction to Artificial Neural Networks}
-\label{sec:orgfa4b015}
-\begin{frame}[label={sec:orgbdcaabd}]{What is an Artificial Neural Network?}
-\begin{definition}[Definition]\label{sec:org1ab2f4a}
+\label{sec:org2796f27}
+\begin{frame}[label={sec:org16118e4}]{What is an Artificial Neural Network?}
+\begin{definition}[Definition]\label{sec:orgd8fdf29}
 \pause
 An \alert{Artificial Neural Network (ANN)} is a computational model composed of layers of interconnected nodes ("neurons") that process information by transmitting signals to one another.
 \pause
 \end{definition}
-\begin{example}[Key Properties]\label{sec:orgb971635}
+\begin{example}[Key Properties]\label{sec:org3a497c6}
 \begin{itemize}[<+->]
 \item Foundation of \alert{Deep Learning}
 \item Can learn complex, non-linear relationships
@@ -217,7 +217,7 @@ An \alert{Artificial Neural Network (ANN)} is a computational model composed of 
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:orgd95f9b3}]{Key Components of a Neural Network}
+\begin{frame}[label={sec:orgde11673}]{Key Components of a Neural Network}
 \begin{block}{The Building Blocks}
 \pause
 \begin{enumerate}[<+->]
@@ -233,7 +233,7 @@ An \alert{Artificial Neural Network (ANN)} is a computational model composed of 
 \end{enumerate}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org089ab53}]{Biological Inspiration}
+\begin{frame}[label={sec:org517b2ac}]{Biological Inspiration}
 \begin{block}{From Biology to Mathematics}
 \pause
 ANNs are loosely inspired by biological neural networks in the brain:
@@ -250,8 +250,8 @@ Biological Neuron & Artificial Neuron & Role\\
 \end{center}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgca28863}]{The Perceptron (1958)}
-\begin{definition}[The Simplest Neural Network]\label{sec:org310cae6}
+\begin{frame}[label={sec:orgace929b}]{The Perceptron (1958)}
+\begin{definition}[The Simplest Neural Network]\label{sec:org153a587}
 \pause
 The \alert{Perceptron} is a single-layer network that takes inputs, weighs them, and makes a binary decision.
 \end{definition}
@@ -266,7 +266,7 @@ $$\text{Output} = \begin{cases} 1 & \text{if } z > 0 \\ 0 & \text{if } z \le 0 \
 This can solve \alert{linearly separable} problems (drawing a straight line between classes).
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgc0c1cda}]{The XOR Problem}
+\begin{frame}[label={sec:orgec6db79}]{The XOR Problem}
 \begin{block}{The Fatal Flaw of Single Perceptrons}
 \pause
 \begin{center}
@@ -281,7 +281,7 @@ This can solve \alert{linearly separable} problems (drawing a straight line betw
 \end{center}
 \pause
 \end{block}
-\begin{example}[The Limitation]\label{sec:org59d29f4}
+\begin{example}[The Limitation]\label{sec:org6943fa9}
 \begin{itemize}[<+->]
 \item \alert{AND Gate}: Linearly separable (one line can separate classes)
 \item \alert{XOR Gate}: NOT linearly separable (needs a curve or multiple lines)
@@ -290,9 +290,9 @@ This can solve \alert{linearly separable} problems (drawing a straight line betw
 \end{example}
 \end{frame}
 \section{The Multilayer Perceptron (MLP)}
-\label{sec:org5d3f846}
-\begin{frame}[label={sec:org880307e}]{From One to Many}
-\begin{definition}[Stacking Neurons]\label{sec:orgec20826}
+\label{sec:org6f21c04}
+\begin{frame}[label={sec:org00ca316}]{From One to Many}
+\begin{definition}[Stacking Neurons]\label{sec:orgb1a6b37}
 \pause
 A \alert{Multilayer Perceptron (MLP)} or \alert{Feedforward Neural Network} connects many neurons in layers to solve complex, non-linear problems.
 \pause
@@ -305,13 +305,13 @@ A \alert{Multilayer Perceptron (MLP)} or \alert{Feedforward Neural Network} conn
 \end{enumerate}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org79ba5a5}]{Activation Functions}
+\begin{frame}[label={sec:org3b297f3}]{Activation Functions}
 \begin{block}{Why Activation Functions?}
 \pause
 Without activation functions, an MLP is just a giant Linear Regression (linear + linear = linear).
 \alert{Activation functions} introduce \alert{non-linearity}, allowing networks to learn curves.
 \end{block}
-\begin{example}[Common Activation Functions]\label{sec:orgd817691}
+\begin{example}[Common Activation Functions]\label{sec:org5c6a566}
 \pause
 \begin{center}
 \begin{tabular}{llll}
@@ -325,7 +325,7 @@ Function & Formula & Range & Usage\\
 \end{center}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org41cf858},fragile]{Forward Propagation}
+\begin{frame}[label={sec:orgf0d59ea},fragile]{Forward Propagation}
  \begin{block}{How Data Flows Through the Network}
 \pause
 For a single layer \(l\):
@@ -340,7 +340,7 @@ $$A^{[l]} = g(Z^{[l]})$$
 This process repeats until the output layer. The magic: \texttt{np.dot} handles all connections automatically.
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org212c40f}]{Network Capacity: Width vs Depth}
+\begin{frame}[label={sec:org3910c1e}]{Network Capacity: Width vs Depth}
 \begin{block}{Architectural Choices}
 \pause
 \begin{center}
@@ -353,7 +353,7 @@ Architecture & Structure & Characteristics\\
 \end{center}
 \pause
 \end{block}
-\begin{example}[Trade-offs]\label{sec:org1499594}
+\begin{example}[Trade-offs]\label{sec:orgbade7d0}
 \begin{itemize}[<+->]
 \item Deeper networks learn hierarchical representations (edges \(\rightarrow\) parts \(\rightarrow\) objects)
 \item Wider networks can approximate functions but may need more parameters
@@ -362,15 +362,15 @@ Architecture & Structure & Characteristics\\
 \end{example}
 \end{frame}
 \section{Training Neural Networks}
-\label{sec:orge394614}
-\begin{frame}[label={sec:orgcee9169}]{The Goal of Training}
+\label{sec:orge6b015f}
+\begin{frame}[label={sec:org04238e3}]{The Goal of Training}
 \begin{block}{From Random to Learned}
 \pause
 A neural network starts with \alert{random weights}. It knows nothing.
 \alert{Training} adjusts these weights to minimize prediction error.
 \pause
 \end{block}
-\begin{example}[Three Components]\label{sec:org83d1a93}
+\begin{example}[Three Components]\label{sec:orgbe39d7b}
 \begin{enumerate}[<+->]
 \item \alert{Loss Function}: How we measure error
 \item \alert{Optimizer}: How we update weights
@@ -378,8 +378,8 @@ A neural network starts with \alert{random weights}. It knows nothing.
 \end{enumerate}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org0c0fba7}]{Loss Functions}
-\begin{definition}[The Scorecard]\label{sec:orgefaf011}
+\begin{frame}[label={sec:orga7649a0}]{Loss Functions}
+\begin{definition}[The Scorecard]\label{sec:org8f8f264}
 \pause
 The \alert{Loss Function} (Cost Function) calculates a single number representing "how bad" the model is. Goal: reduce it enough to generalize well on unseen data.
 \end{definition}
@@ -400,13 +400,13 @@ Problem Type & Loss Function & Formula\\
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org3478b90}]{Stochastic Gradient Descent (SGD)}
+\begin{frame}[label={sec:org686dbec}]{Stochastic Gradient Descent (SGD)}
 \begin{block}{Optimization Strategy}
 \pause
 \alert{Gradient Descent} minimizes loss by following the slope downhill.
 \alert{Batch GD} calculates gradient for entire dataset - slow and memory-intensive.
 \end{block}
-\begin{definition}[Stochastic Gradient Descent]\label{sec:orgd23dda0}
+\begin{definition}[Stochastic Gradient Descent]\label{sec:orgd795eb9}
 \pause
 \alert{SGD} updates weights after seeing just \alert{one example} (or a small "mini-batch").
 \begin{itemize}[<+->]
@@ -415,14 +415,14 @@ Problem Type & Loss Function & Formula\\
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orge5ded9d}]{Backpropagation}
+\begin{frame}[label={sec:org7f11a30}]{Backpropagation}
 \begin{block}{The Chain Rule in Action}
 \pause
 How do we know which weight in Layer 1 caused the error in Layer 5?
 We use the \alert{Chain Rule} of calculus.
 \pause
 \end{block}
-\begin{example}[The Process]\label{sec:orgee60b7b}
+\begin{example}[The Process]\label{sec:org10c73cb}
 \begin{enumerate}[<+->]
 \item \alert{Forward Pass}: Data flows through network, loss is calculated
 \item \alert{Backward Pass}: Gradient propagates backwards layer by layer
@@ -433,7 +433,7 @@ We use the \alert{Chain Rule} of calculus.
 \end{enumerate}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:orgced0470}]{The Vanishing Gradient Problem}
+\begin{frame}[label={sec:orgb33d70b}]{The Vanishing Gradient Problem}
 \begin{block}{Why Deep Networks Failed (Initially)}
 \pause
 In deep networks, gradients are multiplied repeatedly during backpropagation.
@@ -441,7 +441,7 @@ In deep networks, gradients are multiplied repeatedly during backpropagation.
 $$0.25 \times 0.25 \times 0.25 \times \dots \approx 0$$
 \pause
 \end{block}
-\begin{example}[The Consequence]\label{sec:orgfe3c32f}
+\begin{example}[The Consequence]\label{sec:org268e1ab}
 \begin{itemize}[<+->]
 \item Gradient "vanishes" before reaching early layers
 \item Early layers never learn; deep network fails
@@ -450,12 +450,12 @@ $$0.25 \times 0.25 \times 0.25 \times \dots \approx 0$$
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org3f82fc1}]{The Learning Rate}
+\begin{frame}[label={sec:orgbdb45b6}]{The Learning Rate}
 \begin{block}{The Most Critical Hyperparameter}
 \pause
 The \alert{Learning Rate} (\(\alpha\)) controls step size during gradient descent.
 \end{block}
-\begin{example}[The Goldilocks Zone]\label{sec:org841dc56}
+\begin{example}[The Goldilocks Zone]\label{sec:org1a9da0a}
 \pause
 \begin{center}
 \begin{tabular}{ll}
@@ -469,8 +469,8 @@ Learning Rate & Behavior\\
 \end{example}
 \end{frame}
 \section{Optimizing Neural Networks}
-\label{sec:orge829fdd}
-\begin{frame}[label={sec:org8ba08a6}]{Weight Initialization}
+\label{sec:orgaa0c86b}
+\begin{frame}[label={sec:org6b38122}]{Weight Initialization}
 \begin{block}{Starting Right}
 \pause
 \begin{center}
@@ -484,7 +484,7 @@ Too Small & Gradients vanish\\
 \end{center}
 \pause
 \end{block}
-\begin{example}[Strategies]\label{sec:org4b01a4a}
+\begin{example}[Strategies]\label{sec:org4eee8d7}
 \begin{itemize}[<+->]
 \item \alert{He Initialization}: Best for ReLU networks
 \item \alert{Xavier (Glorot)}: Best for Sigmoid/Tanh networks
@@ -492,7 +492,7 @@ Too Small & Gradients vanish\\
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org87cc935}]{Advanced Optimizers}
+\begin{frame}[label={sec:orgd47190d}]{Advanced Optimizers}
 \begin{block}{Smarter Descent}
 \pause
 Standard SGD is like walking down a mountain blindfolded. Advanced optimizers add intelligence.
@@ -510,13 +510,13 @@ Optimizer & Mechanism & Analogy\\
 \alert{Adam} is the default choice for most tasks.
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org5d89534}]{Regularization: Dropout}
-\begin{definition}[Fighting Overfitting]\label{sec:org4d63258}
+\begin{frame}[label={sec:org44c7eb7}]{Regularization: Dropout}
+\begin{definition}[Fighting Overfitting]\label{sec:org2709ba1}
 \pause
 \alert{Dropout} randomly "kills" (sets to zero) a percentage of neurons during training.
 \pause
 \end{definition}
-\begin{example}[Why It Works]\label{sec:org2af5a66}
+\begin{example}[Why It Works]\label{sec:orgd94c28f}
 \begin{itemize}[<+->]
 \item Prevents neurons from co-adapting
 \item Forces network to be redundant and robust
@@ -525,13 +525,13 @@ Optimizer & Mechanism & Analogy\\
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org82a17ab}]{Regularization: Batch Normalization}
-\begin{definition}[Stabilizing Training]\label{sec:orgb5b57f6}
+\begin{frame}[label={sec:orgdf050af}]{Regularization: Batch Normalization}
+\begin{definition}[Stabilizing Training]\label{sec:org5b515be}
 \pause
 \alert{Batch Normalization} normalizes layer activations per mini-batch during training (with learnable scale and shift).
 \pause
 \end{definition}
-\begin{example}[Benefits]\label{sec:orgcb9133c}
+\begin{example}[Benefits]\label{sec:org10bbf8c}
 \begin{itemize}[<+->]
 \item Stabilizes training (allows higher learning rates)
 \item Reduces sensitivity to initialization
@@ -540,13 +540,13 @@ Optimizer & Mechanism & Analogy\\
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org30f3510},fragile]{Early Stopping}
+\begin{frame}[label={sec:org7270455},fragile]{Early Stopping}
  \begin{block}{The Simplest Regularization}
 \pause
 Monitor the \alert{Validation Loss}. If it stops improving (or starts getting worse), stop training immediately.
 \pause
 \end{block}
-\begin{example}[How It Works]\label{sec:orgba5a44a}
+\begin{example}[How It Works]\label{sec:org2a71bf2}
 \begin{itemize}[<+->]
 \item Training loss keeps decreasing (memorization)
 \item Validation loss starts increasing (overfitting)
@@ -556,8 +556,8 @@ Monitor the \alert{Validation Loss}. If it stops improving (or starts getting wo
 \end{example}
 \end{frame}
 \section{Building Networks in PyTorch}
-\label{sec:orge369199}
-\begin{frame}[label={sec:org25ab4e9}]{Why PyTorch?}
+\label{sec:org1d0a986}
+\begin{frame}[label={sec:orgc1c8968}]{Why PyTorch?}
 \begin{block}{Beyond Scikit-learn}
 \pause
 Scikit-learn is great for standard ML, but Deep Learning needs:
@@ -567,7 +567,7 @@ Scikit-learn is great for standard ML, but Deep Learning needs:
 \item \alert{Automatic Differentiation}: Backpropagation is hard to code by hand
 \end{enumerate}
 \end{block}
-\begin{example}[PyTorch Advantages]\label{sec:orgcc557c1}
+\begin{example}[PyTorch Advantages]\label{sec:org46bbeff}
 \pause
 \begin{itemize}
 \item Readable, "Pythonic" style
@@ -576,8 +576,8 @@ Scikit-learn is great for standard ML, but Deep Learning needs:
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:orgabf51eb},fragile]{Tensors: The Foundation}
- \begin{definition}[NumPy Arrays on Steroids]\label{sec:org4ad692c}
+\begin{frame}[label={sec:org77e077d},fragile]{Tensors: The Foundation}
+ \begin{definition}[NumPy Arrays on Steroids]\label{sec:orgbf28607}
 \pause
 A \alert{Tensor} is like a NumPy array that:
 \begin{itemize}
@@ -586,7 +586,7 @@ A \alert{Tensor} is like a NumPy array that:
 \end{itemize}
 \pause
 \end{definition}
-\begin{example}[Key Operations]\label{sec:org837f6ac}
+\begin{example}[Key Operations]\label{sec:orge635a04}
 \begin{itemize}[<+->]
 \item \texttt{torch.tensor([1, 2, 3])} — Create from list
 \item \texttt{torch.ones(2, 3)} — Shape (2, 3) of ones
@@ -595,13 +595,13 @@ A \alert{Tensor} is like a NumPy array that:
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:orgfb3215d},fragile]{Defining a Network (\texttt{nn.Module})}
+\begin{frame}[label={sec:orgc59b612},fragile]{Defining a Network (\texttt{nn.Module})}
  \begin{block}{The Blueprint}
 \pause
 In PyTorch, a network is a Python class inheriting from \texttt{nn.Module}:
 \pause
 \end{block}
-\begin{example}[Two Required Methods]\label{sec:orgbd04975}
+\begin{example}[Two Required Methods]\label{sec:org0019515}
 \begin{enumerate}[<+->]
 \item \texttt{\_\_init\_\_}: Define the layers
 \begin{itemize}
@@ -617,7 +617,7 @@ In PyTorch, a network is a Python class inheriting from \texttt{nn.Module}:
 \end{enumerate}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org2fd7327},fragile]{The Training Loop}
+\begin{frame}[label={sec:org906f93f},fragile]{The Training Loop}
  \begin{block}{The 5-Step Boilerplate}
 \pause
 Unlike Scikit-learn's \texttt{model.fit()}, PyTorch requires manual control:
@@ -633,7 +633,7 @@ Unlike Scikit-learn's \texttt{model.fit()}, PyTorch requires manual control:
 Wrap in a \texttt{for epoch in range(epochs):} loop.
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org4a3b823},fragile]{PyTorch Outputs and Loss Pairings}
+\begin{frame}[label={sec:org80928fe},fragile]{PyTorch Outputs and Loss Pairings}
  \begin{block}{Match Model Output to Loss}
 \pause
 \begin{itemize}[<+->]
@@ -642,7 +642,7 @@ Wrap in a \texttt{for epoch in range(epochs):} loop.
 \item \alert{Regression}: model outputs raw values, use \texttt{nn.MSELoss()}
 \end{itemize}
 \end{block}
-\begin{example}[Inference Rule]\label{sec:orgc81bec3}
+\begin{example}[Inference Rule]\label{sec:org2dd71e3}
 \pause
 \begin{itemize}[<+->]
 \item \alert{Training}: keep the final layer linear (no sigmoid/softmax) and use the matching PyTorch loss
@@ -651,8 +651,8 @@ Wrap in a \texttt{for epoch in range(epochs):} loop.
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org3a48938},fragile]{Loss Functions and Optimizers}
- \begin{example}[Loss Functions]\label{sec:orgc448c4a}
+\begin{frame}[label={sec:org7a8e591},fragile]{Loss Functions and Optimizers}
+ \begin{example}[Loss Functions]\label{sec:org26f0266}
 \begin{center}
 \begin{tabular}{ll}
 Task & Loss Class\\
@@ -669,7 +669,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 \end{verbatim}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org8bdca76},fragile]{Evaluation Mode}
+\begin{frame}[label={sec:org4b1eacc},fragile]{Evaluation Mode}
  \begin{block}{No Gradients Needed}
 \pause
 When evaluating, set \texttt{model.eval()} and use \texttt{torch.no\_grad()} to disable gradient tracking:
@@ -685,8 +685,8 @@ If you continue training afterward, switch back to \texttt{model.train()}.
 \end{block}
 \end{frame}
 \section{Summary}
-\label{sec:org90ac091}
-\begin{frame}[label={sec:orgdf0017d}]{Key Takeaways}
+\label{sec:orgf785473}
+\begin{frame}[label={sec:orgafebd5e}]{Key Takeaways}
 \begin{block}{What We Learned}
 \pause
 \begin{enumerate}[<+->]
@@ -700,7 +700,7 @@ If you continue training afterward, switch back to \texttt{model.train()}.
 \end{enumerate}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgecb1a8c}]{Next Section Preview}
+\begin{frame}[label={sec:orgb93ef77}]{Next Section Preview}
 \begin{block}{Neural Networks II: Deep Learning \& Transformers}
 \pause
 \begin{itemize}[<+->]
