@@ -1,4 +1,4 @@
-% Created 2026-02-19 Thu 21:06
+% Created 2026-02-24 Tue 05:41
 % Intended LaTeX compiler: pdflatex
 \documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -201,9 +201,9 @@ escapeinside={<@}{@>}
 \end{frame}
 
 \section{Convolutional Neural Networks (CNNs)}
-\label{sec:org70519a5}
-\begin{frame}[label={sec:orge37f4f6}]{Why CNNs?}
-\begin{definition}[The Problem with MLPs for Images]\label{sec:org9ac777c}
+\label{sec:org4cf1e3a}
+\begin{frame}[label={sec:orgc51b513}]{Why CNNs?}
+\begin{definition}[The Problem with MLPs for Images]\label{sec:org36ca10d}
 \pause
 Standard MLPs flatten images into vectors, causing two major problems:
 \begin{itemize}[<+->]
@@ -212,8 +212,8 @@ Standard MLPs flatten images into vectors, causing two major problems:
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org8c54d23}]{The Convolution Operation}
-\begin{example}[Filters and Feature Maps]\label{sec:org0b6d308}
+\begin{frame}[label={sec:orgca71214}]{The Convolution Operation}
+\begin{example}[Filters and Feature Maps]\label{sec:orge9b2cbe}
 \pause
 Instead of learning weights for every pixel, CNNs learn small \alert{Filters} (Kernels):
 \begin{itemize}[<+->]
@@ -224,7 +224,7 @@ Instead of learning weights for every pixel, CNNs learn small \alert{Filters} (K
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org0769352}]{Controlling Dimensions}
+\begin{frame}[label={sec:orge448953}]{Controlling Dimensions}
 \begin{block}{Padding and Stride}
 \pause
 As filters slide, image dimensions change:
@@ -236,8 +236,8 @@ As filters slide, image dimensions change:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orge0f3f6b}]{Pooling Layers}
-\begin{example}[MaxPool2d]\label{sec:org388c6ac}
+\begin{frame}[label={sec:org8bac696}]{Pooling Layers}
+\begin{example}[MaxPool2d]\label{sec:orgee02a2c}
 \pause
 Pooling reduces spatial size to control overfitting and computation:
 \begin{itemize}[<+->]
@@ -248,7 +248,7 @@ Pooling reduces spatial size to control overfitting and computation:
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org43db836}]{Famous Architectures}
+\begin{frame}[label={sec:org93811d5}]{Famous Architectures}
 \begin{block}{VGG and ResNet}
 \pause
 Modern Deep Learning is built on famous architectures:
@@ -261,9 +261,9 @@ Modern Deep Learning is built on famous architectures:
 \end{block}
 \end{frame}
 \section{From RNNs to Transformers}
-\label{sec:orgd6c93a0}
-\begin{frame}[label={sec:org14d23b8}]{Why This Matters}
-\begin{definition}[Sequence Data Is Everywhere]\label{sec:orgeb04f7e}
+\label{sec:orgca6023f}
+\begin{frame}[label={sec:orgddf566d}]{Why This Matters}
+\begin{definition}[Sequence Data Is Everywhere]\label{sec:org9e963e5}
 \pause
 Many research problems are sequential:
 \begin{itemize}[<+->]
@@ -274,8 +274,8 @@ Many research problems are sequential:
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org7576a41}]{Running Example}
-\begin{example}[Clinical Sentence]\label{sec:org0e3f8c8}
+\begin{frame}[label={sec:orgb4059ce}]{Running Example}
+\begin{example}[Clinical Sentence]\label{sec:org798b920}
 \pause
 \emph{"Patient admitted three days ago with acute chest pain, treated with aspirin, now reports reduced discomfort."}
 \pause
@@ -287,7 +287,7 @@ When interpreting \alert{"discomfort"}, the model should retrieve context from:
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org2772e15}]{RNNs: First Main Solution}
+\begin{frame}[label={sec:org683aa4c}]{RNNs: First Main Solution}
 \begin{block}{Sequential Hidden-State Memory}
 \pause
 RNN update:
@@ -302,8 +302,8 @@ $$h_t = \tanh(Wx_t + Uh_{t-1})$$
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org6343a19}]{Attention as Weighted Lookup}
-\begin{example}[Query-Specific Relevance Weights]\label{sec:org07ec361}
+\begin{frame}[label={sec:org5b5b33e}]{Attention as Weighted Lookup}
+\begin{example}[Query-Specific Relevance Weights]\label{sec:org02a3726}
 \pause
 Attention replaces "single compressed memory" with dynamic lookup.
 \begin{itemize}[<+->]
@@ -314,8 +314,8 @@ Attention replaces "single compressed memory" with dynamic lookup.
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org5cc7223}]{Transformers: Attention-Centered Architecture}
-\begin{definition}["Attention Is All You Need"]\label{sec:orgcb3de4a}
+\begin{frame}[label={sec:orgb8fae7a}]{Transformers: Attention-Centered Architecture}
+\begin{definition}["Attention Is All You Need"]\label{sec:orga3b44d9}
 \pause
 Transformers remove recurrence and rely on attention:
 \begin{center}
@@ -329,7 +329,7 @@ Long distance & Degrades with sequence length & One attention step away (subject
 \end{center}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgc4d3363}]{Core Formula and Transformer Block}
+\begin{frame}[label={sec:orga1b7981}]{Core Formula and Transformer Block}
 \begin{block}{Q, K, V and Scaled Dot Product}
 \pause
 $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
@@ -342,8 +342,8 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgf47baab}]{Multi-Head and Model Families}
-\begin{example}[Parallel Attention Heads]\label{sec:org1821832}
+\begin{frame}[label={sec:org89621bf}]{Multi-Head and Model Families}
+\begin{example}[Parallel Attention Heads]\label{sec:orgac54c9d}
 \pause
 Multi-head attention runs several Q/K/V projections in parallel.
 \begin{itemize}[<+->]
@@ -355,7 +355,7 @@ Multi-head attention runs several Q/K/V projections in parallel.
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:orga77f255}]{Why GPT Is Left-to-Right}
+\begin{frame}[label={sec:org6e06b4e}]{Why GPT Is Left-to-Right}
 \begin{block}{Causal Masking}
 \pause
 For token \(t\), attention is allowed only to tokens \(\le t\).
@@ -367,8 +367,8 @@ For token \(t\), attention is allowed only to tokens \(\le t\).
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgb107b84}]{Practical Research Workflow}
-\begin{example}[Pretrained-First Strategy]\label{sec:orga32f035}
+\begin{frame}[label={sec:org4731803}]{Practical Research Workflow}
+\begin{example}[Pretrained-First Strategy]\label{sec:org65c3640}
 \pause
 Most researchers do not train transformers from scratch:
 \begin{itemize}[<+->]
@@ -381,9 +381,9 @@ Most researchers do not train transformers from scratch:
 \end{example}
 \end{frame}
 \section{Large Language Models (LLMs)}
-\label{sec:org0717edf}
-\begin{frame}[label={sec:orgd621ae1}]{Evolution of LLMs}
-\begin{definition}[Scale as the Main Driver]\label{sec:org6c1e75b}
+\label{sec:orgf124e33}
+\begin{frame}[label={sec:orgb790a8d}]{Evolution of LLMs}
+\begin{definition}[Scale as the Main Driver]\label{sec:orge3984b5}
 \pause
 LLM progress accelerated with scale (parameters, data, compute):
 \begin{center}
@@ -399,7 +399,7 @@ Model & Year & Parameters & Training Data & Notable Point\\
 \end{center}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org2967028}]{Architecture Families}
+\begin{frame}[label={sec:orgce5acae}]{Architecture Families}
 \begin{block}{Encoder, Decoder, Encoder-Decoder}
 \pause
 \begin{itemize}[<+->]
@@ -410,8 +410,8 @@ Model & Year & Parameters & Training Data & Notable Point\\
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgdb25937}]{The LLM Lifecycle}
-\begin{example}[Pre-training, Fine-tuning, Inference]\label{sec:org4356ec1}
+\begin{frame}[label={sec:org828088b}]{The LLM Lifecycle}
+\begin{example}[Pre-training, Fine-tuning, Inference]\label{sec:org18c19c9}
 \pause
 \begin{itemize}[<+->]
 \item \alert{Pre-training}: The expensive part. Read the internet (TB of text), learn to predict next token. Learns grammar, facts, reasoning.
@@ -424,8 +424,8 @@ Model & Year & Parameters & Training Data & Notable Point\\
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:orgce35b27}]{Tokenization and Context Windows}
-\begin{example}[BPE and Subword Units]\label{sec:orgb995ac7}
+\begin{frame}[label={sec:org56b0d8a}]{Tokenization and Context Windows}
+\begin{example}[BPE and Subword Units]\label{sec:org937ace5}
 \pause
 LLMs don't see words; they see \alert{Tokens}:
 \begin{itemize}[<+->]
@@ -436,7 +436,7 @@ LLMs don't see words; they see \alert{Tokens}:
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:orgb8769d1}]{Next-Token Prediction Mechanics}
+\begin{frame}[label={sec:org72f5192}]{Next-Token Prediction Mechanics}
 \begin{block}{From Logits to Text}
 \pause
 At each decoding step, the model outputs logits \(z \in \mathbb{R}^{|V|}\) over the vocabulary.
@@ -454,8 +454,8 @@ p_i = \frac{e^{z_i}}{\sum_j e^{z_j}}
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org42e5ea8}]{Sampling Controls}
-\begin{example}[Temperature, Top-k, Top-p]\label{sec:org55a51a2}
+\begin{frame}[label={sec:org6d5f1d2}]{Sampling Controls}
+\begin{example}[Temperature, Top-k, Top-p]\label{sec:org978955a}
 \pause
 Generation quality/style depends on sampling strategy:
 \begin{center}
@@ -475,8 +475,8 @@ Parameter & Effect & Typical\\
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org8171ca6}]{Prompt Engineering}
-\begin{example}[Guiding the Predictor]\label{sec:org150d137}
+\begin{frame}[label={sec:org1503a8c}]{Prompt Engineering}
+\begin{example}[Guiding the Predictor]\label{sec:orgc487fff}
 \pause
 LLMs are "next token predictors." They are sensitive to \emph{how} you ask:
 \pause
@@ -488,9 +488,9 @@ LLMs are "next token predictors." They are sensitive to \emph{how} you ask:
 \end{example}
 \end{frame}
 \section{Generative AI and Modern Applications}
-\label{sec:org5157b4f}
-\begin{frame}[label={sec:org9ce0a6c}]{Text Generation}
-\begin{definition}[It's Just Statistics]\label{sec:org586c2af}
+\label{sec:org0be19f0}
+\begin{frame}[label={sec:org7e66362}]{Text Generation}
+\begin{definition}[It's Just Statistics]\label{sec:org55e4d87}
 \pause
 At its core, a Generative LLM is a \alert{Next-Token Prediction Engine}:
 \pause
@@ -503,8 +503,8 @@ Given "The sky is", it calculates probabilities:
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgcebf702}]{Retrieval-Augmented Generation (RAG)}
-\begin{example}[Solving LLM Limitations]\label{sec:org97c7202}
+\begin{frame}[label={sec:orgbd6a3bd}]{Retrieval-Augmented Generation (RAG)}
+\begin{example}[Solving LLM Limitations]\label{sec:orgc245b03}
 \pause
 LLMs have two major flaws:
 \begin{itemize}[<+->]
@@ -519,7 +519,7 @@ LLMs have two major flaws:
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org9907df3}]{Diffusion Models}
+\begin{frame}[label={sec:org7c04a0d}]{Diffusion Models}
 \begin{block}{Image Generation (Stable Diffusion, DALL-E)}
 \pause
 Image generation works differently from LLMs, using \alert{Diffusion}:
@@ -530,8 +530,8 @@ Image generation works differently from LLMs, using \alert{Diffusion}:
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org7f503aa}]{Ethical Considerations}
-\begin{example}[Bias, Hallucination, and Copyright]\label{sec:org87b58a3}
+\begin{frame}[label={sec:org71ab0d3}]{Ethical Considerations}
+\begin{example}[Bias, Hallucination, and Copyright]\label{sec:org34c1e0f}
 \pause
 With great power comes great responsibility:
 \begin{itemize}[<+->]
@@ -543,9 +543,9 @@ With great power comes great responsibility:
 \end{example}
 \end{frame}
 \section{Time-Series Forecasting with Feature-Based ML}
-\label{sec:org6311b41}
-\begin{frame}[label={sec:org3470a35}]{Forecasting Problem Setup}
-\begin{definition}[Formal Objective]\label{sec:org6327625}
+\label{sec:org76172cf}
+\begin{frame}[label={sec:orgca58441}]{Forecasting Problem Setup}
+\begin{definition}[Formal Objective]\label{sec:orga4b57bd}
 \pause
 For a univariate series \(\{y_t\}_{t=1}^T\), one-step forecasting is:
 \[
@@ -559,7 +559,7 @@ Training is empirical risk minimization:
 \]
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org6898795}]{Why Time Series Is Not i.i.d.}
+\begin{frame}[label={sec:orgf99c1b6}]{Why Time Series Is Not i.i.d.}
 \begin{block}{Temporal Dependence and Structure}
 \pause
 Time series typically combines:
@@ -574,8 +574,8 @@ y_t = T_t + S_t + R_t
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgdf0cb2f}]{Why Random Splits Fail}
-\begin{example}[Leakage Through Time Mixing]\label{sec:org10432bb}
+\begin{frame}[label={sec:orga63c8e8}]{Why Random Splits Fail}
+\begin{example}[Leakage Through Time Mixing]\label{sec:orgca31eef}
 \pause
 Information sets are ordered:
 \[
@@ -590,8 +590,8 @@ Random shuffling violates this causal flow and can leak future-conditioned patte
 \end{itemize}
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:orga612268}]{Strong Baselines First}
-\begin{definition}[Naive and Seasonal Naive]\label{sec:org62e79d9}
+\begin{frame}[label={sec:org3be1d32}]{Strong Baselines First}
+\begin{definition}[Naive and Seasonal Naive]\label{sec:org5d6baa0}
 \pause
 \[
 \hat{y}_{t + 1}^{naive}=y_t,\qquad
@@ -607,7 +607,7 @@ for monthly data, \(s=12\).
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org9d7df7d}]{Feature Engineering with Temporal Constraints}
+\begin{frame}[label={sec:org285e0e9}]{Feature Engineering with Temporal Constraints}
 \begin{block}{Building \(\phi_t\) Safely}
 \pause
 Example feature vector:
@@ -625,8 +625,8 @@ with rolling mean
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org56c118b}]{Model Families and Objectives}
-\begin{example}[Ridge vs Boosting]\label{sec:orgfce97c4}
+\begin{frame}[label={sec:orgd5bec38}]{Model Families and Objectives}
+\begin{example}[Ridge vs Boosting]\label{sec:orgf0c59b1}
 \pause
 \begin{itemize}[<+->]
 \item Ridge: stable and interpretable with correlated lags. Ridge objective:
@@ -643,8 +643,8 @@ r_i^{(m)} \approx y_i - f_{m-1}(x_i)
 \]
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:org7b42126}]{Walk-Forward Backtesting}
-\begin{example}[Estimating Future Performance]\label{sec:org1967bd1}
+\begin{frame}[label={sec:orgdb9d2b9}]{Walk-Forward Backtesting}
+\begin{example}[Estimating Future Performance]\label{sec:orga098d23}
 \pause
 Choose ordered cutoffs \(\tau_1 < \dots < \tau_K\). For fold \(k\):
 \begin{itemize}[<+->]
@@ -660,7 +660,7 @@ Aggregate:
 This is usually more reliable than a single holdout split.
 \end{example}
 \end{frame}
-\begin{frame}[label={sec:orgf7650b2}]{Diagnostics After Forecasting}
+\begin{frame}[label={sec:org699b083}]{Diagnostics After Forecasting}
 \begin{block}{Residual Checks}
 \pause
 Even with good MAE/RMSE, verify residual structure.
@@ -673,8 +673,8 @@ Even with good MAE/RMSE, verify residual structure.
 \end{block}
 \end{frame}
 \section{Summary}
-\label{sec:orgd620280}
-\begin{frame}[label={sec:org04a9aa1}]{Key Takeaways}
+\label{sec:org4ac3cf9}
+\begin{frame}[label={sec:org7138bb5}]{Key Takeaways}
 \begin{block}{Neural Networks II}
 \pause
 \begin{enumerate}[<+->]
