@@ -1,8 +1,10 @@
-data/
+.venv
+.ipynb_checkpoints
 *.org
 *.db
-src/*/*.md
-.idea/
-.ipynb_checkpoints/
-__pycache__/
-*.pyc
+src/S*/*.md
+uv.lock
+.python-version
+pyproject.toml
+jupytext.toml
+data/*.csv

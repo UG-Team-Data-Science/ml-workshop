@@ -1,4 +1,4 @@
-% Created 2025-06-29 Sun 18:35
+% Created 2026-02-23 Mon 10:03
 % Intended LaTeX compiler: pdflatex
 \documentclass[hyperref={pdfpagelabels=false},aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
@@ -16,6 +16,7 @@
 \usecolortheme{beaver}
 \useinnertheme{rounded}
 \useoutertheme{tree}
+\author{Cristian A. Marocico}
 \date{\today}
 \title{Machine Learning in Python}
 \subtitle{Supervised Learning - Regression and Evaluation}
@@ -180,17 +181,17 @@ escapeinside={<@}{@>}
 }{%
 \end{block}
 }
-\date[Jul 2\textsuperscript{nd} 2025]{Wednesday, July 2\textsuperscript{nd} 2025}
+\date[Feb 6\textsuperscript{th} 2026]{Friday, February 6\textsuperscript{th} 2026}
 \usepackage{mathtools}
 \newcommand{\intsum}{\mathop{\mathrlap{\raisebox{0.1ex}{\hspace{0.2em}$\textstyle\sum$}}\int}\limits}
 \setbeamercovered{transparent=0}
 \usepackage[timeinterval=60]{tdclock}
 \hypersetup{
- pdfauthor={},
+ pdfauthor={Cristian A. Marocico},
  pdftitle={Machine Learning in Python},
  pdfkeywords={},
  pdfsubject={},
- pdfcreator={Emacs 30.1 (Org mode 9.7.11)}, 
+ pdfcreator={Emacs 30.2 (Org mode 9.7.11)}, 
  pdflang={English}}
 \begin{document}
 
@@ -201,17 +202,17 @@ escapeinside={<@}{@>}
 \end{frame}
 
 \section{Introduction to Regression}
-\label{sec:orgf91f67f}
-\begin{frame}[label={sec:orgc6a3624}]{Introduction to Regression}
-\begin{definition}[Regression]\label{sec:org3b9b537}
+\label{sec:org9f6e625}
+\begin{frame}[label={sec:org4f99e08}]{Introduction to Regression}
+\begin{definition}[Regression]\label{sec:orgb36f0d3}
 \pause
 \alert{Regression} is a statistical method used to model the relationship between a dependent variable and one or more independent variables.
 \end{definition}
 \end{frame}
 \section{Simple Linear Regression}
-\label{sec:orga67890d}
-\begin{frame}[label={sec:org251cc3a}]{Simple Linear Regression}
-\begin{definition}[Simple Linear Regression]\label{sec:org4a9dd24}
+\label{sec:orgdc904f4}
+\begin{frame}[label={sec:org5f48255}]{Simple Linear Regression}
+\begin{definition}[Simple Linear Regression]\label{sec:orga9f5655}
 \pause
 \alert{Simple Linear Regression} is a method to model the relationship between two variables by fitting a linear equation to observed data.
 \pause
@@ -227,10 +228,10 @@ where:
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org427e879}]{Simple Linear Regression}
+\begin{frame}[label={sec:org8b5c5cd}]{Simple Linear Regression}
 A Simple Linear Regression Machine Learning model will learn the coefficients \(\beta_0\) and \(\beta_1\) from the training data to minimize the difference between the predicted values and the actual values.
 \end{frame}
-\begin{frame}[label={sec:orgf3e32f9}]{Assumptions of Simple Linear Regression}
+\begin{frame}[label={sec:orgd689b2e}]{Assumptions of Simple Linear Regression}
 \begin{itemize}[<+->]
 \item Linearity: The relationship between the independent and dependent variable is linear.
 \item Independence: Observations are independent of each other.
@@ -239,9 +240,9 @@ A Simple Linear Regression Machine Learning model will learn the coefficients \(
 \end{itemize}
 \end{frame}
 \section{Evaluation Metrics for Regression}
-\label{sec:orga382958}
-\begin{frame}[label={sec:org4e7e5b3}]{Evaluation Metrics for Regression}
-\begin{definition}[Common Metrics for Regression]\label{sec:orgd739632}
+\label{sec:orga019f9d}
+\begin{frame}[label={sec:org9bce8b5}]{Evaluation Metrics for Regression}
+\begin{definition}[Common Metrics for Regression]\label{sec:orgf49a57b}
 \pause
 Common metrics to evaluate regression models include:
 \begin{itemize}
@@ -253,8 +254,8 @@ Common metrics to evaluate regression models include:
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgf02586e}]{Mean Absolute Error (MAE)}
-\begin{definition}[Mean Absolute Error (MAE)]\label{sec:orgea40cf0}
+\begin{frame}[label={sec:org1fa9477}]{Mean Absolute Error (MAE)}
+\begin{definition}[Mean Absolute Error (MAE)]\label{sec:org9a3c227}
 \pause
 \alert{Mean Absolute Error (MAE)} is the average of the absolute differences between the predicted and the actual values:
 $$\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|$$
@@ -269,8 +270,8 @@ where:
 MAE is a linear score, which can be used when all errors are equally important; it is also less sensitive to outliers compared to MSE.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgaa6015b}]{Mean Squared Error (MSE)}
-\begin{definition}[Mean Squared Error (MSE)]\label{sec:org7ee1fef}
+\begin{frame}[label={sec:orgbb33f2d}]{Mean Squared Error (MSE)}
+\begin{definition}[Mean Squared Error (MSE)]\label{sec:org3c26192}
 \pause
 \alert{Mean Squared Error (MSE)} is the average of the squared differences between the predicted and the actual values:
 $$\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
@@ -285,8 +286,8 @@ where:
 MSE is more sensitive to outliers than MAE because it squares the errors, which can disproportionately affect the metric if there are large errors; however, it is useful when larger errors are more significant.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org8432970}]{Root Mean Squared Error (RMSE)}
-\begin{definition}[Root Mean Squared Error (RMSE)]\label{sec:orge33f2c4}
+\begin{frame}[label={sec:org8015413}]{Root Mean Squared Error (RMSE)}
+\begin{definition}[Root Mean Squared Error (RMSE)]\label{sec:org6e93430}
 \pause
 \alert{Root Mean Squared Error (RMSE)} is the square root of the average of the squared differences between the predicted and the actual values:
 $$\text{RMSE} = \sqrt{\text{MSE}} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}$$
@@ -301,8 +302,8 @@ where:
 RMSE is in the same units as the dependent variable, making it interpretable; it is also sensitive to outliers, similar to MSE.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgc6b2ee1}]{R-squared (\(R^2\))}
-\begin{definition}[R-squared (\(R^2\))]\label{sec:org3c7e6b1}
+\begin{frame}[label={sec:org7d438c3}]{R-squared (\(R^2\))}
+\begin{definition}[R-squared (\(R^2\))]\label{sec:org19f9f24}
 \pause
 \alert{R-squared (\(R^2\))} is a statistical measure that represents the proportion of the variance for a dependent variable that's explained by an independent variable or variables in a regression model:
 $$R^2 = 1 - \frac{\text{SS}_{\text{res}}}{\text{SS}_{\text{tot}}}$$
@@ -319,8 +320,8 @@ where:
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org81496f2}]{Adjusted R-squared}
-\begin{definition}[Adjusted R-squared]\label{sec:org0a63597}
+\begin{frame}[label={sec:orga9622cf}]{Adjusted R-squared}
+\begin{definition}[Adjusted R-squared]\label{sec:orgcf76cc3}
 \pause
 \alert{Adjusted R-squared} adjusts the \(R^2\) value for the number of predictors in the model, providing a more accurate measure when comparing models with different numbers of predictors:
 $$\text{Adjusted } R^2 = 1 - \left(1 - R^2\right) \frac{n - 1}{n - p - 1}$$
@@ -333,59 +334,64 @@ where:
 Adjusted \(R^2\) can be negative, which indicates that the model is worse than a horizontal line (mean of the dependent variable); it is useful for comparing models with different numbers of predictors.
 \end{definition}
 \end{frame}
-\section{Robust Regression}
-\label{sec:org2e11120}
-\begin{frame}[label={sec:org17f8437}]{Robust Regression}
-\begin{definition}[Robust Regression]\label{sec:org74c1528}
+\section{Regression Diagnostics}
+\label{sec:org3efe199}
+\begin{frame}[label={sec:org4b6602b}]{Regression Diagnostics}
+\begin{definition}[Regression Diagnostics]\label{sec:orge30d3ea}
 \pause
-\alert{Robust Regression} is a type of regression analysis designed to be less sensitive to outliers in the data. It provides a more reliable estimate of the relationship between variables when the data contains outliers or violations of assumptions.
+\alert{Regression Diagnostics} is the process of verifying that a regression model's assumptions are met. A high \(R^2\) does not guarantee a valid model; if assumptions are violated, predictions and confidence intervals can be unreliable.
+\pause
+The primary tool for diagnostics is analyzing the \alert{Residuals} (the errors: \(y - \hat{y}\)).
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org248e0bd}]{Types of Robust Regression}
-\begin{definition}[Types of Robust Regression]\label{sec:org272f361}
-There are several types of robust regression techniques, including:
+\begin{frame}[label={sec:org454b566}]{Key Diagnostic Checks}
+\begin{definition}[Key Diagnostic Checks]\label{sec:org0441068}
 \pause
 \begin{itemize}[<+->]
-\item \alert{Huber Regression}
-\item \alert{RANSAC (RANdom SAmple Consensus)}
-\item Least Trimmed Squares (LTS)
-\item Theil-Sen Estimator
-\item Quantile Regression
+\item \alert{Linearity}: Residuals should be randomly scattered around 0. A U-shape indicates non-linearity.
+\item \alert{Homoscedasticity}: Residuals should have constant variance. A "funnel" shape indicates heteroscedasticity.
+\item \alert{Normality}: Residuals should follow a Normal distribution (check with Q-Q plot).
+\item \alert{Independence}: Residuals should not be correlated (important for time-series data).
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org87401ae}]{Huber Regression}
-\begin{definition}[Huber Regression]\label{sec:orgdef91cc}
+\begin{frame}[label={sec:org5589815}]{Residual Plot}
+\begin{definition}[Residual Plot]\label{sec:org396cb13}
 \pause
-\alert{Huber Regression} is a robust regression technique that uses a loss function that is quadratic for small residuals and linear for large residuals. This makes it less sensitive to outliers compared to traditional least squares regression.
+A \alert{Residual Plot} graphs the residuals (\(y - \hat{y}\)) against the predicted values (\(\hat{y}\)).
 \pause
-Mathematically, the Huber loss function is defined as:
-$$L(y, \hat{y}) = \begin{cases}
-\frac{1}{2}(y - \hat{y})^2 & \text{if } |y - \hat{y}| \leq \delta \\
-\delta |y - \hat{y}| - \frac{1}{2}\delta^2 & \text{if } |y - \hat{y}| > \delta
-\end{cases}$$
-where \(\delta\) is a threshold that determines the point at which the loss function transitions from quadratic to linear.
+Interpretation:
+\begin{itemize}
+\item \alert{Random scatter around 0}: Assumptions are likely met.
+\item \alert{Funnel shape} (variance increases): Heteroscedasticity—consider log-transforming the target.
+\item \alert{U-shape or pattern}: Non-linearity—consider polynomial features or non-linear models.
+\end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgfec9ad9}]{RANSAC (RANdom SAmple Consensus)}
-\begin{definition}[RANSAC (RANdom SAmple Consensus)]\label{sec:org08e4a09}
+\begin{frame}[label={sec:orgd9a6854}]{Q-Q Plot (Normality Check)}
+\begin{definition}[Q-Q Plot]\label{sec:org50b8b94}
 \pause
-\alert{RANSAC (RANdom SAmple Consensus)} is an iterative method used to estimate parameters of a mathematical model from a dataset that contains outliers. It works by randomly selecting a subset of the data, fitting a model to this subset, and then determining how many points from the entire dataset fit this model well.
+A \alert{Q-Q Plot} (Quantile-Quantile Plot) compares the distribution of residuals against a theoretical Normal distribution.
 \pause
-The RANSAC algorithm consists of the following steps:
-\begin{enumerate}
-\item Randomly select a subset of the data points.
-\item Fit a model to this subset.
-\item Determine the inliers (points that fit the model well) and outliers (points that do not fit the model).
-\item Repeat steps 1-3 for a specified number of iterations or until a satisfactory model is found.
-\item Select the model with the highest number of inliers as the final model.
-\end{enumerate}
+Interpretation:
+\begin{itemize}
+\item \alert{Points on the diagonal line}: Residuals are normally distributed.
+\item \alert{Tails curving away}: Heavy tails or skewness—consider transformations or outlier removal.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[label={sec:org8905b7e}]{Influential Points (Cook's Distance)}
+\begin{definition}[Cook's Distance]\label{sec:org39a3e95}
+\pause
+\alert{Cook's Distance} measures how much the regression coefficients change when a single observation is removed. It identifies influential outliers that disproportionately affect the model.
+\pause
+A high Cook's Distance (typically \(> 4/n\)) indicates that the observation has a strong influence on the fitted model and should be investigated.
 \end{definition}
 \end{frame}
 \section{Multiple Linear Regression}
-\label{sec:orgecd3410}
-\begin{frame}[label={sec:orge3035d2}]{Multiple Linear Regression}
-\begin{definition}[Multiple Linear Regression]\label{sec:orgfa59908}
+\label{sec:org4b98bfc}
+\begin{frame}[label={sec:org11e832e}]{Multiple Linear Regression}
+\begin{definition}[Multiple Linear Regression]\label{sec:org9b2d071}
 \pause
 \alert{Multiple Linear Regression} is an extension of simple linear regression that models the relationship between a dependent variable and multiple independent variables. It is used when there are two or more predictors.
 \pause
@@ -401,8 +407,8 @@ where:
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org6dc22ba}]{Assumptions of Multiple Linear Regression}
-\begin{definition}[Assumptions of Multiple Linear Regression]\label{sec:org5c34d27}
+\begin{frame}[label={sec:org1d8ba0a}]{Assumptions of Multiple Linear Regression}
+\begin{definition}[Assumptions of Multiple Linear Regression]\label{sec:org0ddecc1}
 \pause
 The assumptions of multiple linear regression are similar to those of simple linear regression:
 \begin{itemize}
@@ -415,17 +421,17 @@ The assumptions of multiple linear regression are similar to those of simple lin
 \end{definition}
 \end{frame}
 \section{Regularized Regression}
-\label{sec:org1477c4b}
-\begin{frame}[label={sec:orga39a2a4}]{How do Machine Learning Models Learn?}
-\begin{definition}[How do Machine Learning Models Learn?]\label{sec:org4fbea32}
+\label{sec:orgcd5fbaa}
+\begin{frame}[label={sec:org1836379}]{How do Machine Learning Models Learn?}
+\begin{definition}[How do Machine Learning Models Learn?]\label{sec:org0304274}
 \pause
 Machine Learning models learn by adjusting their parameters (coefficients) to minimize the difference between the predicted values and the actual values in the training data, also known as the \alert{cost function} or \alert{loss function}.
 \pause
 This process is often done using optimization algorithms that iteratively update the parameters based on the loss function, which measures the error of the predictions.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgc83c9c5}]{Cost Function}
-\begin{definition}[Cost Function]\label{sec:org7595458}
+\begin{frame}[label={sec:org9353970}]{Cost Function}
+\begin{definition}[Cost Function]\label{sec:org1a99b85}
 \pause
 The \alert{cost function} (or \alert{loss function}) is a mathematical function that quantifies the difference between the predicted values and the actual values in the training data. It is used to guide the learning process of the model.
 \pause
@@ -436,8 +442,8 @@ Common cost functions for regression include:
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org8c20945}]{Cost Function: Mean Squared Error (MSE)}
-\begin{definition}[Cost Function: Mean Squared Error (MSE)]\label{sec:org42128f4}
+\begin{frame}[label={sec:org888997b}]{Cost Function: Mean Squared Error (MSE)}
+\begin{definition}[Cost Function: Mean Squared Error (MSE)]\label{sec:org0d69b4b}
 \pause
 \alert{Mean Squared Error (MSE)} is a common cost function used in regression tasks. It measures the average of the squares of the errors, which are the differences between the predicted values and the actual values:
 $$J_\text{MSE}(w) = \frac{1}{2m} \sum_{i=1}^{m} (f(x_i, w) - y_i)^2$$
@@ -451,8 +457,8 @@ where:
 MSE is sensitive to outliers, and is, therefore, useful when larger errors are more significant.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org7f09245}]{Cost Function: Mean Absolute Error (MAE)}
-\begin{definition}[Cost Function: Mean Absolute Error (MAE)]\label{sec:org2da3d4c}
+\begin{frame}[label={sec:org4fbf3aa}]{Cost Function: Mean Absolute Error (MAE)}
+\begin{definition}[Cost Function: Mean Absolute Error (MAE)]\label{sec:orgc859ba9}
 \pause
 \alert{Mean Absolute Error (MAE)} is another common cost function used in regression tasks. It measures the average of the absolute differences between the predicted values and the actual values:
 $$J_\text{MAE}(w) = \frac{1}{m} \sum_{i=1}^{m} |f(x_i, w) - y_i|$$
@@ -466,8 +472,8 @@ where:
 MAE is less sensitive to outliers compared to MSE; useful when all errors are equally important.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org9c39a83}]{Gradient Descent}
-\begin{definition}[Gradient Descent]\label{sec:org59c3347}
+\begin{frame}[label={sec:orgafab291}]{Gradient Descent}
+\begin{definition}[Gradient Descent]\label{sec:orgc3c0d73}
 \pause
 \alert{Gradient Descent} is an optimization algorithm used to minimize the cost function by iteratively updating the model parameters in the direction of the steepest descent of the cost function.
 \pause
@@ -483,8 +489,8 @@ where:
 Gradient descent continues until convergence, which is when the change in the cost function is below a certain threshold or a maximum number of iterations is reached.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org21d0e15}]{Gradient Descent Algorithm}
-\begin{definition}[Gradient Descent Algorithm]\label{sec:org5b43133}
+\begin{frame}[label={sec:orgeb557e2}]{Gradient Descent Algorithm}
+\begin{definition}[Gradient Descent Algorithm]\label{sec:org7aca36e}
 \pause
 The \alert{Gradient Descent Algorithm} consists of the following steps:
 \begin{enumerate}[<+->]
@@ -497,8 +503,8 @@ The \alert{Gradient Descent Algorithm} consists of the following steps:
 \end{enumerate}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org32d01d2}]{Overfitting and Underfitting}
-\begin{definition}[Overfitting and Underfitting]\label{sec:orgd4fb22f}
+\begin{frame}[label={sec:orgf558ebc}]{Overfitting and Underfitting}
+\begin{definition}[Overfitting and Underfitting]\label{sec:org2570ef4}
 \pause
 \alert{Overfitting} occurs when a model learns the noise in the training data instead of the underlying pattern, resulting in poor generalization to unseen data. It typically happens when the model is too complex relative to the amount of training data.
 
@@ -509,15 +515,15 @@ The \alert{Gradient Descent Algorithm} consists of the following steps:
 To mitigate overfitting, techniques such as \alert{regularization}, \alert{cross-validation}, and \alert{pruning} can be used. To address underfitting, more complex models or additional features can be considered.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org8d3c0b8}]{Regularization}
-\begin{definition}[Regularization]\label{sec:org91089d8}
+\begin{frame}[label={sec:org930ac5e}]{Regularization}
+\begin{definition}[Regularization]\label{sec:org6ced9db}
 \pause
 \alert{Regularization} is a technique used in machine learning to prevent overfitting by adding a penalty term to the cost function. This penalty discourages overly complex models by constraining the size of the model parameters (coefficients).
 \pause
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgcd36034}]{Types of Regularized Regression}
-\begin{definition}[Types of Regularized Regression]\label{sec:org1b54609}
+\begin{frame}[label={sec:org6a3cc8b}]{Types of Regularized Regression}
+\begin{definition}[Types of Regularized Regression]\label{sec:orgce8d117}
 There are two common types of regularized regression:
 \begin{itemize}
 \item \alert{Ridge Regression (L2 Regularization)}
@@ -525,8 +531,8 @@ There are two common types of regularized regression:
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orga59bded}]{Lasso Regression (L1 Regularization)}
-\begin{definition}[Lasso Regression (L1 Regularization)]\label{sec:orgc8880a3}
+\begin{frame}[label={sec:org927410d}]{Lasso Regression (L1 Regularization)}
+\begin{definition}[Lasso Regression (L1 Regularization)]\label{sec:orga0ac71d}
 \pause
 \alert{Lasso Regression} adds a penalty equal to the absolute value of the magnitude of coefficients to the loss function. The objective function for lasso regression is:
 $$J_\text{Lasso}(w) = \frac{1}{2m} \sum_{i=1}^{m} (f(x_i, w) - y_i)^2 + \lambda \sum_{j=1}^{p} |w_j|$$
@@ -539,8 +545,8 @@ where:
 Lasso regression can shrink some coefficients to exactly zero, effectively performing variable selection and resulting in a simpler model.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org8b140d4}]{Ridge Regression (L2 Regularization)}
-\begin{definition}[Ridge Regression (L2 Regularization)]\label{sec:org43d7e1a}
+\begin{frame}[label={sec:orgfef541e}]{Ridge Regression (L2 Regularization)}
+\begin{definition}[Ridge Regression (L2 Regularization)]\label{sec:org1a65ad7}
 \pause
 \alert{Ridge Regression} adds a penalty equal to the square of the magnitude of coefficients to the loss function. The objective function for ridge regression is:
 $$J_\text{Ridge}(w) = \frac{1}{2m} \sum_{i=1}^{m} (f(x_i, w) - y_i)^2 + \frac{\lambda}{2m} \sum_{j=1}^{p} w_j^2$$
@@ -554,17 +560,17 @@ Ridge regression helps to reduce model complexity and multicollinearity by shrin
 \end{definition}
 \end{frame}
 \section{Nonlinearities in Regression}
-\label{sec:orgb75a939}
-\begin{frame}[label={sec:org4bcea24}]{Nonlinearities in Regression}
-\begin{definition}[Nonlinearities in Regression]\label{sec:orge4a6e8a}
+\label{sec:org1845df1}
+\begin{frame}[label={sec:org9598cec}]{Nonlinearities in Regression}
+\begin{definition}[Nonlinearities in Regression]\label{sec:orge311b6a}
 \pause
 \alert{Nonlinearities in Regression} refers to the presence of nonlinear relationships between the independent and dependent variables in a regression model. In such cases, a simple linear regression model may not adequately capture the underlying relationship, leading to poor predictions and insights.
 \pause
 Nonlinear regression models can help address this limitation by allowing for more flexible relationships between the independent and dependent variables.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgb28c184}]{Types of Nonlinear Regression Models}
-\begin{definition}[Types of Nonlinear Regression Models]\label{sec:org8f84522}
+\begin{frame}[label={sec:orgc9e69be}]{Types of Nonlinear Regression Models}
+\begin{definition}[Types of Nonlinear Regression Models]\label{sec:org7475ebc}
 There are several types of nonlinear regression models, including:
 \begin{itemize}[<+->]
 \item \alert{Polynomial Regression}: Fits a polynomial equation to the data, allowing for curves and bends in the relationship between the independent and dependent variables. The degree of the polynomial can be adjusted to capture more complex relationships.
@@ -574,21 +580,21 @@ There are several types of nonlinear regression models, including:
 \end{definition}
 \end{frame}
 \section{Overfitting, Underfitting, and Hyperparameter Tuning}
-\label{sec:org3e06a11}
-\begin{frame}[label={sec:org04f8d35}]{Overfitting, Underfitting, and Hyperparameter Tuning}
-\begin{definition}[Overfitting]\label{sec:org7511425}
+\label{sec:org1957326}
+\begin{frame}[label={sec:org9cc0ecb}]{Overfitting, Underfitting, and Hyperparameter Tuning}
+\begin{definition}[Overfitting]\label{sec:org7401f70}
 \pause
 \alert{Overfitting} occurs when a model learns the noise in the training data instead of the underlying pattern, resulting in poor generalization to unseen data. It typically happens when the model is too complex relative to the amount of training data.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org36cc1a0}]{Underfitting}
-\begin{definition}[Underfitting]\label{sec:org93241a7}
+\begin{frame}[label={sec:orga2eb935}]{Underfitting}
+\begin{definition}[Underfitting]\label{sec:orgbbc4b75}
 \pause
 \alert{Underfitting} occurs when a model is too simple to capture the underlying pattern in the data, resulting in poor performance on both training and unseen data. It typically happens when the model is not complex enough relative to the data.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgdf7097b}]{Bias-Variance Tradeoff}
-\begin{definition}[Bias-Variance Tradeoff]\label{sec:org74963cb}
+\begin{frame}[label={sec:org7bdb4de}]{Bias-Variance Tradeoff}
+\begin{definition}[Bias-Variance Tradeoff]\label{sec:orge9e12af}
 \pause
 The \alert{Bias-Variance Tradeoff} is a fundamental concept in machine learning that describes the tradeoff between two sources of error in a model:
 \begin{itemize}[<+->]
@@ -598,20 +604,20 @@ The \alert{Bias-Variance Tradeoff} is a fundamental concept in machine learning 
 \end{itemize}
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org679dca4}]{Learning Curves}
-\begin{definition}[Learning Curves]\label{sec:org303d99d}
+\begin{frame}[label={sec:org9cd0a57}]{Learning Curves}
+\begin{definition}[Learning Curves]\label{sec:org8435932}
 \pause
 \alert{Learning Curves} are graphical representations that show how the performance of a machine learning model changes with varying amounts of training data. They can help diagnose overfitting and underfitting by comparing the training and validation errors as the size of the training set increases.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:org6ac12e6}]{Hyperparameter Tuning}
-\begin{definition}[Hyperparameter Tuning]\label{sec:org3ccbedf}
+\begin{frame}[label={sec:org2077f17}]{Hyperparameter Tuning}
+\begin{definition}[Hyperparameter Tuning]\label{sec:org8789ef2}
 \pause
 \alert{Hyperparameter Tuning} is the process of selecting the best hyperparameters for a machine learning model to improve its performance. Hyperparameters are parameters that are not learned from the data but are set before training the model, such as the learning rate, regularization strength, and number of hidden layers in a neural network.
 \end{definition}
 \end{frame}
-\begin{frame}[label={sec:orgd3ef78f}]{Techniques for Hyperparameter Tuning}
-\begin{definition}[Techniques for Hyperparameter Tuning]\label{sec:org2cbdbf0}
+\begin{frame}[label={sec:org465d02e}]{Techniques for Hyperparameter Tuning}
+\begin{definition}[Techniques for Hyperparameter Tuning]\label{sec:orgeed016d}
 There are several techniques for hyperparameter tuning, including:
 \begin{itemize}[<+->]
 \item \alert{Grid Search}: Exhaustively searches through a specified subset of hyperparameters to find the best combination.

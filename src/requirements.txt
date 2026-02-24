@@ -1,7 +1,13 @@
 jupyter
-ipykernel
 pandas
 scikit-learn
+scikit-image
 matplotlib
 seaborn
 xgboost
+statsmodels
+torch
+torchvision
+transformers
+diffusers
+sentencepiece
